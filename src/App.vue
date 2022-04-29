@@ -29,24 +29,26 @@ export default {
     NavBar,
     MaxPlay,
     MiniPlay,
-  }
+  },
 };
 </script>
 <style scoped lang="scss">
+@import "@/assets/css/base.scss";
 #app {
   width: 100vw;
   height: 100vh;
+  background-color: $bg;
 }
 .container {
   width: 100%;
   display: flex;
   height: calc(100vh - 135px);
   .aside {
-      border-right: 1.5px solid rgba(173, 174, 175, 0.5);
-      height: 100%;
-      overflow: scroll;
-      min-width: 210px;
-    }
+    border-right: 1.5px solid rgba(173, 174, 175, 0.5);
+    height: 100%;
+    overflow: scroll;
+    min-width: 210px;
+  }
   .main {
     flex: 1;
   }
