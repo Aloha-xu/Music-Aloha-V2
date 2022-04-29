@@ -1,0 +1,193 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+a{
+  text-decoration: none;
+}
+.clearfix::after{
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* 修改滚动条样式 全局 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 5px;
+  border-radius:15px;
+  -webkit-border-radius:  15px;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: #ffff;
+  border-radius:15px;
+  -webkit-border-radius:  15px;
+}
+::-webkit-scrollbar-thumb:vertical {
+  height: 5px;
+  background-color: rgba(207, 207, 207, 0.5);
+  border-radius: 15px;
+  -webkit-border-radius:  15px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  width: 6px;
+  background-color: rgba(207, 207, 207, 0.5);
+  border-radius:  15px;  
+  -webkit-border-radius: 15px;
+}
+
+
+img{
+  cursor:pointer;/* 移动导图标就出现手 */
+}
+
+body{
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+
+$background-theme-color-1:#242427;    //炫酷黑
+$background-theme-color-2:#EC4141;    //红
+$background-theme-color-3:#67BFFD;    //蓝
+$background-theme-color-4:#54C77B;    //绿
+$background-theme-color-5:#FAA4C6;    //粉
+$background-theme-color-6:#F8CF7F;    //金
+
+//浅色 未定颜色
+$background-theme-color-hover-1:rgba(#242427,0.5);    //炫酷黑
+$background-theme-color-hover-2:rgba(#EC4141,0.5);    //红
+$background-theme-color-hover-3:rgba(#67BFFD,0.5);    //蓝
+$background-theme-color-hover-4:rgba(#54C77B,0.5);    //绿
+$background-theme-color-hover-5:rgba(#FAA4C6,0.5);    //粉
+$background-theme-color-hover-6:rgba(#F8CF7F,0.5);    //金
+
+$theme-color:var(--theme,#EC4141);
+$theme-color-text:var(--theme,#000000);
+//黑暗模式还没有完善
+
+
+$bg-grey:#F9F9F9;
+$active-grey:#F0F1F2;
+$click-grey:#E5E5E5;
