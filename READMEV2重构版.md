@@ -6,7 +6,94 @@ AlohaMusic 音乐播放平台
 修复之前没修复的 bug
 可能会重构吧？
 css 命名规范
-登陆相关的
+
+登陆相关的 √
+
+## 命名规范
+
+之前的命名规范就不修改了（以后有时间再修改吧） v2 之后就使用以下命名规范
+
+## 文件夹的命名
+
+都用小写 、单词之间用-分隔
+
+# .vue 的文件后缀命名
+
+大驼峰
+
+# 组件文件(components)下的.vue 文件命名
+
+大驼峰
+
+```
+components/
+|- MyComponent.vue
+```
+
+# 组件文件(components)下的基础组件名
+
+**也就是展示类的、无逻辑的或无状态的组件**
+
+以一个特定的前缀开头 eg：Base、App、V....
+
+大驼峰
+
+```
+components/
+|- BaseButton.vue
+
+```
+
+# vue 文件里面的 name 命名规则
+
+大驼峰
+
+```
+export default {
+  name: 'TodoItem',
+  // ...
+}
+```
+
+# vue 文件里面的 data、props 命名规则
+
+小驼峰
+
+```
+export default {
+ data() {
+    return {
+      tabName: '123',
+      }
+    }
+  },
+  //......
+}
+
+
+props: {
+  greetingText: String
+}
+<WelcomeMessage greeting-text="hi"/>
+```
+
+# class 命名规范
+
+BEM 命名规范
+
+-就是用来连接单词与单词之间 left-content
+
+--用来对 css 的描述/修饰符 --boy --red
+
+\_ _就是用来分模块的 nav _ _ body 、nav _ \_ foot
+
+可以提取一些公共的样式
+
+```css
+.ml_10 {
+  margin-left: 10px;
+}
+```
 
 ## 介绍
 

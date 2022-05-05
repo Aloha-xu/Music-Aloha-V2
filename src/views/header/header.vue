@@ -192,7 +192,8 @@
       </div>
     </el-drawer>
     <!-- 登录框-->
-    <el-dialog
+    <!--  抽离login弹出框-->
+    <!-- <el-dialog
       title="请登录"
       :visible.sync="centerDialogVisible"
       width="450px"
@@ -218,13 +219,14 @@
         <el-button @click="centerDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="handleLogin">确 定</el-button>
       </span>
-    </el-dialog>
+    </el-dialog> -->
+    <Login></Login>
   </div>
 </template>
 
 <script>
 import {
-  getHotSearchDetail,
+  // getHotSearchDetail,
   getSearchSuggest,
   account,
   getUserDetail,
@@ -237,8 +239,9 @@ import {
 import { getYMD, getYestaryToday } from "@/utils/uctil";
 import Search from "./search/search.vue";
 import v from "@/assets/css/base.scss";
+import Login from "@/views/login/index.vue";
 export default {
-  components: { Search },
+  components: { Search, Login },
   name: "Header",
   data() {
     return {
@@ -378,6 +381,7 @@ export default {
     handleClose() {
       this.$store.commit("setShowMsgDarwer");
     },
+    //这里需要修改 换一种方式刷新数据
     handleInnerOpen() {
       //计时器定时更新数据
       this.msgInterval = setInterval(() => {
@@ -455,11 +459,11 @@ export default {
   },
 
   async created() {
-    const { data } = await getHotSearchDetail();
-    this.HotSearchDetail = data.data;
-    this.getNotices();
-    //通过vuex传入touser的信息
-    this.toUserInfo = this.$store.state.toUserInfo;
+    // const { data } = await getHotSearchDetail();
+    // this.HotSearchDetail = data.data;
+    // this.getNotices();
+    // //通过vuex传入touser的信息
+    // this.toUserInfo = this.$store.state.toUserInfo;
   },
   computed: {
     drawer() {
