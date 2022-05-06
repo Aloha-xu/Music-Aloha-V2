@@ -3,6 +3,7 @@ import { loginByPhone } from "@/network/login";
 const user = {
   state: {
     token: localStorage.getItem("token") || "",
+    userinfo: JSON.parse(sessionStorage.getItem("currentUserInfo")) || "",
   },
 
   mutations: {
@@ -10,21 +11,28 @@ const user = {
       localStorage.setItem("token", token);
       state.token = token;
     },
+    SET_USER_INFO: (state, info) => {
+      window.sessionStorage.setItem("currentUserInfo", JSON.stringify(info));
+      state.userinfo = info;
+    },
   },
 
   actions: {
     // 用户名登录
     loginByPhone({ commit }, userInfo) {
-      const params = {
-        name: userInfo.name.trim(),
-        password: userInfo.password,
-      };
+      // const params = {
+      //   phone: userInfo.phone.trim(),
+      //   md5_password: md5(userInfo.password),
+      // };
       return new Promise((resolve, reject) => {
-        loginByPhone(params)
+        loginByPhone(userInfo)
           .then((response) => {
             resolve(response);
-            const token = response.retBody.token;
+            console.log(response);
+            const token = response.data.token || "";
+            const userinfo = response.data.profile || "";
             commit("SET_TOKEN", token);
+            commit("SET_USER_INFO", userinfo);
           })
           .catch((error) => {
             reject(error);

@@ -1,7 +1,11 @@
 <template>
   <div class="login-box">
-    <!-- 弹出框 居中 切三种登录方式 密码 二维吗 短信 -->
-    <el-dialog :visible.sync="loginDialogVisible" width="450px">
+    <el-dialog
+      :visible.sync="loginDialogVisible"
+      width="450px"
+      @close="handleCloseDialogFunc"
+      :show-close="false"
+    >
       <!-- 切换模式tab-->
       <div class="login-mode_tab" @click="handleChangeLoginModeFunc">
         <!-- 两张图片 切换-->
@@ -164,7 +168,19 @@
           </el-tabs>
         </div>
         <!-- 二维码登录-->
-        <div class="QR-login" v-if="isShowQR"></div>
+        <div class="QR-login" v-if="isShowQR">
+          <div class="QR-login_title">扫码登录</div>
+          <img
+            :src="base64Image"
+            @click="handleQRState"
+            height="180"
+            width="180"
+          />
+          <p class="QR-login_tips">
+            欢迎来到Aloha的Music平台，本项目仅供学习使用,请尊重版权，请勿利用此项目从事商业行为或进行破坏版权行为
+          </p>
+          <!-- <img width="50" height="50" :src="base64Image" alt="" /> -->
+        </div>
       </div>
       <div class="login-foot">
         <!-- slot 留下的插槽 可以放一些其他登录方式 或者 other-->
@@ -175,15 +191,23 @@
 
 <script>
 import CountDown from "@/utils/countdown.js";
+import { getQRKey, getQRPicture, getQRPState } from "@/network/login.js";
+import md5 from "md5";
 export default {
   name: "Login",
   data() {
     return {
+      //timer
+      timer: null,
+      //二维码key
+      QRkey: "",
+      //登录二维码
+      base64Image: "",
       //验证码flag
       isShowCaptcha: false,
       //展示QR二维码
       isShowQR: true,
-      loginDialogVisible: true,
+      // loginDialogVisible: fasle,
       activeName: "noteForLogin",
       //校验
       //免密登录表单数据
@@ -219,6 +243,24 @@ export default {
       ],
     };
   },
+  props: {
+    loginDialogVisible: {
+      type: Object,
+    },
+  },
+  //https://www.cnblogs.com/wuqilang/p/13681465.html
+  //    为什么父传子的值子获取不到
+  //    子组件不能直接dialogImp，这样关闭的时候，它默认会修改该值，vue是不被允许的。必须//再用一个临时值thisDialogImp，并且thisDialogImp要随dialogImp变化，所以只能放计算属性/////里。
+  // computed: {
+  //   thisDialogLogin: {
+  //     get: function() {
+  //       return this.loginDialogVisible;
+  //     },
+  //     set: function() {
+  //       this.$emit("handleCloseDialogFunc", false);
+  //     },
+  //   },
+  // },
   methods: {
     //验证码倒计时
     handleShowCodeFunc() {
@@ -236,14 +278,28 @@ export default {
     //切换登录模式（ 快速 - 密码 ）
     handleTabClick() {},
     //切换登录模式( 二维码 - normal )
-    handleChangeLoginModeFunc() {
+    async handleChangeLoginModeFunc() {
       this.isShowQR = !this.isShowQR;
+      if (this.isShowQR) {
+        //发送请求获取等二维码图片
+        this.getQRimage();
+      } else {
+        clearInterval(this.timer);
+      }
     },
     //提交表单
     submitForm(ref) {
       this.$refs[ref].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          let userInfo = {};
+          if (ref == "normalForm") {
+            this.normalForm.md5_password = md5(this.normalForm.md5_password);
+            userInfo = this.normalForm;
+          } else {
+            userInfo = this.freeForm;
+          }
+          this.$store.dispatch("loginByPhone", userInfo);
+          this.loginDialogVisible = false;
         } else {
           console.log("error submit!!");
           return false;
@@ -260,8 +316,46 @@ export default {
         }
       });
     },
+    async getQRimage() {
+      const { data } = await getQRKey({ timestamp: new Date().getTime() });
+      const Base64Image = await getQRPicture(data.data.unikey);
+      this.base64Image = Base64Image.data.data.qrimg;
+      this.QRkey = data.data.unikey;
+      //定时刷新看一下扫了没有
+      //10s 查一次
+      this.timer = setInterval(() => {
+        this.handleQRState();
+      }, 10000);
+    },
+    //处理 QR 状态
+    async handleQRState() {
+      //cookie 803 之后 返回的cookie 不会自动保存在cookie
+      const QRinfo = await getQRPState({
+        key: this.QRkey,
+        timestamp: new Date().getTime(),
+      });
+      if (QRinfo.data.code == "800") {
+        this.getQRimage();
+      }
+      if (QRinfo.data.code == "803") {
+        clearInterval(this.timer);
+        //登陆成功
+        //设置cookie
+        // document.cookie = `${QRinfo.data.cookie}`;
+        this.loginDialogVisible = false;
+        //还有一系类的操作
+      }
+    },
+    //处理关闭弹窗
+    handleCloseDialogFunc() {
+      //清除timer
+      clearInterval(this.timer);
+      this.$emit("handleCloseDialogFunc", false);
+    },
   },
-  created() {},
+  created() {
+    this.getQRimage();
+  },
 };
 </script>
 
@@ -324,6 +418,25 @@ export default {
     }
     .login-mode--phone {
       display: inline-block;
+    }
+  }
+  .login-content {
+    .normal-login {
+      height: 406px;
+    }
+    .QR-login {
+      text-align: center;
+      .QR-login_title {
+        line-height: 33px;
+        padding-bottom: 41px;
+        padding-top: 30px;
+        font-size: 30px;
+        font-weight: 500;
+      }
+      .QR-login_tips {
+        margin: 20px 0;
+        line-height: 25px;
+      }
     }
   }
 }

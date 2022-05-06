@@ -1,4 +1,5 @@
 import { request } from "./request";
+// import qs from "qs";
 
 //密码登录
 export function loginByPhone(data) {
@@ -13,7 +14,6 @@ export function loginByPhone(data) {
 export function getQRKey(data) {
   return request({
     url: "/login/qr/key",
-    method: "GET",
     data,
   });
 }
@@ -21,20 +21,36 @@ export function getQRKey(data) {
 //获取二维码的图片
 export function getQRPicture(data) {
   return request({
-    url: "/login/qr/create",
-    method: "GET",
-    data,
+    url: `/login/qr/create?qrimg=true&key=` + data,
   });
 }
 
+// 由于这个网易云请求get参数好像是需要放在请求头上面，就是和url拼接在一起，所以就不可以直接data，需要params:data
 //检查二维码登录状态
 export function getQRPState(data) {
   return request({
-    url: "/login/qr/check",
-    method: "GET",
-    data,
+    url: `/login/qr/check`,
+    params: data,
   });
 }
+
+// //检查二维码登录状态
+// export function getQRPState(data) {
+//   return request({
+//     url: `/login/qr/check`,
+//     params: {
+//       key: data,
+//       timestamp: new Date().getTime(),
+//     },
+//   });
+// }
+// //检查二维码登录状态
+// export function getQRPState(data) {
+//   return request({
+//     url: `/login/qr/check?key=${data}&timestamp=${new Date().getTime()}`,
+//     data,
+//   });
+// }
 
 /**
  * 

@@ -25,4 +25,5 @@ export default {
   isShowMsgDrawer: (state) => state.player.isShowMsgDrawer,
   isShowInnerMsgDrawer: (state) => state.player.isShowInnerMsgDrawer,
   loading: (state) => state.player.loading,
+  userinfo: (state) => state.user.userinfo,
 };

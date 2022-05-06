@@ -29,7 +29,7 @@
     <div class="right">
       <div class="user-info">
         <div class="out-login" v-if="!currentUserInfo">
-          <el-button type="text" @click="centerDialogVisible = true">
+          <el-button type="text" @click="loginDialogVisible.show = true">
             <i class="el-icon-user"></i> <span>未登录</span>
           </el-button>
         </div>
@@ -195,7 +195,7 @@
     <!--  抽离login弹出框-->
     <!-- <el-dialog
       title="请登录"
-      :visible.sync="centerDialogVisible"
+      :visible.sync="loginDialogVisible"
       width="450px"
       center
     >
@@ -216,11 +216,15 @@
         ></el-input>
       </form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="centerDialogVisible = false">取 消</el-button>
+        <el-button @click="loginDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="handleLogin">确 定</el-button>
       </span>
     </el-dialog> -->
-    <!-- <Login></Login> -->
+
+    <Login
+      :loginDialogVisible.sync="loginDialogVisible.show"
+      @handleCloseDialogFunc="handleCloseDialogFunc"
+    ></Login>
   </div>
 </template>
 
@@ -228,9 +232,9 @@
 import {
   getHotSearchDetail,
   getSearchSuggest,
-  account,
-  getUserDetail,
-  getLogin,
+  // account,
+  // getUserDetail,
+  // getLogin,
   getMsgHistory,
   getPrivateMsgHistory,
   SendText,
@@ -240,10 +244,10 @@ import { getYMD, getYestaryToday } from "@/utils/uctil";
 import Search from "./search/search.vue";
 import v from "@/assets/css/base.scss";
 import { mapGetters } from "vuex";
-// import Login from "@/views/login/index.vue";
+import Login from "@/views/login/index.vue";
 export default {
-  // components: { Search, Login },
-  components: { Search },
+  components: { Search, Login },
+  // components: { Search },
   name: "Header",
   data() {
     return {
@@ -252,7 +256,7 @@ export default {
       //搜索建议结果的数据
       SearchDetail: {},
       //自己
-      currentUserInfo: null,
+      // currentUserInfo: null,
       tabItem: ["私信", "评论", "@我", "通知"],
       privateInfo: {},
       currentNav: 0,
@@ -263,16 +267,23 @@ export default {
       toUserInfo: {},
       //刷新消息的定时器
       msgInterval: null,
-      centerDialogVisible: false,
+      //控制登陆弹出框
+      loginDialogVisible: {
+        show: false,
+      },
       userPWD: null,
       userPhoneNumber: null,
     };
   },
   methods: {
+    handleCloseDialogFunc(val) {
+      this.loginDialogVisible.show = val;
+    },
     async handleOutLoginFun() {
       //清除localStorage sessionStorage
       window.sessionStorage.removeItem("currentUserInfo");
-      this.currentUserInfo = null;
+      // this.currentUserInfo = null;
+      this.$store.dispatch("LogOut");
       await outRefresh();
     },
     handleTheme(index, item) {
@@ -334,19 +345,19 @@ export default {
       console.log(ev);
     },
     //处理点击登陆 没有写弹出框 输入账号密码 二维码 短信 之类的登陆方式窗口
-    async handleLogin() {
-      this.centerDialogVisible = false;
-      const { data } = await getLogin(this.userPhoneNumber, this.userPWD);
-      this.currentUserInfo = data.profile;
-      window.sessionStorage.setItem(
-        "currentUserInfo",
-        JSON.stringify(data.profile)
-      );
-      let data2 = await account();
-      console.log(data2);
-      let data1 = await getUserDetail(data.profile.userId);
-      console.log(data1);
-    },
+    // async handleLogin() {
+    //   this.loginDialogVisible = false;
+    //   const { data } = await getLogin(this.userPhoneNumber, this.userPWD);
+    //   this.currentUserInfo = data.profile;
+    //   window.sessionStorage.setItem(
+    //     "currentUserInfo",
+    //     JSON.stringify(data.profile)
+    //   );
+    //   let data2 = await account();
+    //   console.log(data2);
+    //   let data1 = await getUserDetail(data.profile.userId);
+    //   console.log(data1);
+    // },
     parseLastNotice(msg) {
       let afterMsg = JSON.parse(msg);
       return afterMsg.msg;
@@ -477,6 +488,7 @@ export default {
     ...mapGetters({
       drawer: "isShowMsgDrawer",
       innerDrawer: "isShowInnerMsgDrawer",
+      currentUserInfo: "userinfo",
     }),
   },
 };
