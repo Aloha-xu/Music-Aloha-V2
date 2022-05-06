@@ -1,6 +1,6 @@
 <template>
   <div class="cloud-search">
-    <div class="title" >找到{{ titleValue }}</div>
+    <div class="title">找到{{ titleValue }}</div>
     <div class="navbar">
       <div
         v-for="(item, index) in navbar"
@@ -13,7 +13,7 @@
       </div>
     </div>
     <hr />
-    <div class="cloud-search-content" v-show="!this.$store.state.loading">
+    <div class="cloud-search-content" v-show="!loading">
       <search-detail-solo
         v-show="currentIndex === 0"
         :searchResult="searchResult"
@@ -46,7 +46,7 @@
         :userInfo="userInfo"
       ></search-detail-user>
     </div>
-    <Loading v-show="this.$store.state.loading" style="height:50vh"></Loading>
+    <Loading v-show="loading" style="height:50vh"></Loading>
   </div>
 </template>
 
@@ -59,7 +59,8 @@ import SearchDetailSinger from "./search-detail-singer.vue";
 import SearchDetailSolo from "./search-detail-solo.vue";
 import SearchDetailUser from "./search-detail-user.vue";
 import SearchDetailVideo from "./search-detail-video.vue";
-import Loading from '@/components/common/loading.vue'
+import Loading from "@/components/common/loading.vue";
+import { mapGetters } from "vuex";
 import {
   getCloudSearch,
   getSearchMultimatch,
@@ -83,7 +84,7 @@ export default {
     SearchDetailSolo,
     SearchDetailUser,
     SearchDetailVideo,
-    Loading
+    Loading,
   },
   name: "SearchDetail",
   data() {
@@ -100,7 +101,7 @@ export default {
       ],
       currentIndex: 0,
       searchResult: [],
-      titleValue: '0首单曲',
+      titleValue: "0首单曲",
       //每一个分页面下的数据
       singerInfo: {},
       albumInfo: {},
@@ -218,10 +219,12 @@ export default {
 
           //获取某一首歌的相似歌单信息
           let simimusic = await getSimiPlayList(v[0].id);
-          this.$store.state.SimiSongList = simimusic.data.playlists;
+          this.$store.commit("SET_SIMI_SONG_LIST", simimusic.data.playlists);
+          // this.$store.state.SimiSongList = simimusic.data.playlists;
           //获取某一首歌的评论
           let musicComments = await getMusicComment(v[0].id, 100);
-          this.$store.state.commentInfo = musicComments.data.comments;
+          this.$store.commit("SET_COMMENT_INFO", musicComments.data.comments);
+          // this.$store.state.commentInfo = musicComments.data.comments;
         }
       } catch (error) {
         alert("音乐没有版权");
@@ -245,10 +248,13 @@ export default {
       this.itemClick(0);
     }, 3000);
   },
+  computed: {
+    ...mapGetters(["loading"]),
+  },
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .cloud-search {
   width: 100%;
   height: 100%;

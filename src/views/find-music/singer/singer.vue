@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <div class="card" v-show="!this.$store.state.loading">
+    <div class="card" v-show="!loading">
       <div
         class="item"
         v-for="(item, index) in SingerCardInfo"
@@ -59,18 +59,19 @@
         </div>
       </div>
     </div>
-    <Loading v-show="this.$store.state.loading" style="height:50vh"></Loading>
+    <Loading v-show="loading" style="height:50vh"></Loading>
   </div>
 </template>
 
 <script>
 //bug：分类的男歌手 女歌手 乐队 这些按钮点击无对应的数据返回
 import { getArtistsList } from "../../../network/api";
-import Loading from '@/components/common/loading.vue'
+import Loading from "@/components/common/loading.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "Singer",
   components: {
-    Loading
+    Loading,
   },
   data() {
     return {
@@ -118,6 +119,9 @@ export default {
       FirstletterCurrentIndex: -1,
       SingerCardInfo: [],
     };
+  },
+  computed: {
+    ...mapGetters(["loading"]),
   },
   methods: {
     handleLanguageChoose(value) {
@@ -239,12 +243,13 @@ export default {
   },
   activated() {
     this.$store.commit("refeshCurrentNavIndex", 4);
+    //??
     this.$store.state.loading.close();
   },
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .singer {
   font-size: 13px;
   color: rgb(87, 87, 87);

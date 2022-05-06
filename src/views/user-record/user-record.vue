@@ -23,7 +23,7 @@
         class="song-item"
         v-for="(item, index) in songsInfo"
         :key="index"
-        :class="item.id === currentId ? 'active' : ''"
+        :class="item.id === currentId.id ? 'active' : ''"
       >
         <div class="song-name" @click="HandleSongClick(item, index)">
           <div class="index-number">
@@ -47,6 +47,7 @@
 
 <script>
 import { getSimiPlayList, getMusicComment, getCheckMusic } from "@/network/api";
+import { mapGetters } from "vuex";
 export default {
   name: "UserRecord",
   data() {
@@ -70,14 +71,15 @@ export default {
 
           //获取某一首歌的相似歌单信息
           let simimusic = await getSimiPlayList(item.id);
-          this.$store.state.SimiSongList = simimusic.data.playlists;
+          this.$store.commit("SET_SIMI_SONG_LIST", simimusic.data.playlists);
+          // this.$store.state.SimiSongList = simimusic.data.playlists;
           //获取某一首歌的评论
           let musicComments = await getMusicComment(item.id, 100);
-          this.$store.state.commentInfo = musicComments.data.comments;
-
+          this.$store.commit("SET_COMMENT_INFO", musicComments.data.comments);
+          // this.$store.state.commentInfo = musicComments.data.comments;
           this.$store.commit("setToRecordSongList", item);
-
-          this.currentId = index;
+          this.$store.commit("SET_CURRENT_SONG_ID", index);
+          // this.currentId = index;
         }
       } catch (error) {
         alert("音乐没有版权");
@@ -92,20 +94,24 @@ export default {
       this.$store.commit("changeCurrentPlay", this.songsInfo[0]);
       this.$store.commit("setIsLoad", "true");
     },
-    cleanSongList(){
+    cleanSongList() {
       this.$store.commit("clearRecordSongList");
-    }
+    },
   },
   created() {
     this.init();
   },
   computed: {
-    songsInfo() {
-      return this.$store.state.recordSongList;
-    },
-    currentId() {
-      return this.$store.state.currentSongInfo.id;
-    },
+    ...mapGetters({
+      songsInfo: "recordSongList",
+      currentId: "currentSongInfo",
+    }),
+    // songsInfo() {
+    //   return this.$store.state.recordSongList;
+    // },
+    // currentId() {
+    //   return this.$store.state.currentSongInfo.id;
+    // },
   },
 };
 </script>

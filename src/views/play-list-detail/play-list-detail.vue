@@ -20,7 +20,7 @@
             {{ item }}
           </div>
         </div>
-        <div class="search" v-if="currentIndex === 0 && !this.$store.state.loading">
+        <div class="search" v-if="currentIndex === 0 && !loading">
           <el-input
             placeholder="请输入内容"
             prefix-icon="el-icon-search"
@@ -30,7 +30,7 @@
         </div>
       </div>
       <song-list-component
-        v-if="currentIndex === 0 && !this.$store.state.loading"
+        v-if="currentIndex === 0 && !loading"
         :songsInfo="playList"
         @handleSongClick="handleSongClick"
         @handleDownload="handleDownload"
@@ -47,10 +47,7 @@
         :type="2"
         @refeshCommrnt="getCommentInfo"
       ></comment>
-      <Loading
-        v-show="this.$store.state.loading"
-        style="height: 50vh"
-      ></Loading>
+      <Loading v-show="loading" style="height: 50vh"></Loading>
     </div>
   </div>
 </template>
@@ -61,6 +58,7 @@ import Comment from "@/components/common/comment.vue";
 import PlayListDetailHead from "@/components/common/play-list-detail-head.vue";
 import SongListComponent from "@/components/common/song-list-component.vue";
 import Loading from "@/components/common/loading.vue";
+import { mapGetters } from "vuex";
 import {
   getSongListDetail,
   getSongDetail,
@@ -211,10 +209,12 @@ export default {
 
           //获取某一首歌的相似歌单信息
           let simimusic = await getSimiPlayList(v[0].id);
-          this.$store.state.SimiSongList = simimusic.data.playlists;
+          this.$store.commit("SET_SIMI_SONG_LIST", simimusic.data.playlists);
+          // this.$store.state.SimiSongList = simimusic.data.playlists;
           //获取某一首歌的评论
           let musicComments = await getMusicComment(v[0].id, 100);
-          this.$store.state.commentInfo = musicComments.data.comments;
+          this.$store.commit("SET_COMMENT_INFO", musicComments.data.comments);
+          // this.$store.state.commentInfo = musicComments.data.comments;
 
           this.$store.commit("setToRecordSongList", this.playList[v[1]]);
         }
@@ -291,7 +291,9 @@ export default {
       }
     },
   },
-
+  computed: {
+    ...mapGetters(["loading"]),
+  },
   async created() {
     this.itemClick(this.currentIndex);
     this.handleSongListDetailInfo();
@@ -350,5 +352,5 @@ export default {
       padding-left: 20px;
     }
   }
-}
-</style>>
+}</style
+>>

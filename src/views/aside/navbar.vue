@@ -82,6 +82,7 @@
 
 <script>
 import { /* getsubcount,  */ getUserPlaylist } from "@/network/api";
+import { mapGetters } from "vuex";
 export default {
   name: "NavBar",
   data() {
@@ -115,13 +116,13 @@ export default {
     async handleShowPlaylist() {
       this.isShowPlaylist = !this.isShowPlaylist;
       //判断vuex里面有没用户歌单列表信息
-      if (!this.$store.state.heartSonglist) {
+      if (!this.heartSonglist) {
         this.getUserPlaylist();
       }
     },
     async handleShowCollectPlaylist() {
       this.isShowCollectPlaylist = !this.isShowCollectPlaylist;
-      if (!this.$store.state.heartSonglist) {
+      if (!this.heartSonglist) {
         this.getUserPlaylist();
       }
     },
@@ -130,27 +131,32 @@ export default {
       let uInfo = JSON.parse(window.sessionStorage.getItem("currentUserInfo"));
       let uId = uInfo.userId;
       let playlist = await getUserPlaylist(uId);
-      console.log(playlist)
+      console.log(playlist);
       this.$store.commit("setUserSonglistInfo", playlist);
-      this.$store.commit("updataSonglist",uId);
+      this.$store.commit("updataSonglist", uId);
     },
     handleToPlaylistPapg(id, type) {
       if (type == "myplaylist") {
-        this.$store.state.isShowUpdataComponent = true;
-      } else [(this.$store.state.isShowUpdataComponent = false)];
+        this.$store.commit("SET_IS_SHOW_UPDATA_COMPONENT", true);
+        // this.$store.state.isShowUpdataComponent = true;
+      } else {
+        this.$store.commit("SET_IS_SHOW_UPDATA_COMPONENT", false);
+        // [(this.$store.state.isShowUpdataComponent = false)];
+      }
       this.$router.push("/playlistdetail/" + id);
     },
   },
   computed: {
-    mySonglist() {
-      return this.$store.state.mySonglist;
-    },
-    heartSonglist() {
-      return this.$store.state.heartSonglist;
-    },
-    collectSonglist() {
-      return this.$store.state.collectSonglist;
-    },
+    ...mapGetters(["mySonglist", "heartSonglist", "collectSonglist"]),
+    // mySonglist() {
+    //   return this.$store.state.mySonglist;
+    // },
+    // heartSonglist() {
+    //   return this.$store.state.heartSonglist;
+    // },
+    // collectSonglist() {
+    //   return this.$store.state.collectSonglist;
+    // },
   },
 };
 </script>

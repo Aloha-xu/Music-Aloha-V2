@@ -7,10 +7,12 @@ import getters from "./getters";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
+  //模块化
   modules: {
     user,
     player,
   },
+  //可以用getters作为统一的一个出口
   getters,
 });
 

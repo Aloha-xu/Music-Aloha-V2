@@ -1,8 +1,12 @@
 <template>
   <div class="search-detail-solo">
     <div class="title-card">最佳匹配</div>
-    <search-detail-card v-if="searchResult" :name="searchResult[0].name" :scover="searchResult[0].img1v1Url"
-    class="card"></search-detail-card>
+    <search-detail-card
+      v-if="searchResult"
+      :name="searchResult[0].name"
+      :scover="searchResult[0].img1v1Url"
+      class="card"
+    ></search-detail-card>
     <div class="title-name">
       <span>音乐标题</span>
       <span>歌手</span>
@@ -27,7 +31,7 @@
       />
       <p class="el-icon-download"></p>
       <div class="song-name" @click="HandleSongClick(item, index)">
-        <span :class="item.id === currentId ? 'active' : ''">{{
+        <span :class="item.id === currentSongInfo.id ? 'active' : ''">{{
           item.name
         }}</span>
       </div>
@@ -45,7 +49,8 @@
 
 <script>
 import { forMatTime } from "@/utils/format";
-import searchDetailCard from '@/components/common/search-detail-card.vue';
+import searchDetailCard from "@/components/common/search-detail-card.vue";
+import { mapGetters } from "vuex";
 export default {
   components: { searchDetailCard },
   name: "SearchDetailSolo",
@@ -56,7 +61,7 @@ export default {
     },
     // 处理点击播放音乐事件
     async HandleSongClick(values, index) {
-      this.$emit('handleSongClick',[values,index])
+      this.$emit("handleSongClick", [values, index]);
     },
     //计算歌曲时间
     setSongTime(time) {
@@ -69,94 +74,96 @@ export default {
     },
   },
   computed: {
-    currentId() {
-      return this.$store.state.currentSongInfo.id;
-    },
+    // currentId() {
+    //   return this.$store.state.currentSongInfo.id;
+    // },
+    ...mapGetters(["currentSongInfo"]),
   },
-  data(){
-    return{
-      isClickHeart:false
-    }
+  data() {
+    return {
+      isClickHeart: false,
+    };
   },
-  props:{
-    searchResult:Array,
-    songsInfo:Array,
-  }
+  props: {
+    searchResult: Array,
+    songsInfo: Array,
+  },
 };
 </script>
 
-<style scoped lang='scss'>
-.search-detail-solo{
-    width: 100%;
-    height: 100%;
-    .title-card{
-        font-size: 12.5px;
-        font-weight: 600;
-        margin: 10px 0 15px 20px;
+<style scoped lang="scss">
+.search-detail-solo {
+  width: 100%;
+  height: 100%;
+  .title-card {
+    font-size: 12.5px;
+    font-weight: 600;
+    margin: 10px 0 15px 20px;
+  }
+  .card {
+    background-color: rgb(233, 233, 233);
+    height: 70px;
+    padding: 10px 0 0 10px;
+    width: 300px;
+    border-radius: 5px;
+    margin: 10px 0 10px 20px;
+  }
+  .title-name {
+    display: flex;
+    margin-left: 100px;
+    height: 30px;
+    line-height: 30px;
+    span:nth-child(1) {
+      flex: 6;
     }
-    .card{
-        background-color: rgb(233, 233, 233);
-        height: 70px;
-        padding: 10px 0 0 10px;
-        width: 300px;
-        border-radius: 5px;
-        margin: 10px 0 10px 20px;
+    span:nth-child(2) {
+      flex: 2;
     }
-    .title-name{
-        display: flex;
-        margin-left: 100px;
-        height: 30px;
-        line-height: 30px;
-        span:nth-child(1){
-            flex: 6;
-        }
-        span:nth-child(2){
-            flex: 2;
-        }
-        span:nth-child(3){
-            flex: 3;
-        }
-        span:nth-child(4){
-            flex: 1;
-        }
+    span:nth-child(3) {
+      flex: 3;
     }
-    .song-item{
-        margin-top: 5px;
-        font-size: 15px;
-        height: 30px;
-        line-height: 30px;
-        display: flex;
-        .index-number{
-            margin: 0 10px 0 20px;
-
-        }
-        img{
-            margin: 0 5px;
-        }
-        p{
-            margin: 0 5px;
-            margin-top: 7px;
-
-        }
-        .song-name{
-            flex: 6;
-            overflow: hidden;text-overflow: ellipsis;
-            .active{
-                color: red;
-                // pointer-events: none;
-            }
-        }
-        .singer{
-            flex: 2;
-            overflow: hidden;text-overflow: ellipsis;
-        }
-        .album{
-            flex: 3;
-            overflow: hidden;text-overflow: ellipsis;
-        }
-        .time{
-            flex: 1;
-        }
+    span:nth-child(4) {
+      flex: 1;
     }
+  }
+  .song-item {
+    margin-top: 5px;
+    font-size: 15px;
+    height: 30px;
+    line-height: 30px;
+    display: flex;
+    .index-number {
+      margin: 0 10px 0 20px;
+    }
+    img {
+      margin: 0 5px;
+    }
+    p {
+      margin: 0 5px;
+      margin-top: 7px;
+    }
+    .song-name {
+      flex: 6;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      .active {
+        color: red;
+        // pointer-events: none;
+      }
+    }
+    .singer {
+      flex: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .album {
+      flex: 3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .time {
+      flex: 1;
+    }
+  }
 }
 </style>

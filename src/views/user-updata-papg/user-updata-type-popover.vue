@@ -22,11 +22,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "UserUpdataTypePopover",
   data() {
     return {
-      typeLists: this.$store.state.allTypeInfo,
+      // typeLists: this.$store.state.allTypeInfo,
     };
   },
   methods: {
@@ -42,58 +43,61 @@ export default {
   props: {
     currentSongType: Array,
   },
+  computed: {
+    ...mapGetters({ typeLists: "allTypeInfo" }),
+  },
 };
 </script>
 
-<style scoped lang='scss'>
-.user-updata-type-popover{
-    width: 80%;
-    border: 2px solid rgb(177, 175, 175);
-    background-color: rgb(253, 253, 253);
-    border-radius: 10px;
-    overflow: scroll;
-    height: 450px;
-        .center{
-            margin-top: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            .left{
-                width: 10%;
-                display: flex;
-                .text{
-                    margin-top: 8px;
-                    padding-left: 10px;
-                    height: 30px;
-                    font-size: 13px;
-                    line-height: 30px;
-                    color: rgb(202, 202, 202)
-                }
-            }
-            .right{
-                cursor: pointer;
-                width: 90%;
-                display: flex;
-                flex-wrap: wrap;
-                .item{
-                    width: 16%;
-                    display: inline;
-                    padding: 10px 10px 10px 10px;
-                    line-height: 25px;
-                    text-align: center;
-                    .text{
-                        display: inline-block;
-                        font-size: 13px;
-                    }
-                    .text:hover{
-                        color: red;
-                    }
-                }
-                .active{
-                    color: rgb(143, 27, 27) ;
-                    background-color: rgb(255, 216, 216);
-                    border-radius: 5px;
-                }
-            }
+<style scoped lang="scss">
+.user-updata-type-popover {
+  width: 80%;
+  border: 2px solid rgb(177, 175, 175);
+  background-color: rgb(253, 253, 253);
+  border-radius: 10px;
+  overflow: scroll;
+  height: 450px;
+  .center {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    .left {
+      width: 10%;
+      display: flex;
+      .text {
+        margin-top: 8px;
+        padding-left: 10px;
+        height: 30px;
+        font-size: 13px;
+        line-height: 30px;
+        color: rgb(202, 202, 202);
+      }
+    }
+    .right {
+      cursor: pointer;
+      width: 90%;
+      display: flex;
+      flex-wrap: wrap;
+      .item {
+        width: 16%;
+        display: inline;
+        padding: 10px 10px 10px 10px;
+        line-height: 25px;
+        text-align: center;
+        .text {
+          display: inline-block;
+          font-size: 13px;
         }
+        .text:hover {
+          color: red;
+        }
+      }
+      .active {
+        color: rgb(143, 27, 27);
+        background-color: rgb(255, 216, 216);
+        border-radius: 5px;
+      }
+    }
+  }
 }
 </style>

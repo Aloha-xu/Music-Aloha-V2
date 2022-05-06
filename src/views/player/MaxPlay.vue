@@ -9,7 +9,7 @@
         <div class="pic">
           <div class="grey-box">
             <div class="black-box">
-              <img :src="songInfo.pic" alt="" />
+              <img :src="currentSongInfo.pic" alt="" />
             </div>
           </div>
         </div>
@@ -40,23 +40,27 @@
         </div>
       </div>
       <div class="song-info">
-        <div class="song-name">{{ songInfo.name }}</div>
+        <div class="song-name">{{ currentSongInfo.name }}</div>
         <div class="album-name">
-          专辑：<span>{{ songInfo.album.name }}</span>
+          专辑：<span>{{ currentSongInfo.album.name }}</span>
         </div>
-        <div class="singer-name" v-for="item in songInfo.singer" :key="item.id">
+        <div
+          class="singer-name"
+          v-for="item in currentSongInfo.singer"
+          :key="item.id"
+        >
           歌手：<span>{{ item.name }}</span>
         </div>
-        <!-- <div class="info_source">{{ songInfo.id }}</div> -->
+        <!-- <div class="info_source">{{ currentSongInfo.id }}</div> -->
         <!-- 纯音乐的时候显示为该音乐为纯音乐的文字 -->
         <div
           class="lyric"
           ref="lyric"
           id="lyric"
-          v-if="!this.$store.state.currentSongInfo.lyric.length == 0"
+          v-if="!currentSongInfo.lyric.length == 0"
         >
           <div
-            v-for="(item, index) in this.$store.state.currentSongInfo.lyric"
+            v-for="(item, index) in currentSongInfo.lyric"
             :key="index"
             class="lyric-item"
             :class="syncLyricToTime(item, index) ? 'lyric-active' : ''"
@@ -90,6 +94,7 @@
 <script>
 import NewMusicCard from "@/views/find-music/recommend/new-music/new-music-card.vue";
 import Comment from "@/components/common/comment.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "MaxPlay",
   components: {
@@ -109,7 +114,7 @@ export default {
     },
     returnBackgroundUrl() {
       return {
-        backgroundImage: `url(${this.$store.state.currentSongInfo.pic})`,
+        backgroundImage: `url(${this.currentSongInfo.pic})`,
         backgroundSize: "400%",
         filter: "blur(100px)",
         // ⭐⭐虚化背景图
@@ -127,8 +132,8 @@ export default {
       let currentTime = parseInt(this.currentPlayTime / 1000);
       if (
         currentTime >= values.time &&
-        currentTime < this.songInfo.lyric[index + 1].time &&
-        index <= this.songInfo.lyric.length
+        currentTime < this.currentSongInfo.lyric[index + 1].time &&
+        index <= this.currentSongInfo.lyric.length
       ) {
         flag = true;
       }
@@ -136,35 +141,29 @@ export default {
     },
   },
   computed: {
-    songInfo() {
-      return this.$store.state.currentSongInfo;
-    },
-    SimiSongListInfo() {
-      return this.$store.state.SimiSongList;
-    },
-    commentInfo() {
-      return this.$store.state.commentInfo;
-    },
-    playing() {
-      return this.$store.state.playing;
-    },
-    currentPlayTime() {
-      return this.$store.state.currentTime;
-    },
+    ...mapGetters([
+      "currentSongInfo",
+      "SimiSongListInfo",
+      "commentInfo",
+      "currentPlayTime",
+    ]),
   },
-  watch:{
-    currentPlayTime(){
-      let offset = 36
-      let lyric = this.$refs.lyric
-      let currentIndex = this.songInfo.lyric.findIndex(
-        (item) => parseInt(this.currentPlayTime / 1000) === item.time 
+  watch: {
+    currentPlayTime() {
+      let offset = 36;
+      let lyric = this.$refs.lyric;
+      let currentIndex = this.currentSongInfo.lyric.findIndex(
+        (item) => parseInt(this.currentPlayTime / 1000) === item.time
       );
-      if ((currentIndex <= 4) || ((currentIndex+4) === this.songInfo.lyric.length)) {
+      if (
+        currentIndex <= 4 ||
+        currentIndex + 4 === this.currentSongInfo.lyric.length
+      ) {
         return;
       }
       lyric.scrollTop = (currentIndex - 4) * offset;
-    }
-  }
+    },
+  },
 };
 </script>
 

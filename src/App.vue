@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header v-show="!this.$store.state.isShowMaxPlayer" />
-    <div v-show="!this.$store.state.isShowMaxPlayer" class="container">
+    <Header v-show="!isShowMaxPlayer" />
+    <div v-show="!isShowMaxPlayer" class="container">
       <div class="aside" width="210px">
         <NavBar />
       </div>
@@ -13,7 +13,7 @@
         </keep-alive>
       </div>
     </div>
-    <MaxPlay v-if="this.$store.state.isShowMaxPlayer"></MaxPlay>
+    <MaxPlay v-if="isShowMaxPlayer"></MaxPlay>
     <MiniPlay class="mini-play"></MiniPlay>
   </div>
 </template>
@@ -22,6 +22,7 @@ import Header from "./views/header/header.vue";
 import NavBar from "./views/aside/navbar.vue";
 import MaxPlay from "./views/player/MaxPlay.vue";
 import MiniPlay from "./views/player/MiniPlay.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "app",
   components: {
@@ -29,6 +30,9 @@ export default {
     NavBar,
     MaxPlay,
     MiniPlay,
+  },
+  computed: {
+    ...mapGetters(["isShowMaxPlayer"]),
   },
 };
 </script>

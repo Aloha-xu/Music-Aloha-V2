@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <div class="all-card" v-show="!this.$store.state.loading">
+      <div class="all-card" v-show="!loading">
         <mv-card
           v-for="(item, index) in videoInfo"
           :key="index"
@@ -30,7 +30,7 @@
           :playType="playType"
         ></mv-card>
       </div>
-      <Loading v-show="this.$store.state.loading" style="height:50vh"></Loading>
+      <Loading v-show="loading" style="height:50vh"></Loading>
       <video-type-popover
         :videoType="allvideoType"
         @handleVideoTypeClick="handleVideoTypeClick"
@@ -44,9 +44,10 @@
 import MvCard from "@/components/common/mv-card.vue";
 import videoTypePopover from "./video-type-popover.vue";
 import { getVideoCategoryList, getVideoType } from "@/network/api";
-import Loading from '@/components/common/loading.vue'
+import Loading from "@/components/common/loading.vue";
+import { mapGetters } from "vuex";
 export default {
-  components: { videoTypePopover, MvCard,Loading },
+  components: { videoTypePopover, MvCard, Loading },
   name: "Video",
   data() {
     return {
@@ -68,6 +69,9 @@ export default {
       videoInfo: [],
       playType: "video",
     };
+  },
+  computed: {
+    ...mapGetters(["loading"]),
   },
   methods: {
     handleShowPopover() {
@@ -120,7 +124,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 @import "@/assets/css/base.scss";
 .video {
   display: flex;
@@ -151,7 +155,7 @@ export default {
           }
         }
         .hottype {
-          flex:6;
+          flex: 6;
           height: 30px;
           line-height: 30px;
           .item {

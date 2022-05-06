@@ -111,6 +111,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "PlayListDetailHead",
   props: {
@@ -127,7 +128,7 @@ export default {
       this.isShowDescription = !this.isShowDescription;
     },
     handlePlayAllSongs() {
-      if (this.$store.state.playing) {
+      if (this.playing) {
         return;
       }
       this.$emit("handlePlayAllSongs");
@@ -143,9 +144,10 @@ export default {
     },
   },
   computed: {
-    isShowUpdataComponent() {
-      return this.$store.state.isShowUpdataComponent;
-    },
+    // isShowUpdataComponent() {
+    //   return this.$store.state.isShowUpdataComponent;
+    // },
+    ...mapGetters(["isShowUpdataComponent", "playing"]),
   },
 };
 </script>
@@ -216,22 +218,21 @@ export default {
       .el-button {
         height: 30px;
       }
-      .el-button:nth-child(1){
+      .el-button:nth-child(1) {
         height: 30px;
         background-color: $theme-color;
         color: white;
-        &:hover{
+        &:hover {
           //未做
         }
       }
       .play-all {
         color: white;
-        
       }
       .el-button.is-round:nth-child(n + 2):hover {
         background-color: rgb(246, 246, 246);
         color: gray;
-        border-color:rgba($color: gray, $alpha: 0.5) ;
+        border-color: rgba($color: gray, $alpha: 0.5);
       }
     }
     .album-info {

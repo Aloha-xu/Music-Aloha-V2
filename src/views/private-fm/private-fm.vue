@@ -93,6 +93,7 @@ import {
   getSongLyric,
   getMusicComment,
 } from "../../network/api";
+import { mapGetters } from "vuex";
 export default {
   name: "PrivateFM",
   data() {
@@ -187,7 +188,7 @@ export default {
 
     syncLyricToTime(values, index) {
       let flag = false;
-      let currentTime = parseInt(this.$store.state.currentTime / 1000);
+      let currentTime = parseInt(this.currentTime / 1000);
       if (
         currentTime >= values.time &&
         currentTime < this.currentSongInfo.lyric[index + 1].time &&
@@ -199,29 +200,36 @@ export default {
     },
   },
   computed: {
-    goblePlayingState() {
-      return this.$store.state.playing;
-    },
-    currentSongIndex() {
-      return this.$store.state.currentIndex;
-    },
-    isTagMinPlayerToNext() {
-      return this.$store.state.isTagMinPlayerToNext;
-    },
+    // goblePlayingState() {
+    //   return this.$store.state.playing;
+    // },
+    // currentSongIndex() {
+    //   return this.$store.state.currentIndex;
+    // },
+    // isTagMinPlayerToNext() {
+    //   return this.$store.state.isTagMinPlayerToNext;
+    // },
     //watch监听computed
     //如果这里写currentPlayTime代码就会报错 重复key
     //我觉得就是watch监听了maxplay的currentPlayTime--有一个key
     //如果这里也用watch监听currentPlayTime他的话就重复了
-    currentTime() {
-      return this.$store.state.currentTime;
-    },
+    // currentTime() {
+    //   return this.$store.state.currentTime;
+    // },
+    ...mapGetters(["isTagMinPlayerToNext", "currentTime", "currentSongInfo"]),
+    ...mapGetters({
+      goblePlayingState: "playing",
+      currentSongIndex: "currentIndex",
+    }),
   },
   async created() {
-    this.$store.state.isShowFmPlayer = true;
+    this.$store.commit("SET_IS_SHOW_FM_PLAYER", true);
+    // this.$store.state.isShowFmPlayer = true;
     this.getSongInfo();
   },
   activated() {
-    this.$store.state.isShowFmPlayer = true;
+    this.$store.commit("SET_IS_SHOW_FM_PLAYER", true);
+    // this.$store.state.isShowFmPlayer = true;
     this.getSongInfo();
   },
   // beforeDestroy() {
@@ -235,12 +243,12 @@ export default {
     currentTime() {
       let offset = 36;
       let lyric = this.$refs.lyric;
-      let currentIndex = this.$store.state.currentSongInfo.lyric.findIndex(
+      let currentIndex = this.currentSongInfo.lyric.findIndex(
         (item) => parseInt(this.currentTime / 1000) === item.time
       );
       if (
         currentIndex <= 4 ||
-        currentIndex + 4 === this.$store.state.currentSongInfo.lyric.length
+        currentIndex + 4 === this.currentSongInfo.lyric.length
       ) {
         return;
       }
@@ -250,7 +258,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .private-fm {
   display: flex;
   justify-content: center;
@@ -260,7 +268,7 @@ export default {
   width: 100%;
   .content_ {
     width: 1100px;
-    
+
     .fm-content {
       width: 1100px;
       display: flex;

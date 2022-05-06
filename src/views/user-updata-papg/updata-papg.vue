@@ -53,6 +53,7 @@
 <script>
 import userUpdataTypePopover from "./user-updata-type-popover.vue";
 import { updataUserPlaylist, getUserPlaylist } from "../../network/api";
+import { mapGetters } from "vuex";
 export default {
   components: { userUpdataTypePopover },
   name: "UpDataPapg",
@@ -90,7 +91,7 @@ export default {
       let playlist = await getUserPlaylist(uId);
       console.log(playlist);
       this.$store.commit("setUserSonglistInfo", playlist);
-      this.$store.commit("updataSonglist",uId);
+      this.$store.commit("updataSonglist", uId);
     },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
@@ -110,25 +111,26 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(["mySonglist"]),
     cover() {
-      let currentindex = this.$store.state.mySonglist.findIndex(
+      let currentindex = this.mySonglist.findIndex(
         (item) => item.id == this.$route.params.id
       );
-      return this.$store.state.mySonglist[currentindex].coverImgUrl;
+      return this.mySonglist[currentindex].coverImgUrl;
     },
   },
   created() {
-    let currentindex = this.$store.state.mySonglist.findIndex(
+    let currentindex = this.mySonglist.findIndex(
       (item) => item.id == this.$route.params.id
     );
-    this.palylistName = this.$store.state.mySonglist[currentindex].name;
-    this.playlistDesc = this.$store.state.mySonglist[currentindex].description;
-    this.playlistType = this.$store.state.mySonglist[currentindex].tags;
+    this.palylistName = this.mySonglist[currentindex].name;
+    this.playlistDesc = this.mySonglist[currentindex].description;
+    this.playlistType = this.mySonglist[currentindex].tags;
   },
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .updata-papg {
   font-size: 13.5px;
   color: rgb(71, 71, 71);

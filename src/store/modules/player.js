@@ -295,6 +295,31 @@ const player = {
     setLoading(state, loading) {
       state.loading = loading;
     },
+
+    //设置是否展示fm播放器
+    SET_IS_SHOW_FM_PLAYER(state, val) {
+      state.isShowFmPlayer = val;
+    },
+    //设置相似歌单
+    SET_SIMI_SONG_LIST(state, info) {
+      state.SimiSongList = info;
+    },
+    //设置评论
+    SET_COMMENT_INFO(state, info) {
+      state.commentInfo = info;
+    },
+    //设置是否显示max播放器
+    SET_IS_SHOW_MAX_PLAYER(state, val) {
+      state.isShowMaxPlayer = val;
+    },
+    //设置是否显示 更新组建？？
+    SET_IS_SHOW_UPDATA_COMPONENT(state, val) {
+      state.isShowUpdataComponent = val;
+    },
+    //设置当前播放歌曲信息里面的id
+    SET_CURRENT_SONG_ID(state, id) {
+      state.currentSongInfo.id = id;
+    },
   },
 
   actions: {

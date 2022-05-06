@@ -12,7 +12,7 @@
       class="song-item"
       v-for="(item, index) in songsInfo"
       :key="index"
-      :class="item.id === currentId ? 'active-bg' : ''"
+      :class="item.id === currentSongInfo.id ? 'active-bg' : ''"
     >
       <div class="index-number">
         {{ setIndex(index) }}
@@ -33,7 +33,7 @@
       />
       <p class="el-icon-download" @click="handleDownload(item)"></p>
       <div class="song-name" @click="HandleSongClick(item, index)">
-        <span :class="item.id === currentId ? 'active-name' : ''">{{
+        <span :class="item.id === currentSongInfo.id ? 'active-name' : ''">{{
           item.name
         }}</span>
         <!-- SQ MV logo的卡槽 -->
@@ -59,10 +59,9 @@
 </template>
 
 <script>
-import {
-  getLikeList,
-} from "@/network/api";
+import { getLikeList } from "@/network/api";
 import { forMatTime } from "@/utils/format";
+import { mapGetters } from "vuex";
 
 export default {
   name: "SongListComponent",
@@ -82,7 +81,7 @@ export default {
     /* 点击指定红星添加收藏未做 */
     //点击后判断是否已经收藏了 控制收藏没有的的元素不可以为data的全局元素 否一点就全改变了
     async ClickHeart(id) {
-      console.log(id)
+      console.log(id);
       //把传进来的id与likelist对比    非-1则存在 红星 / -1 空红星
       // let currentIndex = this.likeList.findIndex((item) => item == id);
       // if (currentIndex == -1) {
@@ -91,12 +90,13 @@ export default {
       //   await setLike(id, false);
       //   //⭐⭐⭐460 网络拥挤  没办法了 以后再写把
       // }
-      alert("460 网络拥挤")
+      alert("460 网络拥挤");
     },
     // 处理点击播放音乐事件
     HandleSongClick(values, index) {
       this.$emit("handleSongClick", [values, index]);
-      this.$store.state.isShowFmPlayer= false
+      this.$store.commit("SET_IS_SHOW_FM_PLAYER", false);
+      // this.$store.state.isShowFmPlayer = false;
     },
     handleDownload(values) {
       this.$emit("handleDownload", values);
@@ -126,9 +126,7 @@ export default {
     },
   },
   computed: {
-    currentId() {
-      return this.$store.state.currentSongInfo.id;
-    },
+    ...mapGetters(["currentSongInfo"]),
   },
   async created() {
     let uInfo = JSON.parse(window.sessionStorage.getItem("currentUserInfo"));

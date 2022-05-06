@@ -7,7 +7,14 @@ AlohaMusic 音乐播放平台
 可能会重构吧？
 css 命名规范
 
+ing
 登陆相关的 √
+重构 store √
+
+问题：
+data 里面使用 store 获取数据 如果写在了 computer 那个先后顺序是怎样的？？？？ user updata type popover .vue
+
+watch 监听 computer？？？
 
 ## 命名规范
 

@@ -34,7 +34,7 @@
         </div>
       </div>
       <!-- 选择的歌单类型的详细歌单卡片 -->
-      <div class="allcard" v-show="!this.$store.state.loading">
+      <div class="allcard" v-show="!loading">
         <play-card
           v-for="item in SongListInfo"
           :key="item.id"
@@ -46,7 +46,7 @@
         >
         </play-card>
       </div>
-      <Loading v-show="this.$store.state.loading" style="height:50vh"></Loading>
+      <Loading v-show="loading" style="height:50vh"></Loading>
     </div>
 
     <!-- 页码组件 -->
@@ -78,7 +78,8 @@
 <script>
 import PlayCard from "@/components/common/play-card.vue";
 import AllTypePopover from "../all-type-popover.vue";
-import Loading from '@/components/common/loading.vue'
+import Loading from "@/components/common/loading.vue";
+import { mapGetters } from "vuex";
 import {
   getSongListType,
   getHotSongListType,
@@ -91,7 +92,7 @@ export default {
   components: {
     AllTypePopover,
     PlayCard,
-    Loading
+    Loading,
   },
   data() {
     return {
@@ -122,6 +123,9 @@ export default {
       //是否显示全部歌单popover
       isShowPopover: false,
     };
+  },
+  computed: {
+    ...mapGetters(["loading"]),
   },
   methods: {
     /* 获取歌单分类 */
@@ -264,7 +268,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 @import "@/assets/css/base.scss";
 .song-list {
   position: relative;

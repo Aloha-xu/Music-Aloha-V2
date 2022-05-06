@@ -1,10 +1,10 @@
 <template>
-  <div class="nav-bar" >
+  <div class="nav-bar">
     <div
       v-for="(item, index) in findMusictype"
       :key="index"
       class="nav-bar-item"
-      :class="currentIndex === index ? 'active' : ''"
+      :class="navCurrentIndex === index ? 'active' : ''"
       @click="itemClick(index)"
     >
       {{ item }}
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "NavBar",
   data() {
@@ -46,12 +47,10 @@ export default {
     },
   },
   created() {
-    this.itemClick(this.currentIndex);
+    this.itemClick(this.navCurrentIndex);
   },
   computed: {
-    currentIndex() {
-      return this.$store.state.navCurrentIndex;
-    },
+    ...mapGetters(["navCurrentIndex"]),
   },
 };
 </script>
@@ -77,6 +76,4 @@ export default {
     font-weight: 900;
   }
 }
-
-
 </style>

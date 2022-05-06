@@ -220,13 +220,13 @@
         <el-button type="primary" @click="handleLogin">确 定</el-button>
       </span>
     </el-dialog> -->
-    <Login></Login>
+    <!-- <Login></Login> -->
   </div>
 </template>
 
 <script>
 import {
-  // getHotSearchDetail,
+  getHotSearchDetail,
   getSearchSuggest,
   account,
   getUserDetail,
@@ -239,9 +239,11 @@ import {
 import { getYMD, getYestaryToday } from "@/utils/uctil";
 import Search from "./search/search.vue";
 import v from "@/assets/css/base.scss";
-import Login from "@/views/login/index.vue";
+import { mapGetters } from "vuex";
+// import Login from "@/views/login/index.vue";
 export default {
-  components: { Search, Login },
+  // components: { Search, Login },
+  components: { Search },
   name: "Header",
   data() {
     return {
@@ -459,19 +461,23 @@ export default {
   },
 
   async created() {
-    // const { data } = await getHotSearchDetail();
-    // this.HotSearchDetail = data.data;
-    // this.getNotices();
-    // //通过vuex传入touser的信息
-    // this.toUserInfo = this.$store.state.toUserInfo;
+    const { data } = await getHotSearchDetail();
+    this.HotSearchDetail = data.data;
+    this.getNotices();
+    //通过vuex传入touser的信息
+    this.toUserInfo = this.$store.state.toUserInfo;
   },
   computed: {
-    drawer() {
-      return this.$store.state.isShowMsgDrawer;
-    },
-    innerDrawer() {
-      return this.$store.state.isShowInnerMsgDrawer;
-    },
+    // drawer() {
+    //   return this.$store.state.isShowMsgDrawer;
+    // },
+    // innerDrawer() {
+    //   return this.$store.state.isShowInnerMsgDrawer;
+    // },
+    ...mapGetters({
+      drawer: "isShowMsgDrawer",
+      innerDrawer: "isShowInnerMsgDrawer",
+    }),
   },
 };
 </script>

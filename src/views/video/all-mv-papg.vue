@@ -42,7 +42,7 @@
         </div>
       </div>
 
-      <div class="card" v-show="!this.$store.state.loading">
+      <div class="card" v-show="!loading">
         <mv-card
           v-for="item in mvInfo"
           :key="item.id"
@@ -54,7 +54,7 @@
           class="item"
         ></mv-card>
       </div>
-      <Loading v-show="this.$store.state.loading" style="height:50vh"></Loading>
+      <Loading v-show="loading" style="height:50vh"></Loading>
     </div>
   </div>
 </template>
@@ -62,10 +62,11 @@
 <script>
 import MvCard from "@/components/common/mv-card.vue";
 import { getAllMv } from "@/network/api";
-import Loading from '@/components/common/loading.vue'
+import Loading from "@/components/common/loading.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "AllMvPapg",
-  components: { MvCard,Loading },
+  components: { MvCard, Loading },
   data() {
     return {
       selectBarInfo: {
@@ -123,10 +124,13 @@ export default {
     }
     this.getAllMvInfo();
   },
+  computed: {
+    ...mapGetters(["loading"]),
+  },
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .all-mv-papg {
   font-size: 13px;
   color: rgb(87, 87, 87);

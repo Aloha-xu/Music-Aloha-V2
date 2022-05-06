@@ -159,10 +159,12 @@ export default {
 
           //获取某一首歌的相似歌单信息
           let simimusic = await getSimiPlayList(v[0].id);
-          this.$store.state.SimiSongList = simimusic.data.playlists;
+          this.$store.commit("SET_SIMI_SONG_LIST", simimusic.data.playlists);
+          // this.$store.state.SimiSongList = simimusic.data.playlists;
           //获取某一首歌的评论
           let musicComments = await getMusicComment(v[0].id, 100);
-          this.$store.state.commentInfo = musicComments.data.comments;
+          this.$store.commit("SET_COMMENT_INFO", musicComments.data.comments);
+          // this.$store.state.commentInfo = musicComments.data.comments;
         }
       } catch (error) {
         alert("音乐没有版权");
@@ -187,39 +189,39 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
-.albumlist-detail{
+<style scoped lang="scss">
+.albumlist-detail {
+  width: 100%;
+  flex-wrap: wrap;
+  overflow: scroll;
+  height: 100vh;
+  min-width: 1700px;
+  .albumlist-content {
     width: 100%;
-    flex-wrap: wrap;
-    overflow: scroll;
-    height: 100vh;
-    min-width: 1700px;
-    .albumlist-content{
-        width: 100%;
-        margin-top: 30px;
-        .top{
-            display: flex;
-            margin-bottom: 18px;
-            margin-left: 30px;
-            .navbar{
-                display: flex;
-                .item{
-                    font-size: 16px;
-                    color: gray;
-                    padding-bottom: 5px;
-                    margin-right: 20px;
-                }
-                .active{
-                    color: black;
-                    font-size: 17px;
-                    font-weight: 900;
-                    border-bottom: 2.5px solid red;
-                }
-            }
+    margin-top: 30px;
+    .top {
+      display: flex;
+      margin-bottom: 18px;
+      margin-left: 30px;
+      .navbar {
+        display: flex;
+        .item {
+          font-size: 16px;
+          color: gray;
+          padding-bottom: 5px;
+          margin-right: 20px;
         }
-        .comment{
-            padding-left: 20px;
+        .active {
+          color: black;
+          font-size: 17px;
+          font-weight: 900;
+          border-bottom: 2.5px solid red;
         }
+      }
     }
+    .comment {
+      padding-left: 20px;
+    }
+  }
 }
 </style>

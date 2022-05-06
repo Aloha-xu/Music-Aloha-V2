@@ -154,7 +154,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations /* mapActions, mapGetters */ } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 import { forMatTime } from "@/utils/format";
 import { parseLyric } from "@/utils/lyric";
 import { getSimiPlayList, getMusicComment, getSongLyric } from "@/network/api";
@@ -175,13 +175,16 @@ export default {
     };
   },
   computed: {
-    ...mapState([
+    ...mapGetters([
       "currentSongInfo",
       "playing",
       "songList",
       "currentTime",
       "isLoad",
       "currentIndex",
+      "isTagMinPlayerToNext",
+      "isShowFmPlayer",
+      "isShowMaxPlayer",
     ]),
     totleTime() {
       return forMatTime((this.currentSongInfo.totleTime / 1000) | 0);
@@ -290,7 +293,7 @@ export default {
       //设置滑动条的移动到的位置
       this.currentValues = Math.floor(
         (this.currentPlayTime * 100) /
-          ((this.$store.state.currentSongInfo.totleTime / 1000) | 0)
+          ((this.currentSongInfo.totleTime / 1000) | 0)
       );
       //设置state的currentTime
       this.setCurrentTime(this.currentPlayTime * 1000);
@@ -304,7 +307,7 @@ export default {
     //处理播放与暂停按钮
     handlePlay() {
       //判断现在是播放还是停止
-      if (this.$store.state.playing) {
+      if (this.playing) {
         //调用audio方法 暂停音乐
         this.$refs.audio.pause();
       } else {
@@ -318,8 +321,7 @@ export default {
       //e返回的是currentValues number类型的
       //拉动完之后就知道了e的值 相当于知道了百分比 拉到的百分之多少的数值。
       //歌曲的总时间×百分比
-      this.currentPlayTime =
-        (this.$store.state.currentSongInfo.totleTime * e) / 100;
+      this.currentPlayTime = (this.currentSongInfo.totleTime * e) / 100;
       this.setCurrentTime(this.currentPlayTime);
       //audio有一个  设置或返回音频中的当前播放位置（以秒计）的属性
       this.$refs.audio.currentTime = (this.currentPlayTime / 1000) | 0;
@@ -343,8 +345,7 @@ export default {
           break;
       }
       this.getMaxPlayAllInfo();
-      this.$store.state.isTagMinPlayerToNext =
-        !this.$store.state.isTagMinPlayerToNext;
+      this.isTagMinPlayerToNext = !this.isTagMinPlayerToNext;
       this.currentPlayTime = 0;
     },
 
@@ -441,35 +442,35 @@ export default {
 
     //处理点击显示最大化播放器
     handleShowMaxPlayer() {
-      if (this.$store.state.isShowFmPlayer) {
+      if (this.isShowFmPlayer) {
         this.$router.push("/fm");
         return;
       }
-      this.$store.state.isShowMaxPlayer = !this.$store.state.isShowMaxPlayer;
+      if (this.isShowMaxPlayer) {
+        this.$store.commit("SET_IS_SHOW_MAX_PLAYER", false);
+      } else {
+        this.$store.commit("SET_IS_SHOW_MAX_PLAYER", true);
+      }
     },
 
     async getMaxPlayAllInfo() {
       //获取歌词
-      let lyric = await getSongLyric(this.$store.state.currentSongInfo.id);
-      this.$store.state.currentSongInfo.lyric = parseLyric(
-        lyric.data.lrc.lyric
-      );
+      let lyric = await getSongLyric(this.currentSongInfo.id);
+      this.currentSongInfo.lyric = parseLyric(lyric.data.lrc.lyric);
       //获取相似歌单
-      let simimusic = await getSimiPlayList(
-        this.$store.state.currentSongInfo.id
-      );
-      this.$store.state.SimiSongList = simimusic.data.playlists;
+      let simimusic = await getSimiPlayList(this.currentSongInfo.id);
+
+      // this.$store.state.SimiSongList = simimusic.data.playlists;
+      this.$store.commit("SET_SIMI_SONG_LIST", simimusic.data.playlists);
       //获取单曲评论
-      let musicComments = await getMusicComment(
-        this.$store.state.currentSongInfo.id,
-        100
-      );
-      this.$store.state.commentInfo = musicComments.data.comments;
+      let musicComments = await getMusicComment(this.currentSongInfo.id, 100);
+      // this.$store.state.commentInfo = musicComments.data.comments;
+      this.$store.commit("SET_COMMENT_INFO", musicComments.data.comments);
     },
   },
   created() {
     this.$watch("playing", () => {
-      if (!this.$store.state.playing) {
+      if (!this.playing) {
         this.$refs.audio.pause();
       } else {
         this.$refs.audio.play();
@@ -497,7 +498,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 @import "@/assets/css/base.scss";
 .mini-play {
   width: 100%;
