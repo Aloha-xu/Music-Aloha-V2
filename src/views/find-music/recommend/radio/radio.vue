@@ -5,12 +5,7 @@
       @intoDetailsClick="intoDetailsClick"
     ></into-details-button>
     <div class="card">
-      <div
-        class="card-item"
-        @click="cardClick"
-        v-for="(item, index) in cardInfo"
-        :key="index"
-      >
+      <div class="card-item" v-for="(item, index) in cardInfo" :key="index">
         <img :src="item.picUrl" alt="" />
       </div>
     </div>
@@ -43,7 +38,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .recommend-radio {
   width: 100%;
   margin-top: 20px;

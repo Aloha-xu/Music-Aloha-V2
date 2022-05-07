@@ -120,9 +120,11 @@ export default {
   font-weight: 300;
 }
 .image-slot {
-  width: 207px;
-  height: 207px;
+  width: 100%;
+  height: 100%;
+  /* width: 207px;
+  height: 207px; */
   text-align: center;
-  line-height: 207px;
+  /* line-height: 207px; */
 }
 </style>

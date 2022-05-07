@@ -65,7 +65,7 @@ export function request(config) {
       // 超出 2xx 范围的状态码都会触发该函数。
       //返回的数据里面 没有可以识别的状态码 不在这里同一弹出按提示
       // console.log(err.response);
-      //这有一点问题 老是自己触发  xxxx
+      //暂时未解决
       if (err.response.status) {
         Message(`提示信息：${err.response.data.message}`);
       }

@@ -78,7 +78,9 @@
       </span>
       <span
         class="updata-type"
-        v-if="isShowPlayListComponent && values.tags.length === 0"
+        v-if="
+          isShowPlayListComponent && values.tags && values.tags.length === 0
+        "
         >添加标签</span
       >
       <div class="song-other-info" v-if="isShowPlayListComponent">

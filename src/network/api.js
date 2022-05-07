@@ -1,25 +1,25 @@
-import {request} from './request'
+import { request } from "./request";
 
 /* FindMusic => recommend 组件下的API */
 /* 轮播图 */
-export function getBanner(){
-    return request({
-        url:'/banner?type=0',
-    })
+export function getBanner() {
+  return request({
+    url: "/banner?type=0",
+  });
 }
 
 /* 获取推荐歌单  */
-export function getPersonalized(){
-    return request({
-        url:'/personalized'
-    })
+export function getPersonalized() {
+  return request({
+    url: "/personalized",
+  });
 }
 
 /* 获取歌单分类 */
-export function getSongListType(){
-    return request({
-        url:'/playlist/catlist'
-    })
+export function getSongListType() {
+  return request({
+    url: "/playlist/catlist",
+  });
 }
 
 /* 获取歌单(网友的) 
@@ -29,53 +29,53 @@ offset: 偏移数量 , 用于分页 , 如 :( 评论页数 -1)*50, 其中 50 为 
 
 偏移量就是向后偏移x个数据
 */
-export function getSongList(cat,limit,offset){
-    return request({
-        url:'/top/playlist',
-        params:{
-            cat,
-            limit,
-            offset
-        }
-    })
+export function getSongList(cat, limit, offset) {
+  return request({
+    url: "/top/playlist",
+    params: {
+      cat,
+      limit,
+      offset,
+    },
+  });
 }
 
 // * 获取歌单detail√  传入歌单id
-export function getSongListDetail(id,s){
-    let timestamp = new Date().getTime()
-    return request({
-        url:'/playlist/detail',
-        params:{
-            id,
-            s,timestamp
-        }
-    })
+export function getSongListDetail(id, s) {
+  let timestamp = new Date().getTime();
+  return request({
+    url: "/playlist/detail",
+    params: {
+      id,
+      s,
+      timestamp,
+    },
+  });
 }
 
-export function getAlbumListDetail(id){
-    let timestamp = new Date().getTime()
-    return request({
-        url:"/album",
-        params:{
-            id,timestamp
-        }
-    })
+export function getAlbumListDetail(id) {
+  let timestamp = new Date().getTime();
+  return request({
+    url: "/album",
+    params: {
+      id,
+      timestamp,
+    },
+  });
 }
-
 
 /* 获取热门歌单分类 */
-export function getHotSongListType(){
-    return request({
-        url:'/playlist/hot'
-    })
+export function getHotSongListType() {
+  return request({
+    url: "/playlist/hot",
+  });
 }
 
-
 /* 获取精品歌单标签列表 */
-export function getTopSonglistType(){
-    return request({
-        url:'/playlist/highquality/tags',
-    })
+export function getTopSonglistType() {
+  return request({
+    url: "/playlist/highquality/tags",
+  });
 }
 
 /*  获取精品歌单 （精品歌单 就是 需要点击进去精品歌单页面的歌单信息）
@@ -83,65 +83,63 @@ export function getTopSonglistType(){
 limit: 取出歌单数量 , 默认为 20
 before: 分页参数,取上一页最后一个歌单的 updateTime 获取下一页数据
 */
-export function getTopSonglist(cat,limit,before){
-    return request({
-        url:'/top/playlist/highquality',
-        params:{
-            cat,
-            limit,
-            before
-        }
-    })
+export function getTopSonglist(cat, limit, before) {
+  return request({
+    url: "/top/playlist/highquality",
+    params: {
+      cat,
+      limit,
+      before,
+    },
+  });
 }
 
 /* 独家放送 入口列表 */
-export function getExclusivePush(){
-    return request({
-        url:'/personalized/privatecontent'
-    })
+export function getExclusivePush() {
+  return request({
+    url: "/personalized/privatecontent",
+  });
 }
 /* 独家放送详细列表 
 limit : 返回数量 , 默认为 60
 offset : 偏移数量，用于分页 , 如 :( 页数 -1)*60, 其中 60 为 limit 的值 , 默认为 0
 /personalized/privatecontent/list?limit=1&offset=2
 */
-export function getDetailExclusivePush(){
-    return request({
-        url:'/personalized/privatecontent/list'
-    })
+export function getDetailExclusivePush() {
+  return request({
+    url: "/personalized/privatecontent/list",
+  });
 }
 
-
 ///////////////////////////////////////播放器Player/////////////////////////////////////
-
 
 // *  获取歌曲的详情  获取歌曲的详细信息
 //参数：ids 可以是多个id，用逗号隔开
 // s 歌单收藏者人数
-export function getSongDetail(ids){
-    return request({
-        //不用params传参 自动填充到url后面
-        //传入的参数是数组 自动填充的时候会出错
-        //原因应该是会变成传入多个空数组 再对该数组赋值
-        url:`/song/detail?ids=${ids}`
-        /* url:'/song/detail',
+export function getSongDetail(ids) {
+  return request({
+    //不用params传参 自动填充到url后面
+    //传入的参数是数组 自动填充的时候会出错
+    //原因应该是会变成传入多个空数组 再对该数组赋值
+    url: `/song/detail?ids=${ids}`,
+    /* url:'/song/detail',
         params:{
             ids,
         } */
-    })
+  });
 }
 
 // 说明 : 调用此接口 , 传入歌曲 id, 可获得相似歌单
 // 必选参数 : id: 歌曲 id
 // 接口地址 : /simi/playlist
 // 调用例子 : /simi/playlist?id=347230 ( 对应 ' 光辉岁月 ' 相似歌单 )
-export function getSimiPlayList(id){
-    return request({
-        url:'/simi/playlist',
-        params:{
-            id
-        }
-    })
+export function getSimiPlayList(id) {
+  return request({
+    url: "/simi/playlist",
+    params: {
+      id,
+    },
+  });
 }
 
 // * 获取音乐url
@@ -151,22 +149,21 @@ export function getSimiPlayList(id){
 // 可选参数 : br: 码率,默认设置了 999000 即最大码率,如果要 320k 则可设置为 320000,其他类推
 // 接口地址 : /song/url
 // 调用例子 : /song/url?id=33894312 /song/url?id=405998841,33894312
-export function getSongUrl(id){
-    return request({
-        url:`/song/url?id=${id}`
-    })
+export function getSongUrl(id) {
+  return request({
+    url: `/song/url?id=${id}`,
+  });
 }
-
 
 // * 获取音乐歌词
 // 说明 : 调用此接口 , 传入音乐 id 可获得对应音乐的歌词 ( 不需要登录 )
 // 必选参数 : id: 音乐 id
 // 接口地址 : /lyric
 // 调用例子 : /lyric?id=33894312
-export function getSongLyric(id){
-    return request({
-        url:`lyric?id=${id}`
-    })
+export function getSongLyric(id) {
+  return request({
+    url: `lyric?id=${id}`,
+  });
 }
 
 //判断音乐是否有版权
@@ -175,51 +172,44 @@ export function getSongLyric(id){
 // 可选参数 : br: 码率,默认设置了 999000 即最大码率,如果要 320k 则可设置为 320000,其他类推
 // 接口地址 : /check/music
 // 调用例子 : /check/music?id=33894312
-export function getCheckMusic(id){
-    return request({
-        url:'/check/music',
-        params:{
-            id
-        }
-    })
+export function getCheckMusic(id) {
+  return request({
+    url: "/check/music",
+    params: {
+      id,
+    },
+  });
 }
-
 
 //////////////////////////////////////////////////////////////////////////////////////
 
 /* 推荐新音乐 */
-export function getPersonalizedNewSong(limit){
-    return request({
-        url:`/personalized/newsong?limit=${limit}`
-    })
+export function getPersonalizedNewSong(limit) {
+  return request({
+    url: `/personalized/newsong?limit=${limit}`,
+  });
 }
 
 //findmusic - recommend - radio 电台  这个api没找到对应的
-export function getRecommendRadioStation(){
-    return request({
-        url:'/personalized/djprogram'
-    })
+export function getRecommendRadioStation() {
+  return request({
+    url: "/personalized/djprogram",
+  });
 }
-
-
-
-
-
-
 
 /* 获取歌手分类列表 */
 /* 这个接口的type参数传不进去 不知道为什么 */
-export function getArtistsList(type,area,initial,limit,offset){
-    return request({
-        url:'/artist/list',
-        params:{
-            type,
-            area,
-            initial,
-            limit,
-            offset
-        }
-    })
+export function getArtistsList(type, area, initial, limit, offset) {
+  return request({
+    url: "/artist/list",
+    params: {
+      type,
+      area,
+      initial,
+      limit,
+      offset,
+    },
+  });
 }
 
 // 说明 : 调用此接口,可获取歌手分类列表
@@ -247,32 +237,30 @@ export function getArtistsList(type,area,initial,limit,offset){
 // 接口地址 : /artist/list
 // 调用例子 : /artist/list?type=1&area=96&initial=b /artist/list?type=2&area=2&initial=b
 
-
 // * 所有榜单
-export function getTopList(){
-    return request({
-        url:'/toplist'
-    })
+export function getTopList() {
+  return request({
+    url: "/toplist",
+  });
 }
 
 // * 所有榜单内容摘要 这个api没什么必要 感觉
-export function getTopListDetail(){
-    return request({
-        url:'/toplist/detail'
-    })
+export function getTopListDetail() {
+  return request({
+    url: "/toplist/detail",
+  });
 }
 
-export function getCollector(id,limit,offset){
-    return request({
-        url:'/playlist/subscribers',
-        params:{
-            id,
-            limit,
-            offset
-        }
-    })
+export function getCollector(id, limit, offset) {
+  return request({
+    url: "/playlist/subscribers",
+    params: {
+      id,
+      limit,
+      offset,
+    },
+  });
 }
-
 
 ///////////////////////////评论////////////////////////////////////
 
@@ -284,13 +272,14 @@ export function getCollector(id,limit,offset){
 // before: 分页参数,取上一页最后一项的 time 获取下一页数据(获取超过5000条评论的时候需要用到)
 // 接口地址 : /comment/playlist
 // 调用例子 : /comment/playlist?id=705123491
-export function getPlayListComment(id,limit){
-    return request({
-        url:'/comment/playlist',
-        params:{
-            id,limit
-        }
-    })
+export function getPlayListComment(id, limit) {
+  return request({
+    url: "/comment/playlist",
+    params: {
+      id,
+      limit,
+    },
+  });
 }
 
 //某一首歌曲的评论信息
@@ -301,14 +290,14 @@ export function getPlayListComment(id,limit){
 // before: 分页参数,取上一页最后一项的 time 获取下一页数据(获取超过5000条评论的时候需要用到)
 // 接口地址 : /comment/music
 // 调用例子 : /comment/music?id=186016&limit=1 对应晴天评论
-export function getMusicComment(id,limit){
-    return request({
-        url:'/comment/music',
-        params:{
-            id,
-            limit,
-        }
-    })
+export function getMusicComment(id, limit) {
+  return request({
+    url: "/comment/music",
+    params: {
+      id,
+      limit,
+    },
+  });
 }
 
 // 说明 : 调用此接口 , 传入音乐 id 和 limit 参数 , 可获得该专辑的所有评论 ( 不需要 登录 )
@@ -318,14 +307,14 @@ export function getMusicComment(id,limit){
 // before: 分页参数,取上一页最后一项的 time 获取下一页数据(获取超过5000条评论的时候需要用到)
 // 接口地址 : /comment/album
 // 调用例子 : /comment/album?id=32311
-export function getAlbumComment(id,limit){
-    return request({
-        url:'/comment/album',
-        params:{
-            id,
-            limit,
-        }
-    })
+export function getAlbumComment(id, limit) {
+  return request({
+    url: "/comment/album",
+    params: {
+      id,
+      limit,
+    },
+  });
 }
 
 // 说明 : 调用此接口 , 传入音乐 id 和 limit 参数 , 可获得该 mv 的所有评论 ( 不需要 登录 )
@@ -335,14 +324,14 @@ export function getAlbumComment(id,limit){
 // before: 分页参数,取上一页最后一项的 time 获取下一页数据(获取超过5000条评论的时候需要用到)
 // 接口地址 : /comment/mv
 // 调用例子 : /comment/mv?id=5436712
-export function getMvComment(id,limit){
-    return request({
-        url:'/comment/mv',
-        params:{
-            id,
-            limit,
-        }
-    })
+export function getMvComment(id, limit) {
+  return request({
+    url: "/comment/mv",
+    params: {
+      id,
+      limit,
+    },
+  });
 }
 
 //这个接口好像有问题 返回的数据null
@@ -365,15 +354,15 @@ export function getMvComment(id,limit){
 // 接口地址 : /comment/new
 // 调用例子 : /comment/new?type=0&id=1407551413&sortType=3, /comment/new?type=0&id=1407551413&sortType=3&cursor=1602072870260&pageSize=20&pageNo=2
 
-export function getComment(id,type,pageNo){
-    return request({
-        url:'/comment/new',
-        params:{
-            id,
-            type,
-            pageNo
-        }
-    })
+export function getComment(id, type, pageNo) {
+  return request({
+    url: "/comment/new",
+    params: {
+      id,
+      type,
+      pageNo,
+    },
+  });
 }
 
 //////////////////////////////歌手////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -381,58 +370,53 @@ export function getComment(id,type,pageNo){
 // 必选参数 : id: 歌手 id
 // 接口地址 : /artist/detail
 // 调用例子 : /artist/detail?id=11972054 (Billie Eilish)
-export function getArtistDetail(id){
-    return request({
-        url:'/artist/detail',
-        params:{
-            id
-        }
-    })
+export function getArtistDetail(id) {
+  return request({
+    url: "/artist/detail",
+    params: {
+      id,
+    },
+  });
 }
-
 
 // 说明 : 调用此接口 , 传入歌手 id, 可获得歌手描述
 // 必选参数 : id: 歌手 id
 // 接口地址 : /artist/desc
 // 调用例子 : /artist/desc?id=6452 ( 周杰伦 )
-export function getArtistDesc(id){
-    return request({
-        url:'/artist/desc',
-        params:{
-            id
-        }
-    })
+export function getArtistDesc(id) {
+  return request({
+    url: "/artist/desc",
+    params: {
+      id,
+    },
+  });
 }
-
-
 
 // 说明 : 调用此接口 , 传入歌手 id, 可获得相似歌手
 // 必选参数 : id: 歌手 id
 // 接口地址 : /simi/artist
 // 调用例子 : /simi/artist?id=6452 ( 对应和周杰伦相似歌手 )
-export function getSimiArtist(id){
-    return request({
-        url:'/simi/artist',
-        params:{
-            id
-        }
-    })
+export function getSimiArtist(id) {
+  return request({
+    url: "/simi/artist",
+    params: {
+      id,
+    },
+  });
 }
-
 
 // 说明 : 调用此接口 , 传入歌手 id, 可获得歌手 mv 信息 , 具体 mv 播放地址可调 用/mv传入此接口获得的 mvid 来拿到 , 如 : /artist/mv?id=6452,/mv?mvid=5461064
 // 必选参数 : id: 歌手 id, 可由搜索接口获得
 // 接口地址 : /artist/mv
 // 调用例子 : /artist/mv?id=6452
-export function getArtistMV(id){
-    return request({
-        url:'/artist/mv',
-        params:{
-            id
-        }
-    })
+export function getArtistMV(id) {
+  return request({
+    url: "/artist/mv",
+    params: {
+      id,
+    },
+  });
 }
-
 
 // 说明 : 调用此接口 , 传入歌手 id, 可获得歌手专辑内容
 // 必选参数 : id: 歌手 id
@@ -440,64 +424,63 @@ export function getArtistMV(id){
 // offset: 偏移数量 , 用于分页 , 如 :( 页数 -1)*50, 其中 50 为 limit 的值 , 默认 为 0
 // 接口地址 : /artist/album
 // 调用例子 : /artist/album?id=6452&limit=30 ( 周杰伦 )
-export function getArtistAlbum(id,limit){
-    return request({
-        url:'/artist/album',
-        params:{
-            id,
-            limit
-        }
-    })
+export function getArtistAlbum(id, limit) {
+  return request({
+    url: "/artist/album",
+    params: {
+      id,
+      limit,
+    },
+  });
 }
-
 
 ////////////////////////////////////////搜索//////////////////////////////////////////////////////
 
 // 搜索
 // 说明 : 调用此接口 , 传入搜索关键词可以搜索该音乐 / 专辑 / 歌手 / 歌单 / 用户 , 关键词可以多个 , 以空格隔开 , 如 " 周杰伦 搁浅 "( 不需要登录 ), 搜索获取的 mp3url 不能直接用 , 可通过 /song/url 接口传入歌曲 id 获取具体的播放链接
 // 必选参数 : keywords : 关键词
-// 可选参数 : limit : 返回数量 , 默认为 30 
+// 可选参数 : limit : 返回数量 , 默认为 30
 //          offset : 偏移数量，用于分页 , 如 : 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认为 0
 //          type: 搜索类型；默认为 1 即单曲 , 取值意义 : 1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单, 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频, 1018:综合
 // 接口地址 : /search 或者 /cloudsearch(更全)
 // 调用例子 : /search?keywords= 海阔天空 /cloudsearch?keywords= 海阔天空
-export function getCloudSearch(keywords,type){
-    return request({
-        url:'/cloudsearch',
-        params:{
-            keywords,
-            type
-        }
-    })
+export function getCloudSearch(keywords, type) {
+  return request({
+    url: "/cloudsearch",
+    params: {
+      keywords,
+      type,
+    },
+  });
 }
 
 // 默认搜索关键词
 // 说明 : 调用此接口 , 可获取默认搜索关键词
 // 接口地址 : /search/default
-export function getDefaultSearch(){
-    return request({
-        url:'/search/default'
-    })
+export function getDefaultSearch() {
+  return request({
+    url: "/search/default",
+  });
 }
 
 // 热搜列表(简略)
 // 说明 : 调用此接口,可获取热门搜索列表
 // 接口地址 : /search/hot
 // 调用例子 : /search/hot
-export function getHotSearch(){
-    return request({
-        url:'/search/hot'
-    })
+export function getHotSearch() {
+  return request({
+    url: "/search/hot",
+  });
 }
 
 // 热搜列表(详细)
 // 说明 : 调用此接口,可获取热门搜索列表
 // 接口地址 : /search/hot/detail
 // 调用例子 : /search/hot/detail
-export function getHotSearchDetail(){
-    return request({
-        url:'/search/hot/detail'
-    })
+export function getHotSearchDetail() {
+  return request({
+    url: "/search/hot/detail",
+  });
 }
 
 // 搜索建议
@@ -506,13 +489,13 @@ export function getHotSearchDetail(){
 // 可选参数 : type : 如果传 'mobile' 则返回移动端数据
 // 接口地址 : /search/suggest
 // 调用例子 : /search/suggest?keywords= 海阔天空 /search/suggest?keywords= 海阔天空&type=mobile
-export function getSearchSuggest(keywords){
-    return request({
-        url:'/search/suggest',
-        params:{
-            keywords,
-        }
-    })
+export function getSearchSuggest(keywords) {
+  return request({
+    url: "/search/suggest",
+    params: {
+      keywords,
+    },
+  });
 }
 
 // 搜索多重匹配
@@ -520,15 +503,14 @@ export function getSearchSuggest(keywords){
 // 必选参数 : keywords : 关键词
 // 接口地址 : /search/multimatch
 // 调用例子 : /search/multimatch?keywords= 海阔天空
-export function getSearchMultimatch(keywords){
-    return request({
-        url:'/search/multimatch',
-        params:{
-            keywords,
-        }
-    })
+export function getSearchMultimatch(keywords) {
+  return request({
+    url: "/search/multimatch",
+    params: {
+      keywords,
+    },
+  });
 }
-
 
 ///////////////////////////////////////////////////////////////视频//////////////////////////////////////////////////////
 
@@ -536,10 +518,10 @@ export function getSearchMultimatch(keywords){
 // 说明 : 调用此接口 , 可获取视频分类列表
 // 接口地址 : /video/category/list
 // 调用例子 : /video/category/list
-export function getVideoCategoryList(){
-    return request({
-        url:'/video/group/list',
-    })
+export function getVideoCategoryList() {
+  return request({
+    url: "/video/group/list",
+  });
 }
 
 // 获取视频标签/分类下的视频
@@ -548,14 +530,14 @@ export function getVideoCategoryList(){
 // 可选参数 : offset: 默认0
 // 接口地址 : /video/group
 // 调用例子 : /video/group?id=9104
-export function getVideoType(id,offset){
-    return request({
-        url:'/video/group',
-        params:{
-            id,offset
-        },
-        
-    })
+export function getVideoType(id, offset) {
+  return request({
+    url: "/video/group",
+    params: {
+      id,
+      offset,
+    },
+  });
 }
 
 // 获取推荐视频
@@ -563,14 +545,14 @@ export function getVideoType(id,offset){
 // 可选参数 : offset: 默认0
 // 接口地址 : /video/timeline/recommend
 // 调用例子 : /video/timeline/recommend?offset=10
-export function getRecommendVideo(id,offset){
-    return request({
-        url:'/video/timeline/recommend',
-        params:{
-            id,offset
-        },
-        
-    })
+export function getRecommendVideo(id, offset) {
+  return request({
+    url: "/video/timeline/recommend",
+    params: {
+      id,
+      offset,
+    },
+  });
 }
 
 // 相关视频
@@ -578,14 +560,13 @@ export function getRecommendVideo(id,offset){
 // 必选参数 : id: 视频 的 id
 // 接口地址 : /related/allvideo
 // 调用例子 : /related/allvideo?id=89ADDE33C0AAE8EC14B99F6750DB954D
-export function getAllVideo(id){
-    return request({
-        url:'/related/allvideo',
-        params:{
-            id
-        },
-        
-    })
+export function getAllVideo(id) {
+  return request({
+    url: "/related/allvideo",
+    params: {
+      id,
+    },
+  });
 }
 
 // 视频详情
@@ -593,28 +574,26 @@ export function getAllVideo(id){
 // 必选参数 : id: 视频 的 id
 // 接口地址 : /video/detail
 // 调用例子 : /video/detail?id=89ADDE33C0AAE8EC14B99F6750DB954D
-export function getVideoDetail(id){
-    return request({
-        url:'/video/detail',
-        params:{
-            id
-        },
-        
-    })
+export function getVideoDetail(id) {
+  return request({
+    url: "/video/detail",
+    params: {
+      id,
+    },
+  });
 }
 
 // 获取视频点赞转发评论数数据
 // 说明 : 调用此接口 , 传入 vid ( 视频id ) , 可获取对应视频点赞转发评论数数据 必选参数 : vid: 视频id
 // 接口地址 : /video/detail/info
 // 调用例子 : /video/detail/info?vid=89ADDE33C0AAE8EC14B99F6750DB954D
-export function getVideoDetailInfo(vid){
-    return request({
-        url:'/video/detail/info',
-        params:{
-            vid
-        },
-        
-    })
+export function getVideoDetailInfo(vid) {
+  return request({
+    url: "/video/detail/info",
+    params: {
+      vid,
+    },
+  });
 }
 
 // 获取视频播放地址
@@ -622,14 +601,13 @@ export function getVideoDetailInfo(vid){
 // 必选参数 : id: 视频 的 id
 // 接口地址 : /video/url
 // 调用例子 : /video/url?id=89ADDE33C0AAE8EC14B99F6750DB954D
-export function getVideoUrl(id){
-    return request({
-        url:'/video/url',
-        params:{
-            id
-        },
-        
-    })
+export function getVideoUrl(id) {
+  return request({
+    url: "/video/url",
+    params: {
+      id,
+    },
+  });
 }
 
 // 说明 : 调用此接口 , 传入音乐 id 和 limit 参数 , 可获得该 视频 的所有评论 ( 不需要登录 )
@@ -639,14 +617,13 @@ export function getVideoUrl(id){
 // before: 分页参数,取上一页最后一项的 time 获取下一页数据(获取超过5000条评论的时候需要用到)
 // 接口地址 : /comment/video
 // 调用例子 : /comment/video?id=89ADDE33C0AAE8EC14B99F6750DB954D
-export function getVideoComment(id){
-    return request({
-        url:'/comment/video',
-        params:{
-            id
-        },
-        
-    })
+export function getVideoComment(id) {
+  return request({
+    url: "/comment/video",
+    params: {
+      id,
+    },
+  });
 }
 
 ////////////////////////////////////////////////////////MV////////////////////////////////////////////////////////////////
@@ -664,13 +641,13 @@ export function getVideoComment(id){
 // 必选参数 : mvid: mv 的 id
 // 接口地址 : /mv/detail
 // 调用例子 : /mv/detail?mvid=5436712
-export function getMvDetail(mvid){
-    return request({
-        url:'/mv/detail',
-        params:{
-            mvid
-        }
-    })
+export function getMvDetail(mvid) {
+  return request({
+    url: "/mv/detail",
+    params: {
+      mvid,
+    },
+  });
 }
 
 // mv 数据
@@ -679,13 +656,13 @@ export function getMvDetail(mvid){
 // 必选参数 : mvid: mv 的 id
 // 接口地址 : /mv/detail/info
 // 调用例子 : /mv/detail/info?mvid=5436712
-export function getMvCommentInfo(mvid){
-    return request({
-        url:'/mv/detail/info',
-        params:{
-            mvid
-        }
-    })
+export function getMvCommentInfo(mvid) {
+  return request({
+    url: "/mv/detail/info",
+    params: {
+      mvid,
+    },
+  });
 }
 
 // mv 地址
@@ -695,13 +672,13 @@ export function getMvCommentInfo(mvid){
 // 接口地址 : /mv/url
 // 调用例子 :
 // /mv/url?id=5436712 /mv/url?id=10896407&r=1080
-export function getMvUrl(id){
-    return request({
-        url:'/mv/url',
-        params:{
-            id
-        }
-    })
+export function getMvUrl(id) {
+  return request({
+    url: "/mv/url",
+    params: {
+      id,
+    },
+  });
 }
 
 // 全部 mv
@@ -713,13 +690,17 @@ export function getMvUrl(id){
 // offset: 偏移数量 , 用于分页 , 如 :( 页数 -1)*50, 其中 50 为 limit 的值 , 默认 为 0
 // 接口地址 : /mv/all
 // 调用例子 : /mv/all?area=港台
-export function getAllMv(area,type,order,limit,offset){
-    return request({
-        url:'/mv/all',
-        params:{
-            area,limit,type,order,offset
-        }
-    })
+export function getAllMv(area, type, order, limit, offset) {
+  return request({
+    url: "/mv/all",
+    params: {
+      area,
+      limit,
+      type,
+      order,
+      offset,
+    },
+  });
 }
 
 // 最新 mv
@@ -728,13 +709,14 @@ export function getAllMv(area,type,order,limit,offset){
 // 可选参数 : limit: 取出数量 , 默认为 30
 // 接口地址 : /mv/first
 // 调用例子 : /mv/first?limit=10
-export function getNewMv(area,limit){
-    return request({
-        url:'/mv/first',
-        params:{
-            area,limit
-        }
-    })
+export function getNewMv(area, limit) {
+  return request({
+    url: "/mv/first",
+    params: {
+      area,
+      limit,
+    },
+  });
 }
 
 // 网易出品mv
@@ -743,36 +725,36 @@ export function getNewMv(area,limit){
 // offset: 偏移数量 , 用于分页 , 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认 为 0
 // 接口地址 : /mv/exclusive/rcmd
 // 调用例子 : /mv/exclusive/rcmd?limit=10
-export function getWYCPMv(limit){
-    return request({
-        url:'/mv/exclusive/rcmd',
-        params:{
-           limit
-        }
-    })
+export function getWYCPMv(limit) {
+  return request({
+    url: "/mv/exclusive/rcmd",
+    params: {
+      limit,
+    },
+  });
 }
 
 // 推荐 mv
 // 说明 : 调用此接口 , 可获取推荐 mv
 // 接口地址 : /personalized/mv
 // 调用例子 : /personalized/mv
-export function getRecommentMv(){
-    return request({
-        url:'/personalized/mv'
-    })
+export function getRecommentMv() {
+  return request({
+    url: "/personalized/mv",
+  });
 }
 
 ///////////////////////////////////////私人FM////////////////////////////////////
 
 //获取私人fm歌单
-export function fm(){
-    let timestamp = new Date().getTime()
-    return request({
-        url:"/personal_fm",
-        params:{
-            timestamp
-        }
-    })
+export function fm() {
+  let timestamp = new Date().getTime();
+  return request({
+    url: "/personal_fm",
+    params: {
+      timestamp,
+    },
+  });
 }
 
 ///////////////////////////////////////////创建歌单接口///////////////////////////////////////
@@ -781,10 +763,10 @@ export function fm(){
 // 说明 : 登录后调用此接口 , 可以获取用户信息
 // 接口地址 : /user/subcount
 // 调用例子 : /user/subcount
-export function getsubcount(){
-    return request({
-        url:'/user/subcount'
-    })
+export function getsubcount() {
+  return request({
+    url: "/user/subcount",
+  });
 }
 
 // 获取用户歌单
@@ -795,14 +777,15 @@ export function getsubcount(){
 // offset : 偏移数量，用于分页 , 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认为 0
 // 接口地址 : /user/playlist
 // 调用例子 : /user/playlist?uid=32953014
-export function getUserPlaylist(uid){
-    let timestamp = new Date().getTime()
-    return request({
-        url:'/user/playlist',
-        params:{
-            uid,timestamp
-        }
-    })
+export function getUserPlaylist(uid) {
+  let timestamp = new Date().getTime();
+  return request({
+    url: "/user/playlist",
+    params: {
+      uid,
+      timestamp,
+    },
+  });
 }
 
 // 更新歌单
@@ -814,13 +797,16 @@ export function getUserPlaylist(uid){
 // tags:歌单tag ,多个用 `;` 隔开,只能用官方规定标签
 // 接口地址 : /playlist/update
 // 调用例子 : /playlist/update?id=24381616&name=新歌单&desc=描述&tags=欧美
-export function updataUserPlaylist(id,name,desc,tags){
-    return request({
-        url:'/playlist/update',
-        params:{
-            id,name,desc,tags
-        }
-    })
+export function updataUserPlaylist(id, name, desc, tags) {
+  return request({
+    url: "/playlist/update",
+    params: {
+      id,
+      name,
+      desc,
+      tags,
+    },
+  });
 }
 
 // 更新歌单简介
@@ -830,13 +816,14 @@ export function updataUserPlaylist(id,name,desc,tags){
 // desc:歌单描述
 // 接口地址 : /playlist/desc/update
 // 调用例子 : /playlist/desc/update?id=24381616&desc=描述
-export function updataUserPlaylistDesc(id,desc){
-    return request({
-        url:'/playlist/desc/update',
-        params:{
-            id,desc
-        }
-    })
+export function updataUserPlaylistDesc(id, desc) {
+  return request({
+    url: "/playlist/desc/update",
+    params: {
+      id,
+      desc,
+    },
+  });
 }
 
 // 更新歌单名
@@ -846,13 +833,14 @@ export function updataUserPlaylistDesc(id,desc){
 // name: 歌单名
 // 接口地址 : /playlist/name/update
 // 调用例子 : /playlist/name/update?id=24381616&name=歌单名
-export function updataUserPlaylistName(id,name){
-    return request({
-        url:'/playlist/name/update',
-        params:{
-            id,name
-        }
-    })
+export function updataUserPlaylistName(id, name) {
+  return request({
+    url: "/playlist/name/update",
+    params: {
+      id,
+      name,
+    },
+  });
 }
 
 // 更新歌单标签
@@ -862,13 +850,14 @@ export function updataUserPlaylistName(id,name){
 // tags: 歌单标签
 // 接口地址 : /playlist/tags/update
 // 调用例子 : /playlist/tags/update?id=24381616&tags=学习
-export function updataUserPlaylistTags(id,tags){
-    return request({
-        url:'/playlist/tags/update',
-        params:{
-            id,tags
-        }
-    })
+export function updataUserPlaylistTags(id, tags) {
+  return request({
+    url: "/playlist/tags/update",
+    params: {
+      id,
+      tags,
+    },
+  });
 }
 
 // 歌单封面上传
@@ -880,16 +869,19 @@ export function updataUserPlaylistTags(id,tags){
 // imgX : 水平裁剪偏移,方形图片可不传,默认为0 imgY : 垂直裁剪偏移,方形图片可不传,默认为0
 // 接口地址 : /playlist/cover/update
 // 调用例子 : /playlist/cover/update?id=3143833470&imgSize=200
-export function updataUserPlaylistCover(id,imgSize,imgX,imgY){
-    return request({
-        url:'/playlist/cover/update',
-        params:{
-            id,imgSize,imgX,imgY
-        },
-        headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-    })
+export function updataUserPlaylistCover(id, imgSize, imgX, imgY) {
+  return request({
+    url: "/playlist/cover/update",
+    params: {
+      id,
+      imgSize,
+      imgX,
+      imgY,
+    },
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 }
 
 // 调整歌单顺序
@@ -898,13 +890,13 @@ export function updataUserPlaylistCover(id,imgSize,imgX,imgY){
 // ids: 歌单id列表
 // 接口地址 : /playlist/order/update
 // 调用例子 : /playlist/order/update?ids=[111,222]
-export function updataUserPlaylistOrder(ids){
-    return request({
-        url:'/playlist/order/update',
-        params:{
-            ids
-        }
-    })
+export function updataUserPlaylistOrder(ids) {
+  return request({
+    url: "/playlist/order/update",
+    params: {
+      ids,
+    },
+  });
 }
 
 // 调整歌曲顺序
@@ -914,13 +906,14 @@ export function updataUserPlaylistOrder(ids){
 // ids: 歌曲id列表
 // 接口地址 : /song/order/update
 // 调用例子 : /song/order/update?pid=2039116066&ids=[5268328,1219871]
-export function updataUserSongOrder(pid,ids){
-    return request({
-        url:'/song/order/update',
-        params:{
-            pid,ids
-        }
-    })
+export function updataUserSongOrder(pid, ids) {
+  return request({
+    url: "/song/order/update",
+    params: {
+      pid,
+      ids,
+    },
+  });
 }
 
 // 收藏/取消收藏歌单
@@ -929,15 +922,15 @@ export function updataUserSongOrder(pid,ids){
 // t : 类型,1:收藏,2:取消收藏 id : 歌单 id
 // 接口地址 : /playlist/subscribe
 // 调用例子 : /playlist/subscribe?t=1&id=106697785 /playlist/subscribe?t=2&id=106697785
-export function subPlaylist(t,id){
-    return request({
-        url:'/playlist/subscribe',
-        params:{
-            t,id
-        }
-    })
+export function subPlaylist(t, id) {
+  return request({
+    url: "/playlist/subscribe",
+    params: {
+      t,
+      id,
+    },
+  });
 }
-
 
 ////////////////////////////////////////喜欢//////////////////////////////////
 
@@ -947,14 +940,16 @@ export function subPlaylist(t,id){
 // 可选参数 : like: 布尔值 , 默认为 true 即喜欢 , 若传 false, 则取消喜欢
 // 接口地址 : /like
 // 调用例子 : /like?id=347230
-export function setLike(id,like){
-    let timestamp = new Date().getTime()
-    return request({
-        url:"/like",
-        params:{
-            id,like,timestamp
-        }
-    })
+export function setLike(id, like) {
+  let timestamp = new Date().getTime();
+  return request({
+    url: "/like",
+    params: {
+      id,
+      like,
+      timestamp,
+    },
+  });
 }
 
 // 喜欢音乐列表
@@ -962,23 +957,18 @@ export function setLike(id,like){
 // 必选参数 : uid: 用户 id
 // 接口地址 : /likelist
 // 调用例子 : /likelist?uid=32953014
-export function getLikeList(uid){
-    let timestamp = new Date().getTime()
-    return request({
-        url:"/likelist",
-        params:{
-            uid,timestamp
-        }
-    })
+export function getLikeList(uid) {
+  let timestamp = new Date().getTime();
+  return request({
+    url: "/likelist",
+    params: {
+      uid,
+      timestamp,
+    },
+  });
 }
 
-
 /////////////////////////////////////////////////////私信/////////////////////////////////////////////////////////////////
-
-
-
-
-
 
 // 发送私信
 // 说明 : 登录后调用此接口 , 传入用户 id 和要发送的信息, 可以发送私信,返回内容为历史私信,包含带歌单的私信信息(注:不能发送私信给自己)
@@ -987,13 +977,14 @@ export function getLikeList(uid){
 // msg : 要发送的信息
 // 接口地址 : /send/text
 // 调用例子 : /send/text?user_ids=32953014&msg=test,/send/text?user_ids=32953014,475625142&msg=test
-export function SendText(user_ids,msg){
-    return request({
-        url:'/send/text',
-        params:{
-            user_ids,msg
-        }
-    })
+export function SendText(user_ids, msg) {
+  return request({
+    url: "/send/text",
+    params: {
+      user_ids,
+      msg,
+    },
+  });
 }
 
 // 发送私信(带歌曲)
@@ -1027,8 +1018,6 @@ export function SendText(user_ids,msg){
 // 接口地址 : /msg/recentcontact
 // 调用例子 : /msg/recentcontact
 
-
-
 // 私信内容
 // 说明 : 登录后调用此接口 , 可获取私信内容
 // 必选参数 : uid : 用户 id
@@ -1036,19 +1025,14 @@ export function SendText(user_ids,msg){
 // before : 分页参数,取上一页最后一项的 time 获取下一页数据
 // 接口地址 : /msg/private/history
 // 调用例子 : /msg/private/history?uid=9003 (云音乐小秘书)
-export function getPrivateMsgHistory(uid){
-    let timestamp = new Date().getTime()
-    return request({
-        url:'/msg/private/history',
-        params:{
-            uid,
-            timestamp
-        }
-    })
+export function getPrivateMsgHistory(uid) {
+  return request({
+    url: "/msg/private/history",
+    params: {
+      uid,
+    },
+  });
 }
-
-
-
 
 /////////////////////////////////////////////////////////////通知////////////////////////////////////////////////////////////////////
 
@@ -1059,14 +1043,10 @@ export function getPrivateMsgHistory(uid){
 // offset : 偏移数量，用于分页 , 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认为 0
 // 接口地址 : /msg/private
 // 调用例子 : /msg/private?limit=3
-export function getMsgHistory(){
-    let timestamp = new Date().getTime()
-    return request({
-        url:'/msg/private',
-        params:{
-            timestamp
-        }
-    })
+export function getMsgHistory() {
+  return request({
+    url: "/msg/private",
+  });
 }
 
 // 通知 - 评论
@@ -1077,13 +1057,13 @@ export function getMsgHistory(){
 // before : 分页参数,取上一页最后一个歌单的 updateTime 获取下一页数据
 // 接口地址 : /msg/comments
 // 调用例子 : /msg/comments?uid=32953014
-export function getMsgComments(uid){
-    return request({
-        url:'/msg/comments',
-        params:{
-            uid
-        }
-    })
+export function getMsgComments(uid) {
+  return request({
+    url: "/msg/comments",
+    params: {
+      uid,
+    },
+  });
 }
 
 // 通知 - @我
@@ -1093,10 +1073,10 @@ export function getMsgComments(uid){
 // offset : 偏移数量，用于分页 , 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认为 0
 // 接口地址 : /msg/forwards
 // 调用例子 : /msg/forwards?limit=3
-export function getMsgToMe(){
-    return request({
-        url:'/msg/forwards',
-    })
+export function getMsgToMe() {
+  return request({
+    url: "/msg/forwards",
+  });
 }
 
 // 通知 - 通知
@@ -1106,19 +1086,14 @@ export function getMsgToMe(){
 // lasttime : 返回数据的 time ,默认-1,传入上一次返回结果的 time,将会返回下一页的数据
 // 接口地址 : /msg/notices
 // 调用例子 : /msg/notices?limit=3
-export function getMsgNotices(lasttime){
-    return request({
-        url:'/msg/notices',
-        params:{
-            lasttime
-        }
-    })
+export function getMsgNotices(lasttime) {
+  return request({
+    url: "/msg/notices",
+    params: {
+      lasttime,
+    },
+  });
 }
-
-
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////用户//////////////////////////////////////////////////////////////////////////////////////
 // 关注/取消关注用户
@@ -1128,18 +1103,17 @@ export function getMsgNotices(lasttime){
 // t : 1为关注,其他为取消关注
 // 接口地址 : /follow
 // 调用例子 : /follow?id=32953014&t=1
-export function setFollow(id,t){
-    let timestamp =new Date().getTime()
-    return request({
-        url:'/follow',
-        params:{
-            id,t,timestamp
-        }
-    })
+export function setFollow(id, t) {
+  let timestamp = new Date().getTime();
+  return request({
+    url: "/follow",
+    params: {
+      id,
+      t,
+      timestamp,
+    },
+  });
 }
-
-
-
 
 // 数字专辑-新碟上架
 // 说明 : 调用此接口 ,可获取数字专辑-新碟上架
@@ -1149,17 +1123,10 @@ export function setFollow(id,t){
 // 接口地址 : /album/list
 // 调用例子 : /album/list?limit=10
 
-
-
 // 设置
 // 说明 : 登录后调用此接口 ,可获取用户设置
 // 接口地址 : /setting
 // 调用例子 : /setting
-
-
-
-
-
 
 ///////////////删除、回复评论//////////////////
 // 发送/删除评论
@@ -1197,80 +1164,83 @@ export function setFollow(id,t){
 // id:对应资源 id content :内容 id,可通过 /comment/mv 等接口获取
 // 调用例子 : /comment?t=0&type=1&id=5436712&commentId=1535550516319 (在广岛之恋 mv 删除评论)
 
-export function SendOrDelComment(t,type,id,content,commentId){
-    return request({
-        url:'/comment',
-        params:{
-            t,type,id,content,commentId
-        }
-    })
+export function SendOrDelComment(t, type, id, content, commentId) {
+  return request({
+    url: "/comment",
+    params: {
+      t,
+      type,
+      id,
+      content,
+      commentId,
+    },
+  });
 }
-
 
 //账号密码登陆接口
-export function getLogin(phone,pwd){
-    return request({
-        url:`/login/cellphone?phone=${phone}&password=${pwd}`,
-        path:{
-            phone,pwd
-        },
-        method:'POST',
-        
-    })
+export function getLogin(phone, pwd) {
+  return request({
+    url: `/login/cellphone?phone=${phone}&password=${pwd}`,
+    path: {
+      phone,
+      pwd,
+    },
+    method: "POST",
+  });
 }
 
-export function refresh(){
-    return request({
-        url:"/login/refresh"
-    })
+export function refresh() {
+  return request({
+    url: "/login/refresh",
+  });
 }
-export function outRefresh(){
-    return request({
-        url:"/logout"
-    })
-}
-
-export function status(){
-    return request({
-        url:"/login/status"
-    })
-}
-export function account(){
-    return request({
-        url:"/user/account"
-    })
+export function outRefresh() {
+  return request({
+    url: "/logout",
+  });
 }
 
-export function getUserDetail(uid){
-    let timestamp = new Date().getTime()
-    return request({
-        url:"/user/detail",
-        params:{
-            uid,timestamp
-        }
-    })
+export function status() {
+  return request({
+    url: "/login/status",
+  });
+}
+export function account() {
+  return request({
+    url: "/user/account",
+  });
 }
 
-
-export function getDynamic(pagesize,lasttime){
-    return request({
-        url:'/event',
-        params:{
-            pagesize,
-            lasttime
-        }
-    })
+export function getUserDetail(uid) {
+  let timestamp = new Date().getTime();
+  return request({
+    url: "/user/detail",
+    params: {
+      uid,
+      timestamp,
+    },
+  });
 }
 
+export function getDynamic(pagesize, lasttime) {
+  return request({
+    url: "/event",
+    params: {
+      pagesize,
+      lasttime,
+    },
+  });
+}
 
 //说明 : 登录后调用此接口 , 传入用户 id, 可获取用户播放记录
 //必选参数 : uid : 用户 id
 //可选参数 : type : type=1 时只返回 weekData, type=0 时返回 allData
-export function getUserRecord(uid,type){
-    return request({
-        url:"/user/record",
-        params:{
-            uid,type
-        }
-    })
+export function getUserRecord(uid, type) {
+  return request({
+    url: "/user/record",
+    params: {
+      uid,
+      type,
+    },
+  });
 }

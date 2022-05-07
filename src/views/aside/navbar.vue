@@ -11,12 +11,12 @@
       <el-menu-item index="1-2" @click="ClickToMVPapg">
         <span slot="title" class="slot">视频</span>
       </el-menu-item>
-      <el-menu-item index="1-3" @click="ClickToFriendPapg">
+      <!-- <el-menu-item index="1-3" @click="ClickToFriendPapg">
         <span slot="title" class="slot">朋友</span>
       </el-menu-item>
       <el-menu-item index="1-4" @click="ClickToLivePapg">
         <span slot="title" class="slot">直播</span>
-      </el-menu-item>
+      </el-menu-item> -->
       <el-menu-item index="1-5" @click="ClickToFMPapg">
         <span slot="title" class="slot">私人FM</span>
       </el-menu-item>
@@ -99,12 +99,12 @@ export default {
     ClickToMVPapg() {
       this.$router.push("/videohome");
     },
-    ClickToFriendPapg() {
-      this.$router.push("/friend");
-    },
-    ClickToLivePapg() {
-      this.$router.push("/live");
-    },
+    // ClickToFriendPapg() {
+    //   this.$router.push("/friend");
+    // },
+    // ClickToLivePapg() {
+    //   this.$router.push("/live");
+    // },
     ClickToFMPapg() {
       this.$router.push("/fm");
     },

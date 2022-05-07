@@ -126,13 +126,16 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["currentSongInfo"]),
+    ...mapGetters(["currentSongInfo", "userinfo"]),
   },
   async created() {
-    let uInfo = JSON.parse(window.sessionStorage.getItem("currentUserInfo"));
-    let uId = uInfo.userId;
-    let likeList = await getLikeList(uId);
-    this.likeList = likeList.data.ids;
+    //暂时未解决  这个获取likelist 一直报301
+    console.log("暂时未解决  这个获取likelist 一直报301");
+    if (this.userinfo) {
+      let uId = this.userinfo.userId;
+      let likeList = await getLikeList(uId);
+      this.likeList = likeList.data.ids;
+    }
   },
 };
 </script>

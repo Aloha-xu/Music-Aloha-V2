@@ -3,15 +3,25 @@
     <!-- 精品歌单 -->
     <div class="high-quality-playlist" @click="clickToHighQualityPlaylistPapg">
       <div class="backgroundimage">
-        <img :src="TopSongListInfo[0].coverImgUrl" alt="" />
+        <img
+          :src="TopSongListInfo[0] && TopSongListInfo[0].coverImgUrl"
+          alt=""
+        />
       </div>
       <div class="pic">
-        <img :src="TopSongListInfo[0].coverImgUrl" alt="" />
+        <img
+          :src="TopSongListInfo[0] && TopSongListInfo[0].coverImgUrl"
+          alt=""
+        />
       </div>
       <div class="text">
         <div class="logo">精品歌单</div>
-        <div class="text-1">{{ TopSongListInfo[0].name }}</div>
-        <div class="text-2">{{ TopSongListInfo[0].copywriter }}</div>
+        <div class="text-1">
+          {{ TopSongListInfo[0] && TopSongListInfo[0].name }}
+        </div>
+        <div class="text-2">
+          {{ TopSongListInfo[0] && TopSongListInfo[0].copywriter }}
+        </div>
       </div>
     </div>
     <!-- 显示各种歌单种类的内容 -->

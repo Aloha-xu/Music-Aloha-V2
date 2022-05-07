@@ -192,7 +192,7 @@
       </div>
     </el-drawer>
     <!-- 登录框-->
-    <Login></Login>
+    <Login v-if="isShowLoginDialog"></Login>
   </div>
 </template>
 
@@ -215,7 +215,6 @@ import { mapGetters } from "vuex";
 import Login from "@/views/login/index.vue";
 export default {
   components: { Search, Login },
-  // components: { Search },
   name: "Header",
   data() {
     return {
@@ -232,7 +231,7 @@ export default {
       newMsgs: [],
       text: "",
       //私信对象信息
-      toUserInfo: {},
+      // toUserInfo: {},
       //刷新消息的定时器
       msgInterval: null,
       userPWD: null,
@@ -331,14 +330,15 @@ export default {
     },
     //点击具体消息进去对应的私聊
     clickToInnerDrawer(uId, name, cover) {
-      this.toUserInfo = { uId, name, cover };
+      // this.toUserInfo = { uId, name, cover };
+      this.$store.commit("SET_TO_USER_INFO", { uId, name, cover });
       this.getPrivateMsg(uId);
       this.$store.commit("setShowMsgInnerDarwer");
     },
     //drawer的回调事件
     handleOpen() {
       //通过用户个人界面进去进行私聊 先处理聊天对象的信息 否者就模板渲染比数据快 数据就渲染不上去了
-      this.toUserInfo = this.$store.state.toUserInfo;
+      // this.toUserInfo = this.$store.state.toUserInfo;
       this.getPrivateMsg(this.toUserInfo.uId);
     },
     handleClose() {
@@ -389,7 +389,8 @@ export default {
       //清除聊天数据
       this.beforMsgs = [];
       this.newMsgs = [];
-      this.toUserInfo = {};
+      this.$store.commit("SET_TO_USER_INFO", {});
+      // this.toUserInfo = {};
       window.clearInterval(this.msgInterval);
     },
 
@@ -424,9 +425,10 @@ export default {
   async created() {
     const { data } = await getHotSearchDetail();
     this.HotSearchDetail = data.data;
+
     this.getNotices();
     //通过vuex传入touser的信息
-    this.toUserInfo = this.$store.state.toUserInfo;
+    // this.toUserInfo = this.$store.state.toUserInfo;
   },
   computed: {
     // drawer() {
@@ -440,6 +442,7 @@ export default {
       innerDrawer: "isShowInnerMsgDrawer",
       currentUserInfo: "userinfo",
     }),
+    ...mapGetters(["isShowLoginDialog", "toUserInfo"]),
   },
 };
 </script>

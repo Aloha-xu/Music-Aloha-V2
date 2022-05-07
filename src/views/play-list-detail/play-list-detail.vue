@@ -94,7 +94,7 @@ export default {
       collectorInfo: [],
       /* 模板的渲染比route快 */
       playList: [],
-      headInfo: null,
+      headInfo: {},
       searchValues: null,
     };
   },

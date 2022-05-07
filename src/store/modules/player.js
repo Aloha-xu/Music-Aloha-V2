@@ -320,6 +320,10 @@ const player = {
     SET_CURRENT_SONG_ID(state, id) {
       state.currentSongInfo.id = id;
     },
+    //设置对象信息
+    SET_TO_USER_INFO(state, info) {
+      state.toUserInfo = info;
+    },
   },
 
   actions: {

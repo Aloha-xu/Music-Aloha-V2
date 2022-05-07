@@ -47,13 +47,11 @@
         :key="index"
         @click="ToSingerDetailClick(item.id)"
       >
-        <div class="img">
-          <el-image :src="item.img1v1Url" lazy>
-            <div slot="placeholder" class="image-slot">
-              <div>加载中....</div>
-            </div>
-          </el-image>
-        </div>
+        <el-image :src="item.img1v1Url" lazy style="width:165px;height:165px">
+          <div slot="placeholder" class="image-slot">
+            <div>加载中....</div>
+          </div>
+        </el-image>
         <div class="name">
           {{ item.name }}
         </div>
@@ -243,8 +241,8 @@ export default {
   },
   activated() {
     this.$store.commit("refeshCurrentNavIndex", 4);
-    //??
-    this.$store.state.loading.close();
+    //不明白之前为什么写
+    // this.$store.state.loading.close();
   },
 };
 </script>
@@ -283,14 +281,14 @@ export default {
       width: 15%;
       margin-left: 10px;
       margin-top: 15px;
-      .img {
-        width: 100%;
-        img {
-          border-radius: 5px;
-          width: 100%;
-          height: 100%;
-        }
-      }
+      // .img {
+      //   width: 100%;
+      //   // img {
+      //   //   border-radius: 5px;
+      //   //   width: 100%;
+      //   //   height: 100%;
+      //   // }
+      // }
       .name {
         font-size: 15px;
         margin-top: 5px;
