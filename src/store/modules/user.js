@@ -1,9 +1,11 @@
-import { loginByPhone } from "@/network/login";
+import { loginByPhone, checkCaptcha } from "@/network/login";
+// import { Message } from "element-ui";
 
 const user = {
   state: {
     token: localStorage.getItem("token") || "",
     userinfo: JSON.parse(sessionStorage.getItem("currentUserInfo")) || "",
+    isShowLoginDialog: false,
   },
 
   mutations: {
@@ -14,6 +16,9 @@ const user = {
     SET_USER_INFO: (state, info) => {
       window.sessionStorage.setItem("currentUserInfo", JSON.stringify(info));
       state.userinfo = info;
+    },
+    SET_LOGIN_DIALOG: (state, val) => {
+      state.isShowLoginDialog = val;
     },
   },
 
@@ -33,9 +38,36 @@ const user = {
             const userinfo = response.data.profile || "";
             commit("SET_TOKEN", token);
             commit("SET_USER_INFO", userinfo);
+            commit("SET_LOGIN_DIALOG", false);
           })
           .catch((error) => {
             reject(error);
+          });
+      });
+    },
+    // 免密登录
+    loginByCaptcha({ commit }, userInfo) {
+      return new Promise((resolve, reject) => {
+        //验证验证码和手机正确性
+        checkCaptcha({ phone: userInfo.phone, captcha: userInfo.captcha })
+          .then((response1) => {
+            loginByPhone(userInfo)
+              .then((response) => {
+                resolve(response);
+                // console.log(response);
+                const token = response.data.token || "";
+                const userinfo = response.data.profile || "";
+                commit("SET_TOKEN", token);
+                commit("SET_USER_INFO", userinfo);
+                commit("SET_LOGIN_DIALOG", false);
+              })
+              .catch((error) => {
+                reject(error);
+              });
+            resolve(response1);
+          })
+          .catch((error1) => {
+            reject(error1);
           });
       });
     },
@@ -44,6 +76,8 @@ const user = {
       console.log(state);
       return new Promise((resolve) => {
         commit("SET_TOKEN", "");
+        commit("SET_USER_INFO", "");
+        location.reload();
         resolve();
       });
     },

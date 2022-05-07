@@ -1,10 +1,11 @@
 <template>
   <div class="login-box">
     <el-dialog
-      :visible.sync="loginDialogVisible"
+      :visible="isShowLoginDialog"
       width="450px"
       @close="handleCloseDialogFunc"
-      :show-close="false"
+      @open="handleOpenDialogFunc"
+      :close-on-click-modal="false"
     >
       <!-- 切换模式tab-->
       <div class="login-mode_tab" @click="handleChangeLoginModeFunc">
@@ -191,8 +192,15 @@
 
 <script>
 import CountDown from "@/utils/countdown.js";
-import { getQRKey, getQRPicture, getQRPState } from "@/network/login.js";
+import {
+  getQRKey,
+  getQRPicture,
+  getQRPState,
+  sentCaptcha,
+  getStatus,
+} from "@/network/login.js";
 import md5 from "md5";
+import { mapGetters } from "vuex";
 export default {
   name: "Login",
   data() {
@@ -207,33 +215,32 @@ export default {
       isShowCaptcha: false,
       //展示QR二维码
       isShowQR: true,
-      // loginDialogVisible: fasle,
       activeName: "noteForLogin",
       //校验
       //免密登录表单数据
       freeForm: {
-        phone: "",
-        captcha: "",
+        phone: null,
+        captcha: null,
         countrycode: "86",
       },
       //密码登录表单数据
       normalForm: {
-        phone: "",
+        phone: null,
         //md5
-        md5_password: "",
+        md5_password: null,
       },
 
       rules: {
-        // pass: [{ validator: validatePass, trigger: "blur" }],
         phone: [
           { required: true, message: "不能为空" },
-          { type: "number", message: "请输入数字" },
+          {
+            pattern: /^1[0-9]{10,}$/,
+            message: "请输入11位手机号",
+            trigger: "blur",
+          },
         ],
         md5_password: [{ required: true, message: "不能为空" }],
-        captcha: [
-          { required: true, message: "不能为空" },
-          { type: "number", message: "请输入数字" },
-        ],
+        captcha: [{ required: true, message: "不能为空" }],
       },
 
       //国家代码
@@ -243,24 +250,9 @@ export default {
       ],
     };
   },
-  props: {
-    loginDialogVisible: {
-      type: Object,
-    },
+  computed: {
+    ...mapGetters(["isShowLoginDialog"]),
   },
-  //https://www.cnblogs.com/wuqilang/p/13681465.html
-  //    为什么父传子的值子获取不到
-  //    子组件不能直接dialogImp，这样关闭的时候，它默认会修改该值，vue是不被允许的。必须//再用一个临时值thisDialogImp，并且thisDialogImp要随dialogImp变化，所以只能放计算属性/////里。
-  // computed: {
-  //   thisDialogLogin: {
-  //     get: function() {
-  //       return this.loginDialogVisible;
-  //     },
-  //     set: function() {
-  //       this.$emit("handleCloseDialogFunc", false);
-  //     },
-  //   },
-  // },
   methods: {
     //验证码倒计时
     handleShowCodeFunc() {
@@ -295,11 +287,11 @@ export default {
           if (ref == "normalForm") {
             this.normalForm.md5_password = md5(this.normalForm.md5_password);
             userInfo = this.normalForm;
+            this.$store.dispatch("loginByPhone", userInfo);
           } else {
             userInfo = this.freeForm;
+            this.$store.dispatch("loginByCaptcha", userInfo);
           }
-          this.$store.dispatch("loginByPhone", userInfo);
-          this.loginDialogVisible = false;
         } else {
           console.log("error submit!!");
           return false;
@@ -308,14 +300,21 @@ export default {
     },
     //获取验证码
     getCaptcha() {
-      this.$refs["freeForm"].validateField("phone", (valid) => {
+      this.$refs["freeForm"].validateField(["phone"], async (valid) => {
+        console.log(valid);
         if (!valid) {
           this.isShowCaptcha = !this.isShowCaptcha;
           this.handleShowCodeFunc();
           //请求验证码
+          const { data } = await sentCaptcha({
+            phone: this.freeForm.phone,
+            ctcode: this.freeForm.countrycode,
+          });
+          console.log("请求验证码" + JSON.stringify(data));
         }
       });
     },
+    //获取QR图片 与 验证扫码状态
     async getQRimage() {
       const { data } = await getQRKey({ timestamp: new Date().getTime() });
       const Base64Image = await getQRPicture(data.data.unikey);
@@ -341,8 +340,10 @@ export default {
         clearInterval(this.timer);
         //登陆成功
         //设置cookie
+        // console.log(QRinfo.data.cookie);
         // document.cookie = `${QRinfo.data.cookie}`;
-        this.loginDialogVisible = false;
+        await getStatus();
+        this.$store.commit("SET_LOGIN_DIALOG", false);
         //还有一系类的操作
       }
     },
@@ -350,7 +351,10 @@ export default {
     handleCloseDialogFunc() {
       //清除timer
       clearInterval(this.timer);
-      this.$emit("handleCloseDialogFunc", false);
+      this.$store.commit("SET_LOGIN_DIALOG", false);
+    },
+    handleOpenDialogFunc() {
+      this.$store.commit("SET_LOGIN_DIALOG", true);
     },
   },
   created() {
@@ -366,7 +370,10 @@ export default {
     padding: 0;
   }
   .el-dialog__headerbtn {
-    display: none;
+    // display: none;
+    position: relative;
+    left: 20px;
+    top: 10px;
   }
   .el-dialog__body {
     padding: 0 20px 30px 20px;

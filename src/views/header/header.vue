@@ -29,7 +29,7 @@
     <div class="right">
       <div class="user-info">
         <div class="out-login" v-if="!currentUserInfo">
-          <el-button type="text" @click="loginDialogVisible.show = true">
+          <el-button type="text" @click="showLoginDialog">
             <i class="el-icon-user"></i> <span>未登录</span>
           </el-button>
         </div>
@@ -119,7 +119,7 @@
         >
           <div class="inner-popover">
             <i class="el-icon-arrow-left" @click="handleOutInneerPopover"></i>
-            <div class="name">{{ toUserInfo.name }}</div>
+            <div class="name">{{ toUserInfo && toUserInfo.name }}</div>
             <div
               class="content"
               v-show="!beforMsgs.length == 0 || !newMsgs.length == 0"
@@ -192,39 +192,7 @@
       </div>
     </el-drawer>
     <!-- 登录框-->
-    <!--  抽离login弹出框-->
-    <!-- <el-dialog
-      title="请登录"
-      :visible.sync="loginDialogVisible"
-      width="450px"
-      center
-    >
-      <form method="POST">
-        <span>电话号码：</span
-        ><el-input
-          v-model="userPhoneNumber"
-          placeholder="请输入电话号码"
-          style="width: 300px; margin-bottom: 20px"
-        ></el-input>
-        <br />
-        <span>密码：</span
-        ><el-input
-          placeholder="请输入密码"
-          v-model="userPWD"
-          show-password
-          style="width: 300px; margin-left: 27px"
-        ></el-input>
-      </form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="loginDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleLogin">确 定</el-button>
-      </span>
-    </el-dialog> -->
-
-    <Login
-      :loginDialogVisible.sync="loginDialogVisible.show"
-      @handleCloseDialogFunc="handleCloseDialogFunc"
-    ></Login>
+    <Login></Login>
   </div>
 </template>
 
@@ -267,17 +235,13 @@ export default {
       toUserInfo: {},
       //刷新消息的定时器
       msgInterval: null,
-      //控制登陆弹出框
-      loginDialogVisible: {
-        show: false,
-      },
       userPWD: null,
       userPhoneNumber: null,
     };
   },
   methods: {
-    handleCloseDialogFunc(val) {
-      this.loginDialogVisible.show = val;
+    showLoginDialog() {
+      this.$store.commit("SET_LOGIN_DIALOG", true);
     },
     async handleOutLoginFun() {
       //清除localStorage sessionStorage
@@ -344,20 +308,6 @@ export default {
     handleIconClick(ev) {
       console.log(ev);
     },
-    //处理点击登陆 没有写弹出框 输入账号密码 二维码 短信 之类的登陆方式窗口
-    // async handleLogin() {
-    //   this.loginDialogVisible = false;
-    //   const { data } = await getLogin(this.userPhoneNumber, this.userPWD);
-    //   this.currentUserInfo = data.profile;
-    //   window.sessionStorage.setItem(
-    //     "currentUserInfo",
-    //     JSON.stringify(data.profile)
-    //   );
-    //   let data2 = await account();
-    //   console.log(data2);
-    //   let data1 = await getUserDetail(data.profile.userId);
-    //   console.log(data1);
-    // },
     parseLastNotice(msg) {
       let afterMsg = JSON.parse(msg);
       return afterMsg.msg;

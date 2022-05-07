@@ -10,6 +10,12 @@ export function loginByPhone(data) {
   });
 }
 
+export function getStatus() {
+  return request({
+    url: "/login/status",
+  });
+}
+
 //获取二维码的key
 export function getQRKey(data) {
   return request({
@@ -30,6 +36,22 @@ export function getQRPicture(data) {
 export function getQRPState(data) {
   return request({
     url: `/login/qr/check`,
+    params: data,
+  });
+}
+
+//发送验证码
+export function sentCaptcha(data) {
+  return request({
+    url: "/captcha/sent",
+    params: data,
+  });
+}
+
+//验证验证码
+export function checkCaptcha(data) {
+  return request({
+    url: "/captcha/verify",
     params: data,
   });
 }

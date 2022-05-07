@@ -90,7 +90,12 @@ import { _debounce } from "@/utils/uctil";
 export default {
   name: "Search",
   props: {
-    HotSearchDetail: Array,
+    HotSearchDetail: {
+      type: Array,
+      default: () => {
+        return [];
+      },
+    },
     SearchDetail: Object,
   },
   data() {
@@ -176,7 +181,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .search {
   position: relative;
   .input-text {

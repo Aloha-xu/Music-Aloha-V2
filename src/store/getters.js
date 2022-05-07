@@ -26,4 +26,5 @@ export default {
   isShowInnerMsgDrawer: (state) => state.player.isShowInnerMsgDrawer,
   loading: (state) => state.player.loading,
   userinfo: (state) => state.user.userinfo,
+  isShowLoginDialog: (state) => state.user.isShowLoginDialog,
 };
