@@ -182,7 +182,7 @@ export default {
       this.$store.commit("setLoading", false);
     },
 
-    //处理点击某一首歌的事件
+    //处理 点击某一首歌 获取这首歌的数据
     //v[0] 歌曲信息
     //v[1] 歌曲下标
     async handleSongClick(v) {
@@ -197,6 +197,8 @@ export default {
           this.$store.commit("setCurrentIndex", v[1]);
 
           this.playList[v[1]].lyric = parseLyric(lyric.data.lrc.lyric);
+          console.log(lyric.data.lrc.lyric);
+          console.log(this.playList[v[1]].lyric);
 
           //修改当前播放的音乐信息
           this.$store.commit("changeCurrentPlay", this.playList[v[1]]);

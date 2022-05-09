@@ -73,7 +73,7 @@
       <!-- 相似的歌曲 -->
       <div class="simi-song">
         <new-music-card
-          v-for="(item, index) in SimiSongListInfo"
+          v-for="(item, index) in SimiSongList"
           :key="index"
           :pic="item.coverImgUrl"
           :singer="item.creator.nickname.split(' ')"
@@ -123,8 +123,10 @@ export default {
       };
     },
 
+    //优化 -- 可以改成计算属性 有缓存
     //歌词样式控制
     //同步歌曲播放进度与歌词
+    //              歌词    结束秒
     syncLyricToTime(values, index) {
       let flag = false;
       //快进或者减慢歌词速度控制变量
@@ -141,17 +143,18 @@ export default {
     },
   },
   computed: {
-    ...mapGetters([
-      "currentSongInfo",
-      "SimiSongListInfo",
-      "commentInfo",
-      "currentPlayTime",
-    ]),
+    ...mapGetters(["currentSongInfo", "SimiSongList", "commentInfo"]),
+    ...mapGetters({
+      currentPlayTime: "currentTime",
+    }),
   },
   watch: {
+    //监听 vuex
+    //发现currenttime改变了 那么就重新计算 歌词的位置
     currentPlayTime() {
       let offset = 36;
       let lyric = this.$refs.lyric;
+      //拿到当前时间的秒数对应的歌词下标
       let currentIndex = this.currentSongInfo.lyric.findIndex(
         (item) => parseInt(this.currentPlayTime / 1000) === item.time
       );

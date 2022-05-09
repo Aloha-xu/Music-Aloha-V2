@@ -324,6 +324,10 @@ const player = {
     SET_TO_USER_INFO(state, info) {
       state.toUserInfo = info;
     },
+    //设置minplayer点击下一首
+    SET_Tag_MIN_PLAYER_TO_NEXT(state) {
+      state.isTagMinPlayerToNext = !state.isTagMinPlayerToNext;
+    },
   },
 
   actions: {

@@ -345,7 +345,7 @@ export default {
           break;
       }
       this.getMaxPlayAllInfo();
-      this.isTagMinPlayerToNext = !this.isTagMinPlayerToNext;
+      this.$store.commit("SET_Tag_MIN_PLAYER_TO_NEXT");
       this.currentPlayTime = 0;
     },
 
