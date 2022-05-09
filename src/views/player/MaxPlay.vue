@@ -9,7 +9,7 @@
         <div class="pic">
           <div class="grey-box">
             <div class="black-box">
-              <img :src="currentSongInfo.pic" alt="" />
+              <img :src="currentSongInfo.pic" alt="歌曲封面" />
             </div>
           </div>
         </div>
@@ -214,6 +214,14 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
+            //越转愉快
+            &:hover {
+              transform: rotate(666turn);
+              transition-delay: 0.1s;
+              transition-property: all;
+              transition-duration: 59s;
+              transition-timing-function: cubic-bezier(0.34, 0, 0.84, 1);
+            }
             img {
               width: 300px;
               height: 300px;
