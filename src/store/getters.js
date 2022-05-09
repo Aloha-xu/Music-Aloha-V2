@@ -27,4 +27,5 @@ export default {
   loading: (state) => state.player.loading,
   userinfo: (state) => state.user.userinfo,
   isShowLoginDialog: (state) => state.user.isShowLoginDialog,
+  isShowLyric: (state) => state.player.isShowLyric,
 };

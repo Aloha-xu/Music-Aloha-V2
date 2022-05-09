@@ -54,7 +54,7 @@
         <div class="next" @click="nextSong">
           <img src="@/assets/icon/controltools/next.png" alt="" />
         </div>
-        <div class="lyric">
+        <div class="lyric" @click="handleShowLyric">
           <img src="@/assets/icon/controltools/ci.png" alt="" />
         </div>
       </div>
@@ -466,6 +466,10 @@ export default {
       let musicComments = await getMusicComment(this.currentSongInfo.id, 100);
       // this.$store.state.commentInfo = musicComments.data.comments;
       this.$store.commit("SET_COMMENT_INFO", musicComments.data.comments);
+    },
+    //显示歌词
+    handleShowLyric() {
+      this.$store.commit("SET_SHOW_LYRIC");
     },
   },
   created() {

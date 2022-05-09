@@ -80,6 +80,9 @@ const player = {
 
     //loading状态
     loading: null,
+
+    //控制 歌词显示是否
+    isShowLyric: false,
   },
 
   mutations: {
@@ -327,6 +330,10 @@ const player = {
     //设置minplayer点击下一首
     SET_Tag_MIN_PLAYER_TO_NEXT(state) {
       state.isTagMinPlayerToNext = !state.isTagMinPlayerToNext;
+    },
+    //设置isShowLyric歌词显示
+    SET_SHOW_LYRIC(state) {
+      state.isShowLyric = !state.isShowLyric;
     },
   },
 

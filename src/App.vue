@@ -16,6 +16,7 @@
     <MaxPlay v-if="isShowMaxPlayer"></MaxPlay>
     <MiniPlay class="mini-play"></MiniPlay>
     <!-- 歌词弹出框 -->
+    <LyricComponent />
   </div>
 </template>
 <script>
@@ -23,6 +24,7 @@ import Header from "./views/header/header.vue";
 import NavBar from "./views/aside/navbar.vue";
 import MaxPlay from "./views/player/MaxPlay.vue";
 import MiniPlay from "./views/player/MiniPlay.vue";
+import LyricComponent from "./components/common/LyricComponent.vue";
 import { mapGetters } from "vuex";
 export default {
   name: "app",
@@ -31,6 +33,7 @@ export default {
     NavBar,
     MaxPlay,
     MiniPlay,
+    LyricComponent,
   },
   computed: {
     ...mapGetters(["isShowMaxPlayer"]),

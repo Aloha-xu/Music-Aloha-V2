@@ -116,6 +116,7 @@ Vue 2 + Vue Router + Vuex + Axios + ElementUI + SCSS 后端接口网易云官方
 - [x] 创建歌单
 - [x] 搜索
 - [x] 消息回复
+- [x] 新增 歌词 拖拽
 
 ## 效果图
 
