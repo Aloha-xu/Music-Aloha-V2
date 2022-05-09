@@ -15,6 +15,7 @@
     </div>
     <MaxPlay v-if="isShowMaxPlayer"></MaxPlay>
     <MiniPlay class="mini-play"></MiniPlay>
+    <!-- 歌词弹出框 -->
   </div>
 </template>
 <script>
