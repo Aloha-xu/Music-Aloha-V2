@@ -133,6 +133,7 @@ export default {
       // let controlLyricSpeedValues = -0.5;
       let currentTime = parseInt(this.currentPlayTime / 1000);
       if (
+        values.time &&
         currentTime >= values.time &&
         currentTime < this.currentSongInfo.lyric[index + 1].time &&
         index <= this.currentSongInfo.lyric.length
