@@ -1,3 +1,5 @@
+import { getUserPlaylist } from "@/network/api";
+
 const player = {
   state: {
     //当前的播放歌曲信息
@@ -43,7 +45,7 @@ const player = {
     userSonglistInfo: [],
 
     //自己创建的歌单
-    mySonglist: null,
+    mySonglist: [],
 
     //心动歌单
     heartSonglist: null,
@@ -52,7 +54,7 @@ const player = {
     collectSonglist: null,
 
     //全部的标签数据 弹出框
-    allTypeInfo: {},
+    allTypeInfo: [],
 
     //对象信息
     toUserInfo: {},
@@ -335,6 +337,10 @@ const player = {
     SET_SHOW_LYRIC(state) {
       state.isShowLyric = !state.isShowLyric;
     },
+    //设置allTypeInfo
+    SET_ALL_TYPE(state, info) {
+      state.allTypeInfo = info;
+    },
   },
 
   actions: {
@@ -370,6 +376,14 @@ const player = {
     //     resolve();
     //   });
     // },
+    //获取用户的歌单列表
+    async getUserPlayList({ commit }) {
+      let uInfo = JSON.parse(window.sessionStorage.getItem("currentUserInfo"));
+      let uId = uInfo.userId;
+      let playlist = await getUserPlaylist(uId);
+      commit("setUserSonglistInfo", playlist);
+      commit("updataSonglist", uId);
+    },
   },
 };
 

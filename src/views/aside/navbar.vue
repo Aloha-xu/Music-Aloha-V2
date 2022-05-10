@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import { /* getsubcount,  */ getUserPlaylist } from "@/network/api";
+// import { /* getsubcount,  */ getUserPlaylist } from "@/network/api";
 import { mapGetters } from "vuex";
 export default {
   name: "NavBar",
@@ -117,24 +117,26 @@ export default {
       this.isShowPlaylist = !this.isShowPlaylist;
       //判断vuex里面有没用户歌单列表信息
       if (!this.heartSonglist) {
-        this.getUserPlaylist();
+        this.$store.dispatch("getUserPlayList");
+        // this.getUserPlaylist();
       }
     },
     async handleShowCollectPlaylist() {
       this.isShowCollectPlaylist = !this.isShowCollectPlaylist;
       if (!this.heartSonglist) {
-        this.getUserPlaylist();
+        // this.getUserPlaylist();
+        this.$store.dispatch("getUserPlayList");
       }
     },
-    //获取用户的歌单信息
-    async getUserPlaylist() {
-      let uInfo = JSON.parse(window.sessionStorage.getItem("currentUserInfo"));
-      let uId = uInfo.userId;
-      let playlist = await getUserPlaylist(uId);
-      console.log(playlist);
-      this.$store.commit("setUserSonglistInfo", playlist);
-      this.$store.commit("updataSonglist", uId);
-    },
+    //获取用户的歌单信息 优化  提取到vuex action里面
+    // async getUserPlaylist() {
+    //   let uInfo = JSON.parse(window.sessionStorage.getItem("currentUserInfo"));
+    //   let uId = uInfo.userId;
+    //   let playlist = await getUserPlaylist(uId);
+    //   console.log(playlist);
+    //   this.$store.commit("setUserSonglistInfo", playlist);
+    //   this.$store.commit("updataSonglist", uId);
+    // },
     handleToPlaylistPapg(id, type) {
       if (type == "myplaylist") {
         this.$store.commit("SET_IS_SHOW_UPDATA_COMPONENT", true);
@@ -157,6 +159,9 @@ export default {
     // collectSonglist() {
     //   return this.$store.state.collectSonglist;
     // },
+  },
+  created() {
+    this.$store.dispatch("getUserPlayList");
   },
 };
 </script>

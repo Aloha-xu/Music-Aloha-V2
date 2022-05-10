@@ -869,18 +869,12 @@ export function updataUserPlaylistTags(id, tags) {
 // imgX : 水平裁剪偏移,方形图片可不传,默认为0 imgY : 垂直裁剪偏移,方形图片可不传,默认为0
 // 接口地址 : /playlist/cover/update
 // 调用例子 : /playlist/cover/update?id=3143833470&imgSize=200
-export function updataUserPlaylistCover(id, imgSize, imgX, imgY) {
+export function updataUserPlaylistCover({ formData, id, imgSize }) {
   return request({
-    url: "/playlist/cover/update",
-    params: {
-      id,
-      imgSize,
-      imgX,
-      imgY,
-    },
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
+    url: `/playlist/cover/update?id=${id}&imgSize=${imgSize}&imgX=0&imgY=0`,
+    method: "post",
+    data: formData,
+    ContentType: "multipart/form-data",
   });
 }
 

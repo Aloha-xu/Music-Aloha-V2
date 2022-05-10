@@ -5,6 +5,9 @@ import "./plugins/element.js";
 import "./assets/css/base.scss";
 import store from "./store";
 
+import VueCropper from "vue-cropper";
+Vue.use(VueCropper);
+
 Vue.config.productionTip = false;
 
 new Vue({

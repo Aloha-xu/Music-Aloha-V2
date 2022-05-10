@@ -143,6 +143,7 @@ export default {
       const { data } = await getSongListType();
       //全部类别
       this.AllSongType = data.sub;
+      this.$store.commit("SET_ALL_TYPE", data.sub);
       let i = 0;
       let j = 0;
       for (i; i <= 4; i++) {

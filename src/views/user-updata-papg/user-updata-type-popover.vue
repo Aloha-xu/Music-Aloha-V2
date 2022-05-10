@@ -1,21 +1,9 @@
 <template>
   <div class="user-updata-type-popover">
     <div>选择合适的标签，最多选择3个</div>
-    <div class="center" v-for="(item1, index1) in typeLists" :key="index1">
-      <div class="left">
-        <div class="text">{{ item1.type }}</div>
-      </div>
-      <div class="right">
-        <div
-          class="item"
-          v-for="(item2, index2) in item1.list"
-          :key="index2"
-          @click="handleSongTypeClick(item2)"
-        >
-          <div class="text">
-            {{ item2 }}
-          </div>
-        </div>
+    <div class="box" v-for="(item, index) in typeLists" :key="index">
+      <div class="text" @click="handleSongTypeClick(item.name)">
+        {{ item.name }}
       </div>
     </div>
   </div>
@@ -26,18 +14,18 @@ import { mapGetters } from "vuex";
 export default {
   name: "UserUpdataTypePopover",
   data() {
-    return {
-      // typeLists: this.$store.state.allTypeInfo,
-    };
+    return {};
   },
   methods: {
-    handleSongTypeClick(type) {
-      let currentindex = this.currentSongType.findIndex((item) => item == type);
+    handleSongTypeClick(name) {
+      let currentindex = this.currentSongType.findIndex((item) => item == name);
+      let innerSongType = this.currentSongType;
       if (currentindex == -1) {
-        this.currentSongType.push(type);
+        innerSongType.push(name);
       } else {
-        this.currentSongType.splice(currentindex, 1);
+        innerSongType.splice(currentindex, 1);
       }
+      this.$emit("handleUpdataSongType", innerSongType);
     },
   },
   props: {
@@ -57,47 +45,9 @@ export default {
   border-radius: 10px;
   overflow: scroll;
   height: 450px;
-  .center {
+  .box {
     margin-top: 10px;
     display: flex;
-    flex-wrap: wrap;
-    .left {
-      width: 10%;
-      display: flex;
-      .text {
-        margin-top: 8px;
-        padding-left: 10px;
-        height: 30px;
-        font-size: 13px;
-        line-height: 30px;
-        color: rgb(202, 202, 202);
-      }
-    }
-    .right {
-      cursor: pointer;
-      width: 90%;
-      display: flex;
-      flex-wrap: wrap;
-      .item {
-        width: 16%;
-        display: inline;
-        padding: 10px 10px 10px 10px;
-        line-height: 25px;
-        text-align: center;
-        .text {
-          display: inline-block;
-          font-size: 13px;
-        }
-        .text:hover {
-          color: red;
-        }
-      }
-      .active {
-        color: rgb(143, 27, 27);
-        background-color: rgb(255, 216, 216);
-        border-radius: 5px;
-      }
-    }
   }
 }
 </style>

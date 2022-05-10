@@ -12,7 +12,7 @@ const commonOptions = {
 
 export function request(config) {
   const instance = axios.create({
-    baseURL: "http://114.132.239.118:3000",
+    baseURL: "http://localhost:3000",
     timeout: 5000,
     //解决了跨域问题 这个设置网站可以带cookie请求
     withCredentials: true, //关键
@@ -38,15 +38,16 @@ export function request(config) {
       //     config.data = qs.stringify(config.data);
       //   }
 
-      //   if (config.ContentType === "multipart/form-data") {
-      //     // 上传文件
-      //     const param = new FormData();
-      //     for (const item in config.data) {
-      //       param.append(item, config.data[item]);
-      //     }
-      //     config.headers["Content-Type"] = "multipart/form-data";
-      //     config.data = param;
-      //   }
+      if (config.ContentType === "multipart/form-data") {
+        // 上传文件
+        // const param = new FormData();
+        // for (const item in config.data) {
+        //   param.append(item, config.data[item]);
+        // }
+        // config.data = param;
+        config.headers["Content-Type"] = "multipart/form-data";
+      }
+      // console.log(config);
       // }
       return config;
     },

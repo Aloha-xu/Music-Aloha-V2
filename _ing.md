@@ -49,4 +49,29 @@ watch 监听 computer？？？
 
 // 登录 可以抽离出来 写在 Vuex 的 user 模块里面
 
-//
+// 心得 一些用户的信息 一些公共的信息 登录信息 登陆之后才能获取到的信息
+一些其他页面需要用的公共信息 可以放到 vuex 里面管理
+
+userinfo 个人的歌单信息（创建歌单、收藏歌单） 播放信息 聊天信息
+
+init event 周期函数？ 初始化了哪一些事件呢？ lifecycle 又是哪一些？
+init event lifecycle 就是初始化一些参数
+
+befor create
+
+响应式 data
+init 注入 data props = 赋值
+
+created
+
+befor mount
+
+mounted
+
+befor update
+
+updated
+
+befor des
+
+desed
