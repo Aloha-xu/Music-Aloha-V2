@@ -1,5 +1,6 @@
 <template>
   <div class="mini-play">
+    <!-- 歌曲信息 -->
     <div class="song-des">
       <div class="pic" @click="handleShowMaxPlayer">
         <img :src="currentSongInfo.pic" v-if="isLoad" />
@@ -16,6 +17,7 @@
         <img src="@/assets/icon/heart.svg" alt="" />
       </div>
     </div>
+    <!-- 中间控制器 -->
     <div class="control-tools">
       <div class="top">
         <div class="way-of-play" @click="handleChangePlayWay">
@@ -71,6 +73,7 @@
         <canvas id="wrap"></canvas>
       </div>
     </div>
+    <!-- 其他工具控制器 -->
     <div class="other-tools">
       <div class="voise">
         <el-dropdown>
@@ -92,6 +95,7 @@
         <img src="@/assets/icon/controltools/showlist.png" alt="" />
       </div>
     </div>
+    <!-- 音频 -->
     <audio
       :src="currentSongInfo.url"
       autoplay
@@ -135,11 +139,11 @@
               :class="item.id === currentSongInfo.id ? 'active' : ''"
             >
               <span
-                v-for="item1 in item.singer"
-                :key="item1.id"
-                @click="handleToSingerPapg(item1)"
-                >{{ item1.name }}/</span
-              >
+                v-for="singerItem in item.singer"
+                :key="singerItem.id"
+                @click="handleToSingerPapg(singerItem)"
+                >{{ singerItem.name }} /
+              </span>
             </div>
             <div class="el-icon-link link"></div>
             <div class="dt">{{ setForMatTime(item.totleTime) }}</div>
@@ -573,7 +577,7 @@ export default {
         height: 35px;
         line-height: 35px;
         text-align: center;
-        margin-left: 14px;
+        margin: 0 5px;
       }
       .way-of-play:hover,
       .lyric:hover,
@@ -582,6 +586,7 @@ export default {
       .next:hover {
         width: 35px;
         height: 35px;
+        text-align: center;
         background-color: $active-grey;
         border-radius: 50%;
       }
@@ -604,6 +609,7 @@ export default {
       .totle-time {
         display: inline-block;
         vertical-align: middle;
+        margin-left: 10px;
       }
     }
     .bg-jump {
@@ -621,21 +627,20 @@ export default {
   .other-tools {
     flex: 1;
     display: flex;
-    align-items: center;
     flex-direction: row-reverse;
     .voise {
-      flex: 1;
+      text-align: center;
+      width: 70px;
       line-height: 75px;
       .el-icon-mic {
         font-size: 25px;
       }
     }
     .song-list {
-      flex: 1;
+      text-align: center;
+      width: 70px;
+      line-height: 60px;
       font-size: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       img {
         width: 25px;
         height: 25px;
@@ -682,7 +687,7 @@ export default {
           line-height: 35px;
           cursor: pointer;
           .song {
-            width: 190px;
+            width: 170px;
             padding-left: 20px;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -696,7 +701,7 @@ export default {
             line-height: 35px;
           }
           .singer {
-            width: 90px;
+            width: 110px;
             color: rgb(107, 107, 107);
             overflow: hidden;
             text-overflow: ellipsis;
@@ -721,21 +726,34 @@ export default {
               border-radius: 50%;
             }
           }
-        }
-        .item:hover {
-          background-color: rgb(221, 221, 221);
-          .dt {
-            color: black;
-          }
-          .singer {
-            color: black;
-          }
-          .song {
-            color: black;
+          &:hover {
+            background-color: rgb(221, 221, 221);
+            .dt {
+              color: black;
+            }
+            .singer {
+              color: black;
+            }
+            .song {
+              color: black;
+            }
           }
         }
       }
     }
+  }
+}
+
+// 重置样式
+::v-deep {
+  .el-slider__button {
+    width: 6px;
+    height: 6px;
+    border: 2px solid #ec4141;
+    background-color: #ec4141;
+  }
+  .el-slider__bar {
+    background-color: #ec4141;
   }
 }
 </style>
