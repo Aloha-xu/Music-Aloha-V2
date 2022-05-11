@@ -1,7 +1,7 @@
 <template>
   <div class="collecter">
     <div class="item" v-for="(item, index) in collecter" :key="index">
-      <el-image :src="item.avatarUrl" alt="" lazy/>
+      <el-image :src="item.avatarUrl" alt="" lazy class="image-style" />
       <div class="nikcname">{{ item.nickname }}</div>
     </div>
   </div>
@@ -27,9 +27,10 @@ export default {
     margin-right: 5%;
     width: 10%;
     margin-top: 20px;
-    img {
-      border-radius: 50%;
+    .image-style {
       width: 100%;
+      // width: 170px;
+      // height: 170px;
     }
     .nikcname {
       overflow: hidden;

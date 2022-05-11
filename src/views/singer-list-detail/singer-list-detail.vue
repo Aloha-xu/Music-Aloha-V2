@@ -108,7 +108,7 @@ export default {
   created() {
     this.init();
   },
-  
+
   watch: {
     $route() {
       this.init();
@@ -120,10 +120,10 @@ export default {
 <style scoped lang='scss'>
 .singer-list-detail {
   width: 100%;
-  padding-top: 35px;
+  padding-top: 25px;
   flex-wrap: wrap;
   overflow: scroll;
-  height: 92vh;
+  height: calc(100vh - 160px);
   min-width: 1700px;
   .head {
     width: 100%;

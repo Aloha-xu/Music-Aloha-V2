@@ -288,9 +288,9 @@ export default {
       this.id = this.$route.params.id;
       const { data } = await getCollector(this.id, 30, 30);
       this.collectorInfo = data.subscribers;
-      if (data.subscribers) {
-        alert("NeedLogin");
-      }
+      // if (data.subscribers) {
+      //   alert("NeedLogin");
+      // }
     },
   },
   computed: {
@@ -319,7 +319,7 @@ export default {
   width: 100%;
   flex-wrap: wrap;
   overflow: scroll;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 60px - 75px);
   min-width: 1700px;
   .play-list-detail-content {
     width: 100%;
@@ -354,5 +354,6 @@ export default {
       padding-left: 20px;
     }
   }
-}</style
+}
+</style
 >>
