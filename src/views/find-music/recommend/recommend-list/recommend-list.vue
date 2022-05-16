@@ -1,9 +1,9 @@
 <template>
   <div class="recommend-list">
-    <intoDetailsButton
+    <IntoDetailsButton
       :intoDetailsButtonName="intoDetailsButtonName"
       @intoDetailsClick="intoDetailsClick"
-    ></intoDetailsButton>
+    ></IntoDetailsButton>
     <div class="play-card">
       <PlayCard
         class="item"
@@ -21,7 +21,7 @@
 
 <script>
 import PlayCard from "@/components/common/PlayCard";
-import IntoDetailsButton from "@/components/common/intoDetailsButton.vue";
+import IntoDetailsButton from "@/components/common/IntoDetailsButton.vue";
 import { getPersonalized } from "@/network/api";
 export default {
   name: "RemcommendList",

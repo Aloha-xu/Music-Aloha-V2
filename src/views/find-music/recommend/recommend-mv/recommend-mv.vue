@@ -1,9 +1,9 @@
 <template>
   <div class="recommend-mv">
-    <intoDetailsButton
+    <IntoDetailsButton
       :intoDetailsButtonName="intoDetailsButtonName"
       @intoDetailsClick="intoDetailsClick"
-    ></intoDetailsButton>
+    ></IntoDetailsButton>
     <div class="content">
       <MvCard
         v-for="item in cardInfo"
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import IntoDetailsButton from "@/components/common/intoDetailsButton.vue";
+import IntoDetailsButton from "@/components/common/IntoDetailsButton.vue";
 import MvCard from "@/components/common/MvCard.vue";
 import { getRecommentMv } from "@/network/api";
 export default {

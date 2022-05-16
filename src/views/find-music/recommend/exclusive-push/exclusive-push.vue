@@ -1,9 +1,9 @@
 <template>
   <div class="exclusive-push">
-    <intoDetailsButton
+    <IntoDetailsButton
       :intoDetailsButtonName="intoDetailsButtonName"
       @intoDetailsClick="intoDetailsClick"
-    ></intoDetailsButton>
+    ></IntoDetailsButton>
     <div class="content">
       <exclusiver-push-card
         class="item"
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import IntoDetailsButton from "@/components/common/intoDetailsButton.vue";
+import IntoDetailsButton from "@/components/common/IntoDetailsButton.vue";
 import { getExclusivePush } from "@/network/api";
 import ExclusiverPushCard from "./exclusive-push-card.vue";
 export default {

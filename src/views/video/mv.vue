@@ -3,11 +3,11 @@
     <div class="content">
       <div class="new-mv">
         <div class="navbar">
-          <intoDetailsButton
+          <IntoDetailsButton
             :intoDetailsButtonName="newMvName"
             class="new-MV-into-button"
             @intoDetailsClick="ClickNewMv"
-          ></intoDetailsButton>
+          ></IntoDetailsButton>
           <div class="area-type">
             <span
               v-for="item in area"
@@ -33,10 +33,10 @@
         </div>
       </div>
       <div class="hot-mv">
-        <intoDetailsButton
+        <IntoDetailsButton
           :intoDetailsButtonName="hotMvName"
           @intoDetailsClick="ClickHotMv()"
-        ></intoDetailsButton>
+        ></IntoDetailsButton>
         <div class="card">
           <MvCard
             v-for="item in hotMvInfo.data"
@@ -51,10 +51,10 @@
         </div>
       </div>
       <div class="wy-mv">
-        <intoDetailsButton
+        <IntoDetailsButton
           :intoDetailsButtonName="wyMvName"
           @intoDetailsClick="ClickWyMv()"
-        ></intoDetailsButton>
+        ></IntoDetailsButton>
         <div class="card">
           <MvCard
             v-for="item in wycpMvInfo.data"
@@ -74,10 +74,10 @@
 
 <script>
 import MvCard from "@/components/common/MvCard.vue";
-import intoDetailsButton from "@/components/common/intoDetailsButton.vue";
+import IntoDetailsButton from "@/components/common/IntoDetailsButton.vue";
 import { getNewMv, getWYCPMv, getAllMv } from "@/network/api";
 export default {
-  components: { intoDetailsButton, MvCard },
+  components: { IntoDetailsButton, MvCard },
   name: "MV",
   data() {
     return {
