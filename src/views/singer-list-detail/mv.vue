@@ -1,6 +1,6 @@
 <template>
   <div class="mv-compontent">
-    <play-card
+    <PlayCard
       v-for="(item, index) in ArtistMVInfo"
       :key="index"
       :id="item.id"
@@ -10,28 +10,28 @@
       class="item"
     >
       <span slot="totlepalytime">{{ Duration(item.duration) }}</span>
-    </play-card>
+    </PlayCard>
   </div>
 </template>
 
 <script>
-import PlayCard from "@/components/common/play-card.vue";
-import {forMatTime} from '@/utils/format'
+import PlayCard from "@/components/common/PlayCard.vue";
+import { forMatTime } from "@/utils/format";
 export default {
   components: { PlayCard },
   name: "MV",
   props: {
     ArtistMVInfo: Array,
   },
-  methods:{
-      Duration(time){
-          return forMatTime(time/1000)
-      }
-  }
+  methods: {
+    Duration(time) {
+      return forMatTime(time / 1000);
+    },
+  },
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .mv-compontent {
   width: 98%;
   display: flex;

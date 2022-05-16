@@ -1,9 +1,9 @@
 <template>
   <div class="recommend-radio">
-    <into-details-button
+    <intoDetailsButton
       :intoDetailsButtonName="intoDetailsButtonName"
       @intoDetailsClick="intoDetailsClick"
-    ></into-details-button>
+    ></intoDetailsButton>
     <div class="card">
       <div class="card-item" v-for="(item, index) in cardInfo" :key="index">
         <img :src="item.picUrl" alt="" />
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import IntoDetailsButton from "@/components/common/into-details-button.vue";
+import IntoDetailsButton from "@/components/common/intoDetailsButton.vue";
 import { getRecommendRadioStation } from "@/network/api";
 export default {
   name: "Radio",

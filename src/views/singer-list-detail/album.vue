@@ -1,7 +1,7 @@
 <template>
   <div class="album-compontent">
     <div class="centent">
-      <play-card
+      <PlayCard
         v-for="(item, index) in ArtistAlbumInfo"
         :key="index"
         :id="item.id"
@@ -10,13 +10,13 @@
         class="item"
       >
         <span slot="yymmdd">{{ getYMD(item.publishTime) }}</span>
-      </play-card>
+      </PlayCard>
     </div>
   </div>
 </template>
 
 <script>
-import PlayCard from "@/components/common/play-card.vue";
+import PlayCard from "@/components/common/PlayCard.vue";
 import { getYMD } from "@/utils/uctil";
 export default {
   components: { PlayCard },
@@ -32,7 +32,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .album-compontent {
   width: 100%;
 }

@@ -1,11 +1,11 @@
 <template>
   <div class="recommend-mv">
-    <into-details-button
+    <intoDetailsButton
       :intoDetailsButtonName="intoDetailsButtonName"
       @intoDetailsClick="intoDetailsClick"
-    ></into-details-button>
+    ></intoDetailsButton>
     <div class="content">
-      <mv-card
+      <MvCard
         v-for="item in cardInfo"
         :key="item.id"
         :id="String(item.id)"
@@ -15,14 +15,14 @@
         :singer="item.artists.map(({ name }) => name)"
         :playType="playType"
         class="item"
-      ></mv-card>
+      ></MvCard>
     </div>
   </div>
 </template>
 
 <script>
-import IntoDetailsButton from "@/components/common/into-details-button.vue";
-import MvCard from "@/components/common/mv-card.vue";
+import IntoDetailsButton from "@/components/common/intoDetailsButton.vue";
+import MvCard from "@/components/common/MvCard.vue";
 import { getRecommentMv } from "@/network/api";
 export default {
   name: "RecommendMv",
@@ -30,7 +30,7 @@ export default {
     return {
       intoDetailsButtonName: "推荐MV",
       cardInfo: [],
-      playType:'mv'
+      playType: "mv",
     };
   },
   components: {
@@ -50,7 +50,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .recommend-mv {
   width: 100%;
   margin-top: 20px;

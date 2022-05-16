@@ -1,9 +1,9 @@
 <template>
   <div class="recommend-newmusic">
-    <into-details-button
+    <intoDetailsButton
       :intoDetailsButtonName="intoDetailsButtonName"
       @intoDetailsClick="intoDetailsClick"
-    ></into-details-button>
+    ></intoDetailsButton>
     <div class="content">
       <NewMusicCard
         v-for="item in NewMusicCardInfo"
@@ -21,7 +21,7 @@
 <script>
 import NewMusicCard from "./new-music-card";
 import { getPersonalizedNewSong } from "@/network/api";
-import IntoDetailsButton from "@/components/common/into-details-button.vue";
+import IntoDetailsButton from "@/components/common/intoDetailsButton.vue";
 export default {
   name: "NewMusic",
   data() {
@@ -50,7 +50,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .recommend-newmusic {
   width: 100%;
   padding-top: 20px;

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import MvCard from "@/components/common/mv-card.vue"; //?w
+import MvCard from "@/components/common/MvCard.vue"; //?w
 export default {
   components: { MvCard },
   name: "SearchDetailVideo",
@@ -32,34 +32,34 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
-.search-detail-video{
+<style scoped lang="scss">
+.search-detail-video {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  .content {
     display: flex;
-    width: 100%;
-    justify-content: center;
-    .content{
-        display: flex;
-        flex-wrap: wrap;
-        width: 1100px;
-        @media (min-width:1351px) {
-            .card{
-                margin-right: 20px;
-                width: 22%;
-            }
-            .card:nth-child(4n+1){
-                margin-left: 10px;
-            }
-        }
-    
-        @media (max-width: 1350px) {
-            .card{
-                margin-right: 20px;
-                width: 28.5%;
-            }
-            .card:nth-child(3n+1){
-                margin-left: 40px;
-            }
-        }
+    flex-wrap: wrap;
+    width: 1100px;
+    @media (min-width: 1351px) {
+      .card {
+        margin-right: 20px;
+        width: 22%;
+      }
+      .card:nth-child(4n + 1) {
+        margin-left: 10px;
+      }
     }
+
+    @media (max-width: 1350px) {
+      .card {
+        margin-right: 20px;
+        width: 28.5%;
+      }
+      .card:nth-child(3n + 1) {
+        margin-left: 40px;
+      }
+    }
+  }
 }
 </style>

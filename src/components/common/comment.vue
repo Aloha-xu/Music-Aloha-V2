@@ -16,7 +16,7 @@
       >
     </div>
     <div class="comment-item">
-      <comment-card
+      <CommentCard
         v-for="(item, index) in commentInfo"
         :key="index + item.content"
         :likedCount="item.likedCount"
@@ -26,12 +26,12 @@
         :time="item.time"
         :uid="item.commentId"
         @handleReplyComment="handleReplyComment"
-      ></comment-card>
+      ></CommentCard>
     </div>
   </div>
 </template>
 <script>
-import CommentCard from "./comment-card.vue";
+import CommentCard from "./CommentCard.vue";
 import { SendOrDelComment } from "../../network/api";
 export default {
   components: { CommentCard },

@@ -1,12 +1,12 @@
 <template>
   <div class="play-list-detail">
-    <play-list-detail-head
+    <PlayListDetailHead
       :values="headInfo"
       :isShowPlayListComponent="isShowPlayListComponent"
       @handleCollectSonglist="handleCollectSonglist"
       @handlePlayAllSongs="handlePlayAllSongs"
     >
-    </play-list-detail-head>
+    </PlayListDetailHead>
     <div class="play-list-detail-content">
       <div class="top">
         <div class="navbar">
@@ -29,12 +29,12 @@
           </el-input>
         </div>
       </div>
-      <song-list-component
+      <SongListComponent
         v-if="currentIndex === 0 && !loading"
         :songsInfo="playList"
         @handleSongClick="handleSongClick"
         @handleDownload="handleDownload"
-      ></song-list-component>
+      ></SongListComponent>
       <collecter
         v-else-if="currentIndex === 2"
         :collecter="collectorInfo"
@@ -55,8 +55,8 @@
 <script>
 import Collecter from "@/components/common/collecter";
 import Comment from "@/components/common/comment.vue";
-import PlayListDetailHead from "@/components/common/play-list-detail-head.vue";
-import SongListComponent from "@/components/common/song-list-component.vue";
+import PlayListDetailHead from "@/components/common/PlayListDetailHead.vue";
+import SongListComponent from "@/components/common/SongListComponent.vue";
 import Loading from "@/components/common/loading.vue";
 import { mapGetters } from "vuex";
 import {
@@ -354,6 +354,5 @@ export default {
       padding-left: 20px;
     }
   }
-}
-</style
+}</style
 >>

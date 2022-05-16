@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="all-card" v-show="!loading">
-        <mv-card
+        <MvCard
           v-for="(item, index) in videoInfo"
           :key="index"
           :id="item.data.vid"
@@ -28,7 +28,7 @@
           :singer="item.data.creator.nickname.split('')"
           :text="item.data.title"
           :playType="playType"
-        ></mv-card>
+        ></MvCard>
       </div>
       <Loading v-show="loading" style="height:50vh"></Loading>
       <video-type-popover
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import MvCard from "@/components/common/mv-card.vue";
+import MvCard from "@/components/common/MvCard.vue";
 import videoTypePopover from "./video-type-popover.vue";
 import { getVideoCategoryList, getVideoType } from "@/network/api";
 import Loading from "@/components/common/loading.vue";

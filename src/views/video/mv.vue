@@ -3,11 +3,11 @@
     <div class="content">
       <div class="new-mv">
         <div class="navbar">
-          <into-details-button
+          <intoDetailsButton
             :intoDetailsButtonName="newMvName"
             class="new-MV-into-button"
             @intoDetailsClick="ClickNewMv"
-          ></into-details-button>
+          ></intoDetailsButton>
           <div class="area-type">
             <span
               v-for="item in area"
@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="card">
-          <mv-card
+          <MvCard
             v-for="item in newMvInfo.data"
             :key="item.id"
             :id="item.id"
@@ -29,16 +29,16 @@
             :singer="item.artists.map(({ name }) => name)"
             :text="item.name"
             class="item"
-          ></mv-card>
+          ></MvCard>
         </div>
       </div>
       <div class="hot-mv">
-        <into-details-button
+        <intoDetailsButton
           :intoDetailsButtonName="hotMvName"
           @intoDetailsClick="ClickHotMv()"
-        ></into-details-button>
+        ></intoDetailsButton>
         <div class="card">
-          <mv-card
+          <MvCard
             v-for="item in hotMvInfo.data"
             :key="item.id"
             :id="item.id"
@@ -47,16 +47,16 @@
             :singer="item.artists.map(({ name }) => name)"
             :text="item.name"
             class="item"
-          ></mv-card>
+          ></MvCard>
         </div>
       </div>
       <div class="wy-mv">
-        <into-details-button
+        <intoDetailsButton
           :intoDetailsButtonName="wyMvName"
           @intoDetailsClick="ClickWyMv()"
-        ></into-details-button>
+        ></intoDetailsButton>
         <div class="card">
-          <mv-card
+          <MvCard
             v-for="item in wycpMvInfo.data"
             :key="item.id"
             :id="item.id"
@@ -65,7 +65,7 @@
             :singer="item.artists.map(({ name }) => name)"
             :text="item.name"
             class="item"
-          ></mv-card>
+          ></MvCard>
         </div>
       </div>
     </div>
@@ -73,8 +73,8 @@
 </template>
 
 <script>
-import MvCard from "@/components/common/mv-card.vue";
-import intoDetailsButton from "@/components/common/into-details-button.vue";
+import MvCard from "@/components/common/MvCard.vue";
+import intoDetailsButton from "@/components/common/intoDetailsButton.vue";
 import { getNewMv, getWYCPMv, getAllMv } from "@/network/api";
 export default {
   components: { intoDetailsButton, MvCard },
@@ -124,7 +124,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 @import "@/assets/css/base.scss";
 .mv {
   display: flex;

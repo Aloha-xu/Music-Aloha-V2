@@ -45,7 +45,7 @@
       </div>
       <!-- 选择的歌单类型的详细歌单卡片 -->
       <div class="allcard" v-show="!loading">
-        <play-card
+        <PlayCard
           v-for="item in SongListInfo"
           :key="item.id"
           :id="item.id"
@@ -54,7 +54,7 @@
           :text="item.name"
           class="item song-list-item"
         >
-        </play-card>
+        </PlayCard>
       </div>
       <Loading v-show="loading" style="height:50vh"></Loading>
     </div>
@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import PlayCard from "@/components/common/play-card.vue";
+import PlayCard from "@/components/common/PlayCard.vue";
 import AllTypePopover from "../all-type-popover.vue";
 import Loading from "@/components/common/loading.vue";
 import { mapGetters } from "vuex";

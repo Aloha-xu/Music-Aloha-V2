@@ -1,9 +1,9 @@
 <template>
   <div class="exclusive-push">
-    <into-details-button
+    <intoDetailsButton
       :intoDetailsButtonName="intoDetailsButtonName"
       @intoDetailsClick="intoDetailsClick"
-    ></into-details-button>
+    ></intoDetailsButton>
     <div class="content">
       <exclusiver-push-card
         class="item"
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import IntoDetailsButton from "@/components/common/into-details-button.vue";
+import IntoDetailsButton from "@/components/common/intoDetailsButton.vue";
 import { getExclusivePush } from "@/network/api";
 import ExclusiverPushCard from "./exclusive-push-card.vue";
 export default {
@@ -38,28 +38,25 @@ export default {
       this.IntoDetailsButtonName = data.name;
       this.ExclusivePushInfo = data.result;
     },
-    intoDetailsClick() {
-    },
+    intoDetailsClick() {},
   },
   async created() {
     this.getExclusivePush();
   },
-  
 };
 </script>
 
 <style scoped lang="scss">
-.exclusive-push{
-    .content{
-        display: flex;
-        padding-top: 5px;
-        .item:nth-child(1){
-            margin-right: 15px;
-        }
-        .item:nth-child(2){
-            margin-right: 15px;
-        }
+.exclusive-push {
+  .content {
+    display: flex;
+    padding-top: 5px;
+    .item:nth-child(1) {
+      margin-right: 15px;
     }
+    .item:nth-child(2) {
+      margin-right: 15px;
+    }
+  }
 }
-
 </style>

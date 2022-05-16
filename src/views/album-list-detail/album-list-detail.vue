@@ -20,11 +20,11 @@
           </div>
         </div>
       </div>
-      <song-list-component
+      <SongListComponent
         v-if="currentIndex === 0"
         :songsInfo="playList"
         @handleSongClick="handleSongClick"
-      ></song-list-component>
+      ></SongListComponent>
       <div v-else-if="currentIndex === 2" class="albumdetail"></div>
       <comment
         v-else
@@ -41,8 +41,8 @@
 
 <script>
 import Comment from "@/components/common/comment.vue";
-import PlayListDetailHead from "@/components/common/play-list-detail-head.vue";
-import SongListComponent from "@/components/common/song-list-component.vue";
+import PlayListDetailHead from "@/components/common/PlayListDetailHead.vue";
+import SongListComponent from "@/components/common/SongListComponent.vue";
 import {
   getSongUrl,
   getAlbumListDetail,

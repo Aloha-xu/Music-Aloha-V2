@@ -2,7 +2,7 @@
   <div class="rank">
     <div class="title">全球榜</div>
     <div class="card">
-      <play-card
+      <PlayCard
         v-for="item in RankInfo"
         :key="item.id"
         :pic="item.coverImgUrl"
@@ -11,13 +11,13 @@
         :id="item.id"
         class="item"
       >
-      </play-card>
+      </PlayCard>
     </div>
   </div>
 </template>
 
 <script>
-import PlayCard from "@/components/common/play-card";
+import PlayCard from "@/components/common/PlayCard";
 import { getTopList } from "@/network/api";
 export default {
   name: "Rank",
@@ -67,7 +67,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .rank {
   width: 1100px;
   .title {

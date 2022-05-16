@@ -1,20 +1,20 @@
 <template>
   <div class="search-detail-user">
-    <search-detail-card
+    <SearchDetailCard
       v-for="(item, index) in userInfo.userprofiles"
       :key="index"
       :name="item.nickname"
       :scover="item.avatarUrl"
       :other="item.signature"
       @handleToPapg="handleToUserPapg(item.id)"
-    ></search-detail-card>
+    ></SearchDetailCard>
   </div>
 </template>
 
 <script>
-import searchDetailCard from "@/components/common/search-detail-card.vue";
+import SearchDetailCard from "@/components/common/SearchDetailCard.vue";
 export default {
-  components: { searchDetailCard },
+  components: { SearchDetailCard },
   name: "SearchDetailUser",
   props: {
     userInfo: Object,
@@ -25,7 +25,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .search-detail-user {
   display: flex;
   flex-direction: column;
@@ -38,13 +38,13 @@ export default {
         margin-left: 10px;
       }
     }
-  &:nth-child(2n) {
-    background-color: rgb(245, 245, 245);
-    border-radius: 5px;
-  }
-  &:hover {
-    background-color: rgb(231, 231, 231);
-  }
+    &:nth-child(2n) {
+      background-color: rgb(245, 245, 245);
+      border-radius: 5px;
+    }
+    &:hover {
+      background-color: rgb(231, 231, 231);
+    }
   }
 }
 </style>

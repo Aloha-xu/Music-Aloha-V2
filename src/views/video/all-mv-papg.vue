@@ -43,7 +43,7 @@
       </div>
 
       <div class="card" v-show="!loading">
-        <mv-card
+        <MvCard
           v-for="item in mvInfo"
           :key="item.id"
           :id="item.id"
@@ -52,7 +52,7 @@
           :singer="item.artists.map(({ name }) => name)"
           :text="item.name"
           class="item"
-        ></mv-card>
+        ></MvCard>
       </div>
       <Loading v-show="loading" style="height:50vh"></Loading>
     </div>
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import MvCard from "@/components/common/mv-card.vue";
+import MvCard from "@/components/common/MvCard.vue";
 import { getAllMv } from "@/network/api";
 import Loading from "@/components/common/loading.vue";
 import { mapGetters } from "vuex";

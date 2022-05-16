@@ -1,12 +1,12 @@
 <template>
   <div class="search-detail-solo">
     <div class="title-card">最佳匹配</div>
-    <search-detail-card
+    <SearchDetailCard
       v-if="searchResult"
       :name="searchResult[0].name"
       :scover="searchResult[0].img1v1Url"
       class="card"
-    ></search-detail-card>
+    ></SearchDetailCard>
     <div class="title-name">
       <span>音乐标题</span>
       <span>歌手</span>
@@ -49,10 +49,10 @@
 
 <script>
 import { forMatTime } from "@/utils/format";
-import searchDetailCard from "@/components/common/search-detail-card.vue";
+import SearchDetailCard from "@/components/common/SearchDetailCard.vue";
 import { mapGetters } from "vuex";
 export default {
-  components: { searchDetailCard },
+  components: { SearchDetailCard },
   name: "SearchDetailSolo",
   methods: {
     /* 点击指定红星添加收藏未做 */

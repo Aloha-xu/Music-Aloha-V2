@@ -67,7 +67,7 @@
       </div>
 
       <div class="all-cards">
-        <play-card
+        <PlayCard
           v-for="(item, index) in playListInfo"
           :key="index"
           :id="item.id"
@@ -75,14 +75,14 @@
           :playcount="item.playCount"
           :trackCount="item.trackCount"
           :text="item.name"
-        ></play-card>
+        ></PlayCard>
       </div>
     </div>
   </div>
 </template>
- 
+
 <script>
-import playCard from "../../components/common/play-card.vue";
+import playCard from "../../components/common/PlayCard.vue";
 import { getUserDetail, getUserPlaylist, setFollow } from "../../network/api";
 export default {
   components: { playCard },
@@ -180,7 +180,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .user-detail {
   overflow: scroll;
   height: 85vh;
