@@ -17,7 +17,6 @@
       v-on:resizing="resize"
       v-on:dragging="resize"
       contentClass="lyric-box"
-      v-if="isShowLyric"
       :sticks="sticks"
       @activated="sticks = ['tl', 'tm', 'tr', 'mr', 'br', 'bm', 'bl', 'ml']"
       @deactivated="sticks = []"
@@ -89,7 +88,7 @@ export default {
     VueDragResize,
   },
   computed: {
-    ...mapGetters(["isShowLyric", "currentTime", "currentSongInfo"]),
+    ...mapGetters(["currentTime", "currentSongInfo"]),
   },
   data() {
     return {

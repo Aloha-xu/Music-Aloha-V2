@@ -16,7 +16,7 @@
     <MaxPlay v-if="isShowMaxPlayer"></MaxPlay>
     <MiniPlay class="mini-play"></MiniPlay>
     <!-- 歌词弹出框 -->
-    <LyricComponent />
+    <LyricComponent v-if="isShowLyric" />
   </div>
 </template>
 <script>
@@ -36,7 +36,7 @@ export default {
     LyricComponent,
   },
   computed: {
-    ...mapGetters(["isShowMaxPlayer"]),
+    ...mapGetters(["isShowMaxPlayer", "isShowLyric"]),
   },
 };
 </script>
