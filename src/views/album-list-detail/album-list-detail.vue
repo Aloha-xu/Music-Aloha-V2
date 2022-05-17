@@ -152,7 +152,10 @@ export default {
           this.$store.commit("changeCurrentPlay", this.playList[v[1]]);
 
           //点击任意一首歌后把歌单歌曲添加到播放列表中
-          this.$store.commit("setAllSongsToPlayList", this.playList);
+          this.$store.commit(
+            "setAllSongsToPlayList",
+            JSON.parse(JSON.stringify(this.playList))
+          );
 
           //isload图片
           this.$store.commit("setIsLoad", "true");

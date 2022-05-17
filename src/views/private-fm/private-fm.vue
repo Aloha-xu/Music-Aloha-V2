@@ -100,7 +100,6 @@ export default {
     return {
       textarea: "",
       commentInfo: [],
-      currentSongInfo: null,
       playing: true,
       playList: [],
       tag: true,
@@ -137,11 +136,13 @@ export default {
         currentSongInfo.lyric = null;
         this.playList.push(currentSongInfo);
       }
-      this.currentSongInfo = this.playList[0];
       this.getCommentInfo();
       this.getLyricInfo();
-      this.$store.commit("setAllSongsToPlayList", this.playList);
-      this.$store.commit("changeCurrentPlay", this.currentSongInfo);
+      this.$store.commit(
+        "setAllSongsToPlayList",
+        JSON.parse(JSON.stringify(this.playList))
+      );
+      this.$store.commit("changeCurrentPlay", this.playList[0]);
       this.$store.commit("setIsLoad", true);
     },
 
@@ -161,7 +162,9 @@ export default {
 
     async getLyricInfo() {
       let lyric = await getSongLyric(this.currentSongInfo.id);
-      this.currentSongInfo.lyric = parseLyric(lyric.data.lrc.lyric);
+      let innerCurrentSongInfo = this.currentSongInfo;
+      innerCurrentSongInfo.lyric = parseLyric(lyric.data.lrc.lyric);
+      this.$store.commit("changeCurrentPlay", innerCurrentSongInfo);
     },
 
     //点击下一首歌曲按钮
@@ -170,7 +173,7 @@ export default {
       //是 --》请求数据     不是 --》切下一首
       if (this.currentSongIndex === this.playList.length - 1) {
         //清除原有的数据
-        this.currentSongInfo = null;
+        this.$store.commit("resetCurrentSongInfo");
         this.playList = [];
         this.$store.commit("setCurrentIndex", 0);
         this.playing = true;
@@ -179,7 +182,6 @@ export default {
       } else {
         this.playing = true;
         this.$store.commit("setCurrentIndex", this.currentSongIndex + 1);
-        this.currentSongInfo = this.playList[this.currentSongIndex];
         this.$store.commit("changeCurrentPlay", this.currentSongInfo);
         this.getCommentInfo();
         this.getLyricInfo();
@@ -200,22 +202,6 @@ export default {
     },
   },
   computed: {
-    // goblePlayingState() {
-    //   return this.$store.state.playing;
-    // },
-    // currentSongIndex() {
-    //   return this.$store.state.currentIndex;
-    // },
-    // isTagMinPlayerToNext() {
-    //   return this.$store.state.isTagMinPlayerToNext;
-    // },
-    //watch监听computed
-    //如果这里写currentPlayTime代码就会报错 重复key
-    //我觉得就是watch监听了maxplay的currentPlayTime--有一个key
-    //如果这里也用watch监听currentPlayTime他的话就重复了
-    // currentTime() {
-    //   return this.$store.state.currentTime;
-    // },
     ...mapGetters(["isTagMinPlayerToNext", "currentTime", "currentSongInfo"]),
     ...mapGetters({
       goblePlayingState: "playing",
@@ -224,18 +210,12 @@ export default {
   },
   async created() {
     this.$store.commit("SET_IS_SHOW_FM_PLAYER", true);
-    // this.$store.state.isShowFmPlayer = true;
     this.getSongInfo();
   },
   activated() {
     this.$store.commit("SET_IS_SHOW_FM_PLAYER", true);
-    // this.$store.state.isShowFmPlayer = true;
     this.getSongInfo();
   },
-  // beforeDestroy() {
-  //   this.$store.state.isShowFmPlayer = false;
-  // },
-  //通过监听minplayer的下一首触发fm组件里面的next函数
   watch: {
     isTagMinPlayerToNext() {
       this.nextSong();

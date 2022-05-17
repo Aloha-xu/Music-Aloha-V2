@@ -106,7 +106,7 @@
       ref="audio"
     ></audio>
 
-    <!-- min播放器的歌单信息 -->
+    <!-- min播放器的歌单列表 -->
     <el-drawer
       :visible.sync="drawer"
       :with-header="false"
@@ -391,9 +391,9 @@ export default {
       //歌单列表的数据全部重置
       this.clearSongList();
       //隐藏
-      this.setIsLoad(false);
+      // this.setIsLoad(false);
       //清空当前播放的歌曲数据
-      this.resetCurrentSongInfo();
+      // this.resetCurrentSongInfo();
       //停止音乐
       this.pause();
       this.$refs.audio.pause();

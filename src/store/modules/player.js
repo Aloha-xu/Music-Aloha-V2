@@ -212,20 +212,41 @@ const player = {
     deleteSong(state, id) {
       //找到需要删除的歌曲的下标
       let deleteIndex = state.songList.findIndex((item) => item.id == id);
+      if (deleteIndex === 0) {
+        // state.playing = false;
+        // state.isLoad = false;
+        // state.currentSongInfo = {
+        //   url: "",
+        //   id: null,
+        //   name: "",
+        //   album: "",
+        //   singer: "",
+        //   pic: "",
+        //   totleTime: 0,
+        //   lyric: "",
+        // };
+      }
       state.songList.splice(deleteIndex, 1);
-      //判断删除的下标与现在播放的下标是否一样
+      //删除的index等于当前播放的index
       if (state.currentIndex === deleteIndex) {
-        //播放下一首
-        if (deleteIndex + 1 == state.songList.length) {
-          //是最后一首
-          state.currentSongInfo = state.songList[deleteIndex--];
-          //⭐⭐为什么删除最后一首歌currentSongInfo会undefind？？？
-          state.currentIndex = deleteIndex - 1;
-        } else {
-          //不是最后一首
-          state.currentSongInfo = state.songList[deleteIndex];
-          state.currentIndex = deleteIndex;
-        }
+        // //播放下一首
+        // if (deleteIndex + 1 == state.songList.length) {
+        //   //是最后一首
+        //   state.currentSongInfo = state.songList[deleteIndex--];
+        //   //⭐⭐为什么删除最后一首歌currentSongInfo会undefind？？？
+        //   state.currentIndex = deleteIndex - 1;
+        // } else {
+        //   //不是最后一首
+        //   state.currentSongInfo = state.songList[deleteIndex];
+        //   state.currentIndex = deleteIndex;
+        // }
+        state.currentSongInfo = state.songList[deleteIndex];
+        state.currentIndex = deleteIndex;
+      }
+
+      //删除的index小于当前播放的index
+      if (deleteIndex < state.currentIndex) {
+        state.currentIndex--;
       }
     },
 

@@ -204,7 +204,11 @@ export default {
           this.$store.commit("changeCurrentPlay", this.playList[v[1]]);
 
           //点击任意一首歌后把歌单歌曲添加到播放列表中
-          this.$store.commit("setAllSongsToPlayList", this.playList);
+          //优化 本来想着用immutable-js替换JSON深拷贝的 但是immutable-js是不可变的
+          this.$store.commit(
+            "setAllSongsToPlayList",
+            JSON.parse(JSON.stringify(this.playList))
+          );
 
           //isload图片
           this.$store.commit("setIsLoad", "true");
@@ -262,7 +266,10 @@ export default {
 
     //处理点击head组件的播放全部按钮
     handlePlayAllSongs() {
-      this.$store.commit("setAllSongsToPlayList", this.playList);
+      this.$store.commit(
+        "setAllSongsToPlayList",
+        JSON.parse(JSON.stringify(this.playList))
+      );
       this.$store.commit("changeCurrentPlay", this.playList[0]);
       this.$store.commit("setIsLoad", "true");
     },

@@ -90,7 +90,10 @@ export default {
       return index < 10 ? "0" + index : index;
     },
     handlePlayAllSongs() {
-      this.$store.commit("setAllSongsToPlayList", this.songsInfo);
+      this.$store.commit(
+        "setAllSongsToPlayList",
+        JSON.parse(JSON.stringify(this.songsInfo))
+      );
       this.$store.commit("changeCurrentPlay", this.songsInfo[0]);
       this.$store.commit("setIsLoad", "true");
     },
