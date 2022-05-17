@@ -258,7 +258,7 @@ export default {
     handleShowCodeFunc() {
       CountDown.openTimeCountBySeconds({
         Ele: this.$refs.CountDown,
-        CountDownSeconds: 2,
+        CountDownSeconds: 60,
         Divider: " ",
         that: this,
         EndFunc: function(that) {

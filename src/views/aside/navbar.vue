@@ -48,7 +48,8 @@
           <img src="@/assets/icon/heart.svg" alt="" />
           <span class="name">我喜欢的音乐</span>
         </div>
-        <div
+
+        <!-- <div
           class="playlist-item"
           v-for="(item, index) in mySonglist"
           :key="index"
@@ -57,7 +58,22 @@
         >
           <i class="el-icon-service"></i>
           <span class="name">{{ item.name }}</span>
-        </div>
+        </div> -->
+
+        <draggable v-model="mySonglist" animation="300">
+          <transition-group>
+            <div
+              class="playlist-item"
+              v-for="(item, index) in mySonglist"
+              :key="index"
+              v-show="isShowPlaylist"
+              @click="handleToPlaylistPapg(item.id, 'myplaylist')"
+            >
+              <i class="el-icon-service"></i>
+              <span class="name">{{ item.name }}</span>
+            </div>
+          </transition-group>
+        </draggable>
       </div>
       <div class="collectd-playlist">
         <div class="titile" @click="handleShowCollectPlaylist">
@@ -65,24 +81,30 @@
           <i class="el-icon-caret-right" v-show="!isShowCollectPlaylist"></i>
           <i class="el-icon-caret-bottom" v-show="isShowCollectPlaylist"></i>
         </div>
-        <div
-          class="playlist-item"
-          v-for="(item, index) in collectSonglist"
-          :key="index"
-          v-show="isShowCollectPlaylist"
-          @click="handleToPlaylistPapg(item.id, 'collectplaylist')"
-        >
-          <i class="el-icon-service"></i>
-          <span class="name">{{ item.name }}</span>
-        </div>
+
+        <draggable v-model="collectSonglist" animation="300" @end="setValue">
+          <transition-group>
+            <div
+              class="playlist-item"
+              v-for="(item, index) in collectSonglist"
+              :key="index"
+              v-show="isShowCollectPlaylist"
+              @click="handleToPlaylistPapg(item.id, 'collectplaylist')"
+            >
+              <i class="el-icon-service"></i>
+              <span class="name">{{ item.name }}</span>
+            </div>
+          </transition-group>
+        </draggable>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import { /* getsubcount,  */ getUserPlaylist } from "@/network/api";
+// import { /* getsubcount,  getUserPlaylist, */updateUserPlaylistOrder } from "@/network/api";
 import { mapGetters } from "vuex";
+import draggable from "vuedraggable";
 export default {
   name: "NavBar",
   data() {
@@ -92,7 +114,13 @@ export default {
       isShowCollectPlaylist: false,
     };
   },
+  components: {
+    draggable,
+  },
   methods: {
+    setValue() {
+      console.log(11);
+    },
     ClickToFindMusicPapg() {
       this.$router.push("/findmusic");
     },
@@ -118,13 +146,11 @@ export default {
       //判断vuex里面有没用户歌单列表信息
       if (!this.heartSonglist) {
         this.$store.dispatch("getUserPlayList");
-        // this.getUserPlaylist();
       }
     },
     async handleShowCollectPlaylist() {
       this.isShowCollectPlaylist = !this.isShowCollectPlaylist;
       if (!this.heartSonglist) {
-        // this.getUserPlaylist();
         this.$store.dispatch("getUserPlayList");
       }
     },
@@ -140,25 +166,31 @@ export default {
     handleToPlaylistPapg(id, type) {
       if (type == "myplaylist") {
         this.$store.commit("SET_IS_SHOW_UPDATA_COMPONENT", true);
-        // this.$store.state.isShowUpdataComponent = true;
       } else {
         this.$store.commit("SET_IS_SHOW_UPDATA_COMPONENT", false);
-        // [(this.$store.state.isShowUpdataComponent = false)];
       }
       this.$router.push("/playlistdetail/" + id);
     },
   },
   computed: {
-    ...mapGetters(["mySonglist", "heartSonglist", "collectSonglist"]),
-    // mySonglist() {
-    //   return this.$store.state.mySonglist;
-    // },
-    // heartSonglist() {
-    //   return this.$store.state.heartSonglist;
-    // },
-    // collectSonglist() {
-    //   return this.$store.state.collectSonglist;
-    // },
+    ...mapGetters(["heartSonglist"]),
+    //解决拖动组件无法直接设置vuex的值
+    mySonglist: {
+      get() {
+        return this.$store.state.player.mySonglist;
+      },
+      set(value) {
+        this.$store.commit("SET_MY_SONGLIST", value);
+      },
+    },
+    collectSonglist: {
+      get() {
+        return this.$store.state.player.collectSonglist;
+      },
+      set(value) {
+        this.$store.commit("SET_COLLECT_SONGLIST", value);
+      },
+    },
   },
   created() {
     this.$store.dispatch("getUserPlayList");

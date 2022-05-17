@@ -884,7 +884,7 @@ export function updataUserPlaylistCover({ formData, id, imgSize }) {
 // ids: 歌单id列表
 // 接口地址 : /playlist/order/update
 // 调用例子 : /playlist/order/update?ids=[111,222]
-export function updataUserPlaylistOrder(ids) {
+export function updateUserPlaylistOrder(ids) {
   return request({
     url: "/playlist/order/update",
     params: {
@@ -900,7 +900,7 @@ export function updataUserPlaylistOrder(ids) {
 // ids: 歌曲id列表
 // 接口地址 : /song/order/update
 // 调用例子 : /song/order/update?pid=2039116066&ids=[5268328,1219871]
-export function updataUserSongOrder(pid, ids) {
+export function updateUserSongOrder(pid, ids) {
   return request({
     url: "/song/order/update",
     params: {

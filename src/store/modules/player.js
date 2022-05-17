@@ -362,6 +362,14 @@ const player = {
     SET_ALL_TYPE(state, info) {
       state.allTypeInfo = info;
     },
+    //设置collectSonglist
+    SET_COLLECT_SONGLIST(state, info) {
+      state.collectSonglist = info;
+    },
+    //设置mySonglist
+    SET_MY_SONGLIST(state, info) {
+      state.mySonglist = info;
+    },
   },
 
   actions: {
