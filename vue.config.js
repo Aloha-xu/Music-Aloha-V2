@@ -1,3 +1,5 @@
+const path = require("path");
+
 //引入该插件
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 //匹配此 {RegExp} 的资源
@@ -5,8 +7,18 @@ const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
 
 module.exports = {
   configureWebpack: (config) => {
-    const plugins = [];
+    //使用@省略../../
+    Object.assign(config, {
+      resolve: {
+        extensions: [".js", ".vue", ".json", ".scss"],
+        alias: {
+          "@": path.resolve(__dirname, "./src"),
+        },
+      },
+    });
+
     // start 生成 gzip 压缩文件
+    const plugins = [];
     plugins.push(
       new CompressionWebpackPlugin({
         filename: "[path].gz[query]", //目标资源名称
@@ -20,11 +32,12 @@ module.exports = {
     // End 生成 gzip 压缩文件
     config.plugins = [...config.plugins, ...plugins];
   },
+
   productionSourceMap: false,
   //   devServer: {
   //     proxy: {
   //       "/api": {
-  //         target: "http://114.132.239.118:3000",
+  //         target: "",
   //         changeOrigin: true,
   //         secure: false, // ws: true,
   //         pathRewrite: {
