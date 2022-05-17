@@ -104,18 +104,27 @@ export default {
   methods: {
     //搜索歌单里面的单曲
     // 优化  这里两个嵌套 消耗性能
+    // 已优化
     async handleSearchInnerSong() {
       const { data } = await getCloudSearch(this.searchValues, 1);
       if (data.code !== 400) {
         let innerPlayList = [];
-        data.result.songs.some(({ id }) => {
-          return this.innerPlayList.some((item) => {
-            if (id === item.id) {
-              innerPlayList.push(item);
-              return true;
-            }
-          });
+        let innnerMap = {};
+        data.result.songs.forEach((item) => (innnerMap[item.id] = item));
+        this.innerPlayList.forEach((item) => {
+          innnerMap[item.id] && innerPlayList.push(item);
         });
+
+        // let innerPlayList = [];
+        // data.result.songs.some(({ id }) => {
+        //   return this.innerPlayList.some((item) => {
+        //     if (id === item.id) {
+        //       innerPlayList.push(item);
+        //       return true;
+        //     }
+        //   });
+        // });
+
         this.playList = innerPlayList;
       } else {
         this.playList = this.innerPlayList;
