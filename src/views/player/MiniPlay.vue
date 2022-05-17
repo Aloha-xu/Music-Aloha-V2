@@ -466,11 +466,9 @@ export default {
       //获取相似歌单
       let simimusic = await getSimiPlayList(this.currentSongInfo.id);
 
-      // this.$store.state.SimiSongList = simimusic.data.playlists;
       this.$store.commit("SET_SIMI_SONG_LIST", simimusic.data.playlists);
       //获取单曲评论
       let musicComments = await getMusicComment(this.currentSongInfo.id, 100);
-      // this.$store.state.commentInfo = musicComments.data.comments;
       this.$store.commit("SET_COMMENT_INFO", musicComments.data.comments);
     },
     //显示歌词

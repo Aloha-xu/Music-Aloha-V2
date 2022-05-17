@@ -25,6 +25,7 @@
             placeholder="请输入内容"
             prefix-icon="el-icon-search"
             v-model="searchValues"
+            @input="handleSearchInnerSong"
           >
           </el-input>
         </div>
@@ -71,6 +72,7 @@ import {
   getMusicComment,
   getCheckMusic,
   getCollector,
+  getCloudSearch,
 } from "@/network/api";
 import { parseLyric } from "@/utils/lyric";
 import download from "@/utils/dowmload";
@@ -92,13 +94,34 @@ export default {
       isShowPlayListComponent: true,
       commentInfo: [],
       collectorInfo: [],
-      /* 模板的渲染比route快 */
       playList: [],
       headInfo: {},
       searchValues: null,
+      //内存存着用于赛数据的模板
+      innerPlayList: null,
     };
   },
   methods: {
+    //搜索歌单里面的单曲
+    // 优化  这里两个嵌套 消耗性能
+    async handleSearchInnerSong() {
+      const { data } = await getCloudSearch(this.searchValues, 1);
+      if (data.code !== 400) {
+        let innerPlayList = [];
+        data.result.songs.some(({ id }) => {
+          return this.innerPlayList.some((item) => {
+            if (id === item.id) {
+              innerPlayList.push(item);
+              return true;
+            }
+          });
+        });
+        this.playList = innerPlayList;
+      } else {
+        this.playList = this.innerPlayList;
+      }
+    },
+
     itemClick(index) {
       switch (index) {
         case 0:
@@ -179,6 +202,7 @@ export default {
         songinfo.album = { name: SongsInfo[i].al.name, id: SongsInfo[i].al.id };
         this.playList.push(songinfo);
       }
+      this.innerPlayList = JSON.parse(JSON.stringify(this.playList));
       this.$store.commit("setLoading", false);
     },
 

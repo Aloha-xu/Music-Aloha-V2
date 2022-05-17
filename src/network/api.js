@@ -498,7 +498,7 @@ export function getSearchSuggest(keywords) {
   });
 }
 
-// 搜索多重匹配
+// 搜索多重匹配  得出的结果的搜索框传入关键字 然后搜索框的下拉框的搜索建议的 数据
 // 说明 : 调用此接口 , 传入搜索关键词可获得搜索结果
 // 必选参数 : keywords : 关键词
 // 接口地址 : /search/multimatch
