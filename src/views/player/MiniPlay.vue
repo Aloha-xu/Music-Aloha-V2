@@ -215,7 +215,9 @@ export default {
       "setToRecordSongList",
     ]),
 
-    init() {
+    //画跳动的音符
+    //优化 -
+    drawMusicLine() {
       let wrap = document.getElementById("wrap");
       let cxt = wrap.getContext("2d");
       //获取API
@@ -486,22 +488,7 @@ export default {
     });
   },
   mounted() {
-    this.init();
-    setInterval(() => {
-      let themeColor = String(
-        window
-          .getComputedStyle(document.getElementsByTagName("body")[0])
-          .getPropertyValue("--theme")
-      ).trim();
-      let a = document.getElementsByClassName("el-slider__bar")[0].style;
-      let b = document.getElementsByClassName("el-slider__bar")[1].style;
-      let a1 = document.getElementsByClassName("el-slider__button")[0].style;
-      let b1 = document.getElementsByClassName("el-slider__button")[1].style;
-      a.background = themeColor;
-      b.background = themeColor;
-      a1.borderColor = themeColor;
-      b1.borderColor = themeColor;
-    }, 5000);
+    this.drawMusicLine();
   },
 };
 </script>
@@ -749,11 +736,11 @@ export default {
   .el-slider__button {
     width: 6px;
     height: 6px;
-    border: 2px solid #ec4141;
-    background-color: #ec4141;
+    border: 2px solid $theme-color;
+    background-color: $theme-color;
   }
   .el-slider__bar {
-    background-color: #ec4141;
+    background-color: $theme-color;
   }
 }
 </style>

@@ -431,12 +431,6 @@ export default {
     // this.toUserInfo = this.$store.state.toUserInfo;
   },
   computed: {
-    // drawer() {
-    //   return this.$store.state.isShowMsgDrawer;
-    // },
-    // innerDrawer() {
-    //   return this.$store.state.isShowInnerMsgDrawer;
-    // },
     ...mapGetters({
       drawer: "isShowMsgDrawer",
       innerDrawer: "isShowInnerMsgDrawer",
