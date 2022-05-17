@@ -97,7 +97,7 @@ export default {
       playList: [],
       headInfo: {},
       searchValues: null,
-      //内存存着用于赛数据的模板
+      //内存 用于搜索为空 返回 的全部数据 ---也可以作为模板 进行 筛选
       innerPlayList: null,
     };
   },
