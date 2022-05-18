@@ -117,6 +117,7 @@ Vue 2 + Vue Router + Vuex + Axios + ElementUI + SCSS 后端接口网易云官方
 - [x] 搜索
 - [x] 消息回复
 - [x] 新增 歌词 拖拽
+- [x] 新增 拖拽 修改 歌单顺序 歌曲顺序
 
 ## 效果图
 
