@@ -88,10 +88,11 @@
       <div class="title">评论：</div>
       <Comment
         :commentInfo="commentInfo"
-        :t="1"
+        :t="replyWay"
         :type="0"
         :id="currentSongInfo.id"
         @refeshCommrnt="addCommentToCache"
+        @setReplyWay="setReplyWay"
       ></Comment>
     </div>
   </div>
@@ -112,9 +113,13 @@ export default {
       textarea: "",
       interval: null,
       isShowRecordTools: false,
+      replyWay: 1,
     };
   },
   methods: {
+    setReplyWay(val) {
+      this.replyWay = val;
+    },
     addCommentToCache(val) {
       this.commentInfo.unshift(val);
     },

@@ -236,16 +236,12 @@ export default {
       HotSearchDetail: [],
       //搜索建议结果的数据
       SearchDetail: {},
-      //自己
-      // currentUserInfo: null,
       tabItem: ["私信", "评论", "@我", "通知"],
       privateInfo: {},
       currentNav: 0,
       beforMsgs: [],
       newMsgs: [],
       text: "",
-      //私信对象信息
-      // toUserInfo: {},
       //刷新消息的定时器
       msgInterval: null,
       userPWD: null,
@@ -259,7 +255,6 @@ export default {
     async handleOutLoginFun() {
       //清除localStorage sessionStorage
       window.sessionStorage.removeItem("currentUserInfo");
-      // this.currentUserInfo = null;
       this.$store.dispatch("LogOut");
       await outRefresh();
     },
@@ -344,16 +339,14 @@ export default {
     },
     //点击具体消息进去对应的私聊
     clickToInnerDrawer(uId, name, cover) {
-      // this.toUserInfo = { uId, name, cover };
       this.$store.commit("SET_TO_USER_INFO", { uId, name, cover });
       this.getPrivateMsg(uId);
       this.$store.commit("setShowMsgInnerDarwer");
     },
     //drawer的回调事件
     handleOpen() {
-      //通过用户个人界面进去进行私聊 先处理聊天对象的信息 否者就模板渲染比数据快 数据就渲染不上去了
-      // this.toUserInfo = this.$store.state.toUserInfo;
-      this.getPrivateMsg(this.toUserInfo.uId);
+      // 差异bug待处理
+      this.getPrivateMsg(this.currentUserInfo.userId);
     },
     handleClose() {
       this.$store.commit("setShowMsgDarwer");
@@ -460,6 +453,7 @@ export default {
       innerDrawer: "isShowInnerMsgDrawer",
       currentUserInfo: "userinfo",
     }),
+    // toUserInfo 私信对象信息
     ...mapGetters(["isShowLoginDialog", "toUserInfo"]),
   },
 };
@@ -731,6 +725,7 @@ $background-theme-color: (
   margin-bottom: 15px;
 }
 
+// 不明白之前为什么写   穿透了  公司电脑看
 ::v-deep {
   .el-input {
     position: absolute;

@@ -78,9 +78,10 @@
         <Comment
           :commentInfo="commentInfo"
           @refeshCommrnt="addCommentToCache"
-          :t="1"
+          :t="replyWay"
           :type="0"
           :id="currentSongInfo.id"
+          @setReplyWay="setReplyWay"
         ></Comment>
       </div>
     </div>
@@ -106,6 +107,7 @@ export default {
       playing: true,
       playList: [],
       tag: true,
+      replyWay: 1,
     };
   },
   components: {
@@ -206,6 +208,10 @@ export default {
         flag = true;
       }
       return flag;
+    },
+
+    setReplyWay(val) {
+      this.replyWay = val;
     },
   },
   computed: {

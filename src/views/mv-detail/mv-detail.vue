@@ -76,6 +76,7 @@
             :type="type"
             :id="this.id"
             @refeshCommrnt="addCommentToCache"
+            @setReplyWay="setReplyWay"
           ></Comment>
         </div>
       </div>
@@ -98,7 +99,7 @@ import {
   getVideoDetailInfo,
   getAllVideo,
   getRecommentMv,
-} from "../../network/api";
+} from "@/network/api";
 export default {
   components: { Comment },
   name: "MvDetail",
@@ -124,6 +125,9 @@ export default {
     };
   },
   methods: {
+    setReplyWay(val) {
+      this.replyWay = val;
+    },
     showDescription() {
       this.isShowDescription = !this.isShowDescription;
       console.log(this.isShowDescription);

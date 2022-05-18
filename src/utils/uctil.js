@@ -38,10 +38,10 @@ export function getYestaryToday(timestamp) {
   const date = (Time.getDate()).toString().padStart(2, '0')
 
   let values
-  if(nowDate == date){
+  if (nowDate == date) {
     values = '今天'
-  }else{
-    values="昨天"
+  } else {
+    values = "昨天"
   }
   const hours = (Time.getHours()).toString().padStart(2, '0')
   const minute = (Time.getMinutes()).toString().padStart(2, '0')

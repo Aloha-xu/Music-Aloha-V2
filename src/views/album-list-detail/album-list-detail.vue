@@ -31,8 +31,9 @@
         class="comment"
         :commentInfo="commentInfo"
         @refeshCommrnt="addCommentToCache"
+        @setReplyWay="setReplyWay"
         :id="this.id"
-        :t="1"
+        :t="replyWay"
         :type="3"
       ></Comment>
     </div>
@@ -67,6 +68,8 @@ export default {
       isShowPlayListComponent: false,
       commentInfo: [],
       playList: [],
+      // 1 发送, 2 回复 3 删除
+      replyWay: 1,
     };
   },
   methods: {
@@ -178,6 +181,9 @@ export default {
     },
     addCommentToCache(val) {
       this.commentInfo.unshift(val);
+    },
+    setReplyWay(val) {
+      this.replyWay = val;
     },
   },
   created() {

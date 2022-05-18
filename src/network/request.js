@@ -70,7 +70,7 @@ export function request(config) {
     },
     (err) => {
       // 超出 2xx 范围的状态码都会触发该函数。
-      if (err.response.status) {
+      if (err.response?.status) {
         err.response.data.message &&
           Message(`提示信息：${err.response.data.message}`);
         //301需要登录的还没拦截  msg

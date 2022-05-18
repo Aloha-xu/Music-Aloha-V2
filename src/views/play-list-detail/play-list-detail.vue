@@ -25,7 +25,6 @@
             placeholder="请输入内容"
             prefix-icon="el-icon-search"
             v-model="searchValues"
-            @input="handleSearchInnerSong"
           >
           </el-input>
         </div>
@@ -47,9 +46,10 @@
         v-else-if="currentIndex === 1"
         :commentInfo="commentInfo"
         :id="this.id"
-        :t="1"
+        :t="replyWay"
         :type="2"
         @refeshCommrnt="addCommentToCache"
+        @setReplyWay="setReplyWay"
       ></Comment>
       <Loading v-show="loading" style="height: 50vh"></Loading>
     </div>
@@ -79,6 +79,7 @@ import {
   updateUserSongOrder,
 } from "@/network/api";
 import { parseLyric } from "@/utils/lyric";
+import { _debounce } from "@/utils/uctil";
 import download from "@/utils/dowmload";
 export default {
   components: {
@@ -103,9 +104,14 @@ export default {
       searchValues: null,
       //内存 用于搜索为空 返回 的全部数据 ---也可以作为模板 进行 筛选
       innerPlayList: null,
+      // 1 发送, 2 回复 3 删除
+      replyWay: 1,
     };
   },
   methods: {
+    setReplyWay(val) {
+      this.replyWay = val;
+    },
     //子传父 修改父歌单数据
     async setSongInfo(val) {
       this.playList = val;
@@ -122,6 +128,11 @@ export default {
     // 优化  这里两个嵌套 消耗性能
     // 已优化
     async handleSearchInnerSong() {
+      //判断搜索值为空  拿出内存的数据
+      if (!this.searchValues) {
+        this.playList = this.innerPlayList;
+        return;
+      }
       const { data } = await getCloudSearch(this.searchValues, 1);
       if (data.code !== 400) {
         let innerPlayList = [];
@@ -356,7 +367,13 @@ export default {
   computed: {
     ...mapGetters(["loading"]),
   },
-  async created() {
+  created() {
+    // this.$watch(
+    //   "searchValues",
+    //   _debounce(() => {
+    //     this.handleSearchInnerSong();
+    //   }, 1000)
+    // );
     this.itemClick(this.currentIndex);
     this.handleSongListDetailInfo();
   },
@@ -369,6 +386,12 @@ export default {
         this.handleSongListDetailInfo();
         this.getCommentInfo();
       }
+    },
+    //为什么  这里为什么进不去防抖？？？？？
+    searchValues() {
+      _debounce(function () {
+        this.handleSearchInnerSong();
+      }, 500);
     },
   },
 };
@@ -414,5 +437,6 @@ export default {
       padding-left: 20px;
     }
   }
-}</style
+}
+</style
 >>

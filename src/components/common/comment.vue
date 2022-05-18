@@ -32,7 +32,7 @@
 </template>
 <script>
 import CommentCard from "./CommentCard.vue";
-import { SendOrDelComment } from "../../network/api";
+import { SendOrDelComment } from "@/network/api";
 export default {
   components: { CommentCard },
   name: "Comment",
@@ -40,12 +40,14 @@ export default {
     return {
       textarea: "",
       uid: null,
+      //回复的评论id (回复评论时必填)
+      commentId: null,
     };
   },
   props: {
     commentInfo: {
       type: Array,
-      default: () => {
+      default() {
         return [];
       },
     },
@@ -66,7 +68,8 @@ export default {
         this.type,
         this.id,
         this.textarea,
-        this.uid
+        this.uid,
+        this.commentId && this.commentId
       );
       this.textarea = "";
       console.log("刚刚发布的评论", data);
@@ -77,7 +80,7 @@ export default {
     handleReplyComment(value) {
       this.textarea = "回复" + value[1];
       this.uid = value[0];
-      this.t = 2;
+      this.$emit("setReplyWay", 2);
       //两种方法设置focus 一个是原生的 一个是通过ref
       // document.getElementById("input").focus();
       this.$refs.input_.focus();
