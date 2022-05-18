@@ -60,6 +60,11 @@ export function request(config) {
     (res) => {
       // 2xx 范围内的状态码都会触发该函数。
       // console.log("拦截器", res);
+      //这里不要设置总的提示 因为会拦截全部的 有一些没必要拦截
+      // console.log("拦截器", res);
+      // if (res.status) {
+      //   Message.success(`提示信息：${res}`);
+      // }
       return res;
     },
     (err) => {
