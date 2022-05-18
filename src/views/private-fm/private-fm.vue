@@ -75,17 +75,20 @@
         </div>
       </div>
       <div class="comment">
-        <comment
+        <Comment
           :commentInfo="commentInfo"
-          @refeshCommrnt="getCommentInfo"
-        ></comment>
+          @refeshCommrnt="addCommentToCache"
+          :t="1"
+          :type="0"
+          :id="currentSongInfo.id"
+        ></Comment>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Comment from "../../components/common/comment.vue";
+import Comment from "@/components/common/Comment.vue";
 import { parseLyric } from "../../utils/lyric";
 import {
   fm,
@@ -158,6 +161,10 @@ export default {
     async getCommentInfo() {
       let comment = await getMusicComment(this.currentSongInfo.id);
       this.commentInfo = comment.data.comments;
+    },
+
+    addCommentToCache(val) {
+      this.commentInfo.unshift(val);
     },
 
     async getLyricInfo() {

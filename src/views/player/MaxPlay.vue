@@ -86,14 +86,20 @@
     <!-- 评论 -->
     <div class="comment_">
       <div class="title">评论：</div>
-      <comment :commentInfo="commentInfo"></comment>
+      <Comment
+        :commentInfo="commentInfo"
+        :t="1"
+        :type="0"
+        :id="currentSongInfo.id"
+        @refeshCommrnt="addCommentToCache"
+      ></Comment>
     </div>
   </div>
 </template>
 
 <script>
 import NewMusicCard from "@/views/find-music/recommend/new-music/new-music-card.vue";
-import Comment from "@/components/common/comment.vue";
+import Comment from "@/components/common/Comment.vue";
 import { mapGetters } from "vuex";
 export default {
   name: "MaxPlay",
@@ -109,6 +115,9 @@ export default {
     };
   },
   methods: {
+    addCommentToCache(val) {
+      this.commentInfo.unshift(val);
+    },
     handleShowRecordTools() {
       this.isShowRecordTools = !this.isShowRecordTools;
     },

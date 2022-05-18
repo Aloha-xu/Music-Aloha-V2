@@ -70,13 +70,13 @@
         </div>
         <div class="comment">
           <div class="title">评论({{ commentCount }})</div>
-          <comment
+          <Comment
             :commentInfo="commentInfo"
             :t="t"
             :type="type"
             :id="this.id"
-            @refeshCommrnt="getCommentInfo"
-          ></comment>
+            @refeshCommrnt="addCommentToCache"
+          ></Comment>
         </div>
       </div>
       <!-- 不想写了 -->
@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import comment from "../../components/common/comment.vue";
+import Comment from "@/components/common/Comment.vue";
 import { getYMD } from "../../utils/uctil";
 import {
   getMvDetail,
@@ -100,7 +100,7 @@ import {
   getRecommentMv,
 } from "../../network/api";
 export default {
-  components: { comment },
+  components: { Comment },
   name: "MvDetail",
   data() {
     return {
@@ -137,6 +137,9 @@ export default {
         const commentInfo = await getVideoComment(this.id);
         this.commentInfo = commentInfo.data.comments;
       }
+    },
+    addCommentToCache(val) {
+      this.commentInfo.unshift(val);
     },
     //获取mv的信息
     async getMvDetailInfo() {
@@ -204,119 +207,118 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.mv-detail{
-    width: 100%;
-    display: flex;
-    overflow: scroll;
-    height: 84vh;
-    justify-content: center;
-    .content{
-        width: 1100px;
-        .detail{
-            width: 750px;
-            .title{
-                font-size: 20px;
-                font-weight: 600;
-                margin: 15px 0;
-            }
-            .video{
-                width: 756px;
-                height: 425px;
-            }
-            .mv-artist{
-                margin: 10px 0;
-                img{
-                    width:50px;
-                    height:50px;
-                    border-radius: 50%;
-                    vertical-align: middle;
-                }
-                .item{
-                    vertical-align: middle;
-                    font-size: 14px;
-                    margin-left: 10px;
-                }
-            }
-            .mv-info{
-                position: relative;
-                .name{
-                    font-size: 20px;
-                    font-weight: 900;
-                    display: inline-block;
-                    width: 750px;
-                    margin: 15px 0;
-                }
-                i{
-                    position: absolute;
-                    right: 0;
-                    top: 15px;
-                    font-size: 20px;
-                }
-                span{
-                    font-size: 10px;
-                    color: rgb(186, 186, 186);
-                }
-            }
-            .mv-description{
-                font-size: 15px;
-                text-indent: 2em;
-                margin-top: 10px;
-                display: inline-block;
-                line-height: 20px;
-                height: 20px;
-                width: 750px;
-                word-wrap: break-word;
-                overflow: hidden;
-            }
-            .video-group{
-                margin-top: 15px;
-                font-size: 12px;
-                cursor: pointer;
-                .item{
-                    background-color: rgb(235, 235, 235);
-                    margin-right: 5px;
-                    border-radius: 20px;
-                    padding: 1px 5px;
-                }
-            }
-            .tools{
-                font-size: 14px;
-                margin-top: 20px;
-                .button{
-                    width: 120px;
-                    height: 30px;
-                    border: 1px solid  rgb(190, 190, 190);
-                    line-height: 30px;
-                    border-radius: 20px;
-                    text-align: center;
-                    display: inline-block;
-                    margin-right: 8px;
-                    span{
-                        margin-right: 5px;
-                    }
-                }
-                .button:hover{
-                    background-color: rgb(189, 189, 189);
-                }
-                .tip-off{
-                    font-size: 12.5px;
-                    color: rgb(190, 190, 190);
-                    margin-left: 200px;
-                }
-                .tip-off:hover{
-                    color: gray;
-                }
-            }
-            .comment{
-                .title{
-                    margin-top: 40px;
-                }
-                
-            }
+.mv-detail {
+  width: 100%;
+  display: flex;
+  overflow: scroll;
+  height: 84vh;
+  justify-content: center;
+  .content {
+    width: 1100px;
+    .detail {
+      width: 750px;
+      .title {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 15px 0;
+      }
+      .video {
+        width: 756px;
+        height: 425px;
+      }
+      .mv-artist {
+        margin: 10px 0;
+        img {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          vertical-align: middle;
         }
-        .related-mv{
-            width: 350px;
+        .item {
+          vertical-align: middle;
+          font-size: 14px;
+          margin-left: 10px;
         }
+      }
+      .mv-info {
+        position: relative;
+        .name {
+          font-size: 20px;
+          font-weight: 900;
+          display: inline-block;
+          width: 750px;
+          margin: 15px 0;
+        }
+        i {
+          position: absolute;
+          right: 0;
+          top: 15px;
+          font-size: 20px;
+        }
+        span {
+          font-size: 10px;
+          color: rgb(186, 186, 186);
+        }
+      }
+      .mv-description {
+        font-size: 15px;
+        text-indent: 2em;
+        margin-top: 10px;
+        display: inline-block;
+        line-height: 20px;
+        height: 20px;
+        width: 750px;
+        word-wrap: break-word;
+        overflow: hidden;
+      }
+      .video-group {
+        margin-top: 15px;
+        font-size: 12px;
+        cursor: pointer;
+        .item {
+          background-color: rgb(235, 235, 235);
+          margin-right: 5px;
+          border-radius: 20px;
+          padding: 1px 5px;
+        }
+      }
+      .tools {
+        font-size: 14px;
+        margin-top: 20px;
+        .button {
+          width: 120px;
+          height: 30px;
+          border: 1px solid rgb(190, 190, 190);
+          line-height: 30px;
+          border-radius: 20px;
+          text-align: center;
+          display: inline-block;
+          margin-right: 8px;
+          span {
+            margin-right: 5px;
+          }
+        }
+        .button:hover {
+          background-color: rgb(189, 189, 189);
+        }
+        .tip-off {
+          font-size: 12.5px;
+          color: rgb(190, 190, 190);
+          margin-left: 200px;
+        }
+        .tip-off:hover {
+          color: gray;
+        }
+      }
+      .comment {
+        .title {
+          margin-top: 40px;
+        }
+      }
     }
+    .related-mv {
+      width: 350px;
+    }
+  }
 }
 </style>

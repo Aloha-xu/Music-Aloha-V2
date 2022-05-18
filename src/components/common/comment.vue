@@ -43,10 +43,21 @@ export default {
     };
   },
   props: {
-    commentInfo: Array,
-    id: String,
-    type: Number,
-    t: Number,
+    commentInfo: {
+      type: Array,
+      default: () => {
+        return [];
+      },
+    },
+    id: [Number, String],
+    type: {
+      type: Number,
+      default: 0,
+    },
+    t: {
+      type: Number,
+      default: 1,
+    },
   },
   methods: {
     async sendComment() {
@@ -60,10 +71,8 @@ export default {
       this.textarea = "";
       console.log("刚刚发布的评论", data);
 
-      //发射一个方法出去 刷新
-      // setTimeout(() => {
-      //   }, 5000);
-      this.$emit("refeshCommrnt");
+      //没必要 refesh  直接 内存 加上去就可以了
+      this.$emit("refeshCommrnt", data.comment);
     },
     handleReplyComment(value) {
       this.textarea = "回复" + value[1];

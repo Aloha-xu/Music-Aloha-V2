@@ -39,26 +39,26 @@
         @setSongInfo="setSongInfo"
       >
       </SongListComponent>
-      <collecter
+      <Collecter
         v-else-if="currentIndex === 2"
         :collecter="collectorInfo"
-      ></collecter>
-      <comment
+      ></Collecter>
+      <Comment
         v-else-if="currentIndex === 1"
         :commentInfo="commentInfo"
         :id="this.id"
         :t="1"
         :type="2"
-        @refeshCommrnt="getCommentInfo"
-      ></comment>
+        @refeshCommrnt="addCommentToCache"
+      ></Comment>
       <Loading v-show="loading" style="height: 50vh"></Loading>
     </div>
   </div>
 </template>
 
 <script>
-import Collecter from "@/components/common/collecter";
-import Comment from "@/components/common/comment.vue";
+import Collecter from "@/components/common/Collecter.vue";
+import Comment from "@/components/common/Comment.vue";
 import PlayListDetailHead from "@/components/common/PlayListDetailHead.vue";
 import SongListComponent from "@/components/common/SongListComponent.vue";
 import Loading from "@/components/common/loading.vue";
@@ -337,6 +337,10 @@ export default {
       this.id = this.$route.params.id;
       const { data } = await getPlayListComment(this.id, 50);
       this.commentInfo = data.comments;
+    },
+
+    addCommentToCache(val) {
+      this.commentInfo.unshift(val);
     },
 
     //获取收藏者信息

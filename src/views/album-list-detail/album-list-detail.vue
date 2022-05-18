@@ -26,21 +26,21 @@
         @handleSongClick="handleSongClick"
       ></SongListComponent>
       <div v-else-if="currentIndex === 2" class="albumdetail"></div>
-      <comment
+      <Comment
         v-else
         class="comment"
         :commentInfo="commentInfo"
-        @refeshCommrnt="getCommentInfo"
+        @refeshCommrnt="addCommentToCache"
         :id="this.id"
         :t="1"
         :type="3"
-      ></comment>
+      ></Comment>
     </div>
   </div>
 </template>
 
 <script>
-import Comment from "@/components/common/comment.vue";
+import Comment from "@/components/common/Comment.vue";
 import PlayListDetailHead from "@/components/common/PlayListDetailHead.vue";
 import SongListComponent from "@/components/common/SongListComponent.vue";
 import {
@@ -163,11 +163,9 @@ export default {
           //获取某一首歌的相似歌单信息
           let simimusic = await getSimiPlayList(v[0].id);
           this.$store.commit("SET_SIMI_SONG_LIST", simimusic.data.playlists);
-          // this.$store.state.SimiSongList = simimusic.data.playlists;
           //获取某一首歌的评论
           let musicComments = await getMusicComment(v[0].id, 100);
           this.$store.commit("SET_COMMENT_INFO", musicComments.data.comments);
-          // this.$store.state.commentInfo = musicComments.data.comments;
         }
       } catch (error) {
         alert("音乐没有版权");
@@ -177,6 +175,9 @@ export default {
       this.id = this.$route.params.id;
       const { data } = await getAlbumComment(this.id, 50);
       this.commentInfo = data.comments;
+    },
+    addCommentToCache(val) {
+      this.commentInfo.unshift(val);
     },
   },
   created() {
