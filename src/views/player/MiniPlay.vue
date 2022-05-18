@@ -499,7 +499,7 @@ export default {
   height: 75px;
   background-color: rgb(248, 248, 248);
   min-width: 1500px;
-  border-top: 2px solid rgb(197, 197, 197);
+  // border-top: 2px solid rgb(197, 197, 197);
   .song-des {
     flex: 1;
     display: flex;

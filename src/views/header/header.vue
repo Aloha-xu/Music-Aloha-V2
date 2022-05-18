@@ -464,7 +464,9 @@ $background-theme-color: (
     .logo {
       width: 200px;
       line-height: 80px;
+      // text-align: center;
       img {
+        padding-left: 30px;
         height: 35px;
       }
     }

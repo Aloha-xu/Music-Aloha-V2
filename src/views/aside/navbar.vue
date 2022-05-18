@@ -191,16 +191,22 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/css/base.scss";
 .left-navbar {
+  background-color: #ffffff;
   .el-menu-vertical-demo {
     border: 0px;
-    padding-left: 10px;
+    // padding-left: 10px;
+    // margin-left: 10px;
     .el-menu-item {
       height: 56px;
       line-height: 56px;
-      margin-top: 10px;
+      // margin-top: 10px;
+      &:hover {
+        background-color: rgba(115, 115, 115, 0.212) !important;
+        color: $theme-color !important;
+      }
     }
     .slot {
-      margin-left: 10px;
+      // margin-left: 10px;
     }
   }
   .user-songlist {
@@ -210,11 +216,11 @@ export default {
       margin-top: 10px;
       .titile {
         padding: 10px 0;
-        padding-left: 20px;
+        // padding-left: 20px;
         height: 35px;
         line-height: 35px;
         .name {
-          font-size: 15px;
+          font-size: 16px;
           padding-left: 20px;
           margin-top: 15px;
         }
@@ -225,24 +231,24 @@ export default {
         }
         .el-icon-caret-right:hover,
         .el-icon-caret-bottom:hover {
-          color: rgb(78, 78, 78);
+          color: $theme-color;
         }
         .el-icon-plus {
           margin-left: 40px;
           color: rgba(173, 174, 175, 0.5);
         }
         .el-icon-plus:hover {
-          color: rgb(0, 0, 0);
+          color: $theme-color;
         }
         &:hover {
-          background-color: rgb(204, 204, 204);
-          border-radius: 5px;
+          background-color: rgba(115, 115, 115, 0.212);
+          color: $theme-color;
         }
       }
       .user-love {
         height: 45px;
         line-height: 45px;
-        padding-left: 25px;
+        padding-left: 20px;
         img {
           vertical-align: middle;
         }
@@ -251,12 +257,13 @@ export default {
           margin-left: 10px;
         }
         &:hover {
-          background-color: rgb(204, 204, 204);
+          background-color: rgba(115, 115, 115, 0.212);
+          color: $theme-color;
         }
       }
       .playlist-item {
         height: 45px;
-        padding-left: 25px;
+        padding-left: 20px;
         line-height: 45px;
         .el-icon-service {
           font-size: 17px;
@@ -272,7 +279,8 @@ export default {
           text-overflow: ellipsis;
         }
         &:hover {
-          background-color: rgb(204, 204, 204);
+          background-color: rgba(115, 115, 115, 0.212);
+          color: $theme-color;
         }
       }
     }

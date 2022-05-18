@@ -52,7 +52,7 @@ export default {
   display: flex;
   height: calc(100vh - 135px);
   .aside {
-    border-right: 1.5px solid rgba(173, 174, 175, 0.5);
+    // border-right: 1.5px solid rgba(173, 174, 175, 0.5);
     height: 100%;
     overflow: scroll;
     min-width: 210px;
