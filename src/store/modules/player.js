@@ -338,7 +338,7 @@ const player = {
     SET_IS_SHOW_MAX_PLAYER(state, val) {
       state.isShowMaxPlayer = val;
     },
-    //设置是否显示 更新组建？？
+    //设置 展示 编辑自己的歌单信息
     SET_IS_SHOW_UPDATA_COMPONENT(state, val) {
       state.isShowUpdataComponent = val;
     },

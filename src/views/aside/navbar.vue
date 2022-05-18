@@ -5,10 +5,10 @@
       background-color="#fff"
       active-text-color="black"
     >
-      <el-menu-item index="1-1" @click="ClickToFindMusicPapg">
+      <el-menu-item index="1-1" @click="clickToFindMusicPapg">
         <span slot="title" class="slot">发现音乐</span>
       </el-menu-item>
-      <el-menu-item index="1-2" @click="ClickToMVPapg">
+      <el-menu-item index="1-2" @click="clickToMVPapg">
         <span slot="title" class="slot">视频</span>
       </el-menu-item>
       <!-- <el-menu-item index="1-3" @click="ClickToFriendPapg">
@@ -17,10 +17,10 @@
       <el-menu-item index="1-4" @click="ClickToLivePapg">
         <span slot="title" class="slot">直播</span>
       </el-menu-item> -->
-      <el-menu-item index="1-5" @click="ClickToFMPapg">
+      <el-menu-item index="1-5" @click="clickToFMPapg">
         <span slot="title" class="slot">私人FM</span>
       </el-menu-item>
-      <el-menu-item index="1-6" @click="ClickToRecordPapg">
+      <el-menu-item index="1-6" @click="clickToRecordPapg">
         <span slot="title" class="slot">最近播放</span>
       </el-menu-item>
     </el-menu>
@@ -48,18 +48,6 @@
           <img src="@/assets/icon/heart.svg" alt="" />
           <span class="name">我喜欢的音乐</span>
         </div>
-
-        <!-- <div
-          class="playlist-item"
-          v-for="(item, index) in mySonglist"
-          :key="index"
-          v-show="isShowPlaylist"
-          @click="handleToPlaylistPapg(item.id, 'myplaylist')"
-        >
-          <i class="el-icon-service"></i>
-          <span class="name">{{ item.name }}</span>
-        </div> -->
-
         <draggable v-model="mySonglist" animation="300">
           <transition-group>
             <div
@@ -82,7 +70,7 @@
           <i class="el-icon-caret-bottom" v-show="isShowCollectPlaylist"></i>
         </div>
 
-        <draggable v-model="collectSonglist" animation="300" @end="setValue">
+        <draggable v-model="collectSonglist" animation="300">
           <transition-group>
             <div
               class="playlist-item"
@@ -102,7 +90,9 @@
 </template>
 
 <script>
-// import { /* getsubcount,  getUserPlaylist, */updateUserPlaylistOrder } from "@/network/api";
+import {
+  /* getsubcount,  getUserPlaylist, */ updateUserPlaylistOrder,
+} from "@/network/api";
 import { mapGetters } from "vuex";
 import draggable from "vuedraggable";
 export default {
@@ -118,13 +108,20 @@ export default {
     draggable,
   },
   methods: {
-    setValue() {
-      console.log(11);
+    async updatePlaylistOrder(val) {
+      //洗数据
+      let ids = val.map(({ id }) => {
+        return id;
+      });
+      const { data } = await updateUserPlaylistOrder(ids);
+      if (data.code === 200) {
+        this.$message.success("修改歌单顺序成功");
+      }
     },
-    ClickToFindMusicPapg() {
+    clickToFindMusicPapg() {
       this.$router.push("/findmusic");
     },
-    ClickToMVPapg() {
+    clickToMVPapg() {
       this.$router.push("/videohome");
     },
     // ClickToFriendPapg() {
@@ -133,10 +130,10 @@ export default {
     // ClickToLivePapg() {
     //   this.$router.push("/live");
     // },
-    ClickToFMPapg() {
+    clickToFMPapg() {
       this.$router.push("/fm");
     },
-    ClickToRecordPapg() {
+    clickToRecordPapg() {
       this.$router.push("/record");
     },
     //歌单的信息需要写在topnavbar上面 传到vuex 实现跨页面同步数据
@@ -181,6 +178,7 @@ export default {
       },
       set(value) {
         this.$store.commit("SET_MY_SONGLIST", value);
+        this.updatePlaylistOrder(value);
       },
     },
     collectSonglist: {
@@ -189,6 +187,7 @@ export default {
       },
       set(value) {
         this.$store.commit("SET_COLLECT_SONGLIST", value);
+        this.updatePlaylistOrder(value);
       },
     },
   },

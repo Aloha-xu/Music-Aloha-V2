@@ -30,12 +30,15 @@
           </el-input>
         </div>
       </div>
+
       <SongListComponent
         v-if="currentIndex === 0 && !loading"
         :songsInfo="playList"
         @handleSongClick="handleSongClick"
         @handleDownload="handleDownload"
-      ></SongListComponent>
+        @setSongInfo="setSongInfo"
+      >
+      </SongListComponent>
       <collecter
         v-else-if="currentIndex === 2"
         :collecter="collectorInfo"
@@ -73,6 +76,7 @@ import {
   getCheckMusic,
   getCollector,
   getCloudSearch,
+  updateUserSongOrder,
 } from "@/network/api";
 import { parseLyric } from "@/utils/lyric";
 import download from "@/utils/dowmload";
@@ -102,6 +106,18 @@ export default {
     };
   },
   methods: {
+    //子传父 修改父歌单数据
+    async setSongInfo(val) {
+      this.playList = val;
+      //洗数据
+      let ids = val.map(({ id }) => {
+        return id;
+      });
+      const { data } = await updateUserSongOrder(this.headInfo.id, ids);
+      if (data.code === 200) {
+        this.$message.success("修改单曲顺序成功");
+      }
+    },
     //搜索歌单里面的单曲
     // 优化  这里两个嵌套 消耗性能
     // 已优化

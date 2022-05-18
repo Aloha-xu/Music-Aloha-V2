@@ -8,53 +8,62 @@
       <span>专辑</span>
       <span>时长</span>
     </div>
-    <div
-      class="song-item"
-      v-for="(item, index) in songsInfo"
-      :key="index"
-      :class="item.id === currentSongInfo.id ? 'active-bg' : ''"
+    <draggable
+      v-model="innerSongInfo"
+      animation="300"
+      :disabled="!isShowUpdataComponent"
     >
-      <div class="index-number">
-        {{ setIndex(index) }}
-      </div>
-      <img
-        src="@/assets/icon/heart.svg"
-        alt=""
-        v-show="!isHeart(item.id)"
-        @click="ClickHeart(item.id, index)"
-        class="no-active-heart"
-      />
-      <img
-        src="@/assets/icon/heartactive.svg"
-        alt=""
-        v-show="isHeart(item.id)"
-        @click="ClickHeart(item.id, index)"
-        class="active-heart"
-      />
-      <p class="el-icon-download" @click="handleDownload(item)"></p>
-      <div class="song-name" @click="HandleSongClick(item, index)">
-        <span :class="item.id === currentSongInfo.id ? 'active-name' : ''">{{
-          item.name
-        }}</span>
-        <!-- SQ MV logo的卡槽 -->
-        <slot name="SQlogo"></slot>
-        <slot name="MVlogo"></slot>
-      </div>
-      <!-- 飙升榜的数据卡槽 -->
-      <slot name="SoaringrateData"></slot>
-      <div class="singer">
-        <span
-          v-for="(item1, index1) in item.singer"
-          :key="index1"
-          @click="clickToSingerPapg(item1.id)"
-          >{{ item1.name }}&nbsp;</span
+      <transition-group>
+        <div
+          class="song-item"
+          v-for="(item, index) in innerSongInfo"
+          :key="index"
+          :class="item.id === currentSongInfo.id ? 'active-bg' : ''"
         >
-      </div>
-      <div class="album" @click="clickToAlbumPapg(item.album.id)">
-        {{ item.album.name }}
-      </div>
-      <div class="time">{{ setSongTime(item.totleTime) }}</div>
-    </div>
+          <div class="index-number">
+            {{ setIndex(index) }}
+          </div>
+          <img
+            src="@/assets/icon/heart.svg"
+            alt=""
+            v-show="!isHeart(item.id)"
+            @click="ClickHeart(item.id, index)"
+            class="no-active-heart"
+          />
+          <img
+            src="@/assets/icon/heartactive.svg"
+            alt=""
+            v-show="isHeart(item.id)"
+            @click="ClickHeart(item.id, index)"
+            class="active-heart"
+          />
+          <p class="el-icon-download" @click="handleDownload(item)"></p>
+          <div class="song-name" @click="HandleSongClick(item, index)">
+            <span
+              :class="item.id === currentSongInfo.id ? 'active-name' : ''"
+              >{{ item.name }}</span
+            >
+            <!-- SQ MV logo的卡槽 -->
+            <slot name="SQlogo"></slot>
+            <slot name="MVlogo"></slot>
+          </div>
+          <!-- 飙升榜的数据卡槽 -->
+          <slot name="SoaringrateData"></slot>
+          <div class="singer">
+            <span
+              v-for="(item1, index1) in item.singer"
+              :key="index1"
+              @click="clickToSingerPapg(item1.id)"
+              >{{ item1.name }}&nbsp;</span
+            >
+          </div>
+          <div class="album" @click="clickToAlbumPapg(item.album.id)">
+            {{ item.album.name }}
+          </div>
+          <div class="time">{{ setSongTime(item.totleTime) }}</div>
+        </div>
+      </transition-group>
+    </draggable>
   </div>
 </template>
 
@@ -62,6 +71,7 @@
 import { getLikeList } from "@/network/api";
 import { forMatTime } from "@/utils/format";
 import { mapGetters } from "vuex";
+import draggable from "vuedraggable";
 
 export default {
   name: "SongListComponent",
@@ -76,6 +86,9 @@ export default {
   props: {
     songsInfo: Array,
     playList: Array,
+  },
+  components: {
+    draggable,
   },
   methods: {
     /* 点击指定红星添加收藏未做 */
@@ -126,7 +139,15 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["currentSongInfo", "userinfo"]),
+    ...mapGetters(["currentSongInfo", "userinfo", "isShowUpdataComponent"]),
+    innerSongInfo: {
+      get() {
+        return this.songsInfo;
+      },
+      set(value) {
+        this.$emit("setSongInfo", value);
+      },
+    },
   },
   async created() {
     //暂时未解决  这个获取likelist 一直报301
