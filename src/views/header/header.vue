@@ -108,6 +108,7 @@
             </div>
           </div>
         </div>
+        <!-- inner的具体聊天室 -->
         <el-drawer
           size="365px"
           :append-to-body="true"
@@ -115,7 +116,9 @@
           :show-close="false"
           :wrapperClosable="false"
           @open="handleInnerOpen"
+          @opened="handleInnerOpened"
           @close="handleInnerClose"
+          :withHeader="false"
         >
           <div class="inner-popover">
             <i class="el-icon-arrow-left" @click="handleOutInneerPopover"></i>
@@ -123,6 +126,7 @@
             <div
               class="content"
               v-show="!beforMsgs.length == 0 || !newMsgs.length == 0"
+              ref="innerConent"
             >
               <div class="befor-msg">
                 <div
@@ -140,10 +144,12 @@
                       alt=""
                       v-show="toUserInfo.uId == item.uid"
                     />
-                    <div class="text">
-                      <div class="text-content">
-                        {{ JSON.parse(item.msg).msg }}
-                      </div>
+                    <div
+                      :class="
+                        toUserInfo.uId === item.uid ? 'text' : 'text green-Bg'
+                      "
+                    >
+                      {{ JSON.parse(item.msg).msg }}
                     </div>
                   </div>
                 </div>
@@ -164,10 +170,12 @@
                       alt=""
                       v-show="toUserInfo.uId == item.uid"
                     />
-                    <div class="text">
-                      <div class="text-content">
-                        {{ JSON.parse(item.msg).msg }}
-                      </div>
+                    <div
+                      :class="
+                        toUserInfo.uId === item.uid ? 'text' : 'text green-Bg'
+                      "
+                    >
+                      {{ JSON.parse(item.msg).msg }}
                     </div>
                   </div>
                 </div>
@@ -186,7 +194,13 @@
               show-word-limit
             >
             </el-input>
-            <div class="send-button" @click="sendMsgs">发送</div>
+            <el-button
+              type="primary"
+              round
+              @click="sendMsgs"
+              class="send-button"
+              >发送</el-button
+            >
           </div>
         </el-drawer>
       </div>
@@ -351,6 +365,10 @@ export default {
         this.getPrivateMsg(this.toUserInfo.uId);
       }, 5000);
     },
+    handleInnerOpened() {
+      //下拉最下面
+      this.$refs.innerConent.scrollTop = this.$refs.innerConent.scrollHeight;
+    },
     handleInnerClose() {
       //返回darwer时候刷新数据
       this.getNotices();
@@ -362,7 +380,7 @@ export default {
       //清除聊天数据
       this.beforMsgs = [];
       this.newMsgs = [];
-      console.log(data);
+      // console.log(data);
       //筛选出昨天的数据
       let nowTime = new Date().getTime();
       for (let i = 0; i < data.msgs.length; i++) {
@@ -398,26 +416,32 @@ export default {
     async sendMsgs() {
       //数据返回的是历史消息
       const { data } = await SendText(this.toUserInfo.uId, this.text);
+      // console.log(data);
       //清除聊天数据
-      this.beforMsgs = [];
-      this.newMsgs = [];
-      let nowTime = new Date().getTime();
-      for (let i = 0; i < data.newMsgs.length; i++) {
-        if (nowTime - data.newMsgs[i].time >= 86400000) {
-          //前一天的消息
-          this.beforMsgs.unshift({
-            msg: data.newMsgs[i].msg,
-            uid: data.newMsgs[i].fromUser.userId,
-            time: data.newMsgs[i].time,
-          });
-        } else {
-          this.newMsgs.unshift({
-            msg: data.newMsgs[i].msg,
-            uid: data.newMsgs[i].fromUser.userId,
-            time: data.newMsgs[i].time,
-          });
-        }
-      }
+      // this.beforMsgs = [];
+      // this.newMsgs = [];
+      // let nowTime = new Date().getTime();
+      // for (let i = 0; i < data.newMsgs.length; i++) {
+      //   if (nowTime - data.newMsgs[i].time >= 86400000) {
+      //     //前一天的消息
+      //     this.beforMsgs.unshift({
+      //       msg: data.newMsgs[i].msg,
+      //       uid: data.newMsgs[i].fromUser.userId,
+      //       time: data.newMsgs[i].time,
+      //     });
+      //   } else {
+      //     this.newMsgs.unshift({
+      //       msg: data.newMsgs[i].msg,
+      //       uid: data.newMsgs[i].fromUser.userId,
+      //       time: data.newMsgs[i].time,
+      //     });
+      //   }
+      // }
+      this.newMsgs.push({
+        msg: data.newMsgs[0].msg,
+        uid: data.newMsgs[0].fromUser.userId,
+        time: data.newMsgs[0].time,
+      });
       this.text = "";
     },
   },
@@ -464,7 +488,6 @@ $background-theme-color: (
     .logo {
       width: 200px;
       line-height: 80px;
-      // text-align: center;
       img {
         padding-left: 30px;
         height: 35px;
@@ -616,7 +639,6 @@ $background-theme-color: (
 }
 .inner-popover {
   font-size: 15px;
-  position: relative;
   .el-icon-arrow-left {
     font-size: 18px;
     margin-left: 10px;
@@ -629,7 +651,7 @@ $background-theme-color: (
   }
   .content {
     overflow: scroll;
-    height: 82vh;
+    height: 85vh;
     .befor-msg,
     .new-msg {
       .msg-card {
@@ -653,13 +675,15 @@ $background-theme-color: (
             vertical-align: middle;
           }
           .text {
-            .text-content {
-              margin-left: 10px;
-              border-radius: 10px;
-              background-color: rgb(216, 216, 216);
-              padding: 12px 10px;
-              vertical-align: middle;
-            }
+            margin-left: 10px;
+            border-radius: 10px;
+            background-color: rgba(243, 243, 243, 0.415);
+            padding: 12px 18px;
+            vertical-align: middle;
+          }
+          //微信背景颜色
+          .green-Bg {
+            background-color: #43f943c7;
           }
         }
         .active {
@@ -675,38 +699,12 @@ $background-theme-color: (
     overflow: scroll;
     height: 82vh;
   }
-  @media (max-width: 1920px) {
-    .content {
-      height: 82vh;
-    }
-  }
-  @media (min-width: 1921px) {
-    .content {
-      height: 87vh;
-    }
-  }
-  .el-input {
-    position: absolute;
-    .el-input__inner {
-      margin-left: 15px;
-      height: 70px;
-      width: 90%;
-    }
-  }
   .send-button {
-    position: absolute;
-    right: 15px;
-    bottom: -120px;
-    border: 1px solid rgb(209, 209, 209);
-    padding: 10px;
-    text-align: center;
-    border-radius: 15px;
-    cursor: pointer;
+    margin-top: 50px;
+    float: right;
   }
 }
-.send-button:hover {
-  background-color: rgb(212, 212, 212);
-}
+
 #el-drawer__title {
   margin: 0;
   padding: 0;
@@ -731,5 +729,15 @@ $background-theme-color: (
   font-size: 18px;
   font-weight: 800;
   margin-bottom: 15px;
+}
+
+::v-deep {
+  .el-input {
+    position: absolute;
+    .el-input__inner {
+      margin-left: 15px;
+      width: 90%;
+    }
+  }
 }
 </style>

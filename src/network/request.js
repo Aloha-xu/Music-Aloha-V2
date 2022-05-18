@@ -4,7 +4,7 @@ import { Message } from "element-ui";
 const commonOptions = {
   // version: process.env.VUE_APP_VERSION,
   // deviceModel: phone.model,
-  timestamp: new Date().getTime(),
+  // timestamp: new Date().getTime(),
   // uuid: phone.deviceId,
   // connection: "",
   // location: "",
@@ -23,6 +23,7 @@ export function request(config) {
       //网易云防止被缓存 全部添加时间错请求
       config.params = Object.assign(config.params || {}, commonOptions, {
         //   token: getTOKEN(),
+        timestamp: new Date().getTime(),
       });
       // config.data = Object.assign(config.data || {}, commonOptions, {
       //   //   token: getTOKEN(),
