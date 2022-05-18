@@ -24,7 +24,7 @@
         <span slot="title" class="slot">最近播放</span>
       </el-menu-item>
     </el-menu>
-    <div class="user-songlist">
+    <div class="user-songlist" v-show="token">
       <div class="created-playlist">
         <div class="titile">
           <span class="name" @click="handleShowPlaylist">创建的歌单</span>
@@ -151,15 +151,6 @@ export default {
         this.$store.dispatch("getUserPlayList");
       }
     },
-    //获取用户的歌单信息 优化  提取到vuex action里面
-    // async getUserPlaylist() {
-    //   let uInfo = JSON.parse(window.sessionStorage.getItem("currentUserInfo"));
-    //   let uId = uInfo.userId;
-    //   let playlist = await getUserPlaylist(uId);
-    //   console.log(playlist);
-    //   this.$store.commit("setUserSonglistInfo", playlist);
-    //   this.$store.commit("updataSonglist", uId);
-    // },
     handleToPlaylistPapg(id, type) {
       if (type == "myplaylist") {
         this.$store.commit("SET_IS_SHOW_UPDATA_COMPONENT", true);
@@ -170,7 +161,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["heartSonglist"]),
+    ...mapGetters(["heartSonglist", "token"]),
     //解决拖动组件无法直接设置vuex的值
     mySonglist: {
       get() {
@@ -192,7 +183,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("getUserPlayList");
+    // this.$store.dispatch("getUserPlayList");
   },
 };
 </script>

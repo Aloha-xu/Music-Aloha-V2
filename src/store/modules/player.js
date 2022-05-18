@@ -391,6 +391,7 @@ const player = {
     //       });
     //   });
     // },
+
     // // 登出
     // LogOut({ commit, state }) {
     //   return new Promise((resolve) => {
@@ -398,6 +399,7 @@ const player = {
     //     resolve();
     //   });
     // },
+
     // // 登录过期
     // expired({ commit }) {
     //   return new Promise((resolve) => {
@@ -405,6 +407,7 @@ const player = {
     //     resolve();
     //   });
     // },
+
     //获取用户的歌单列表
     async getUserPlayList({ commit }) {
       let uInfo = JSON.parse(window.sessionStorage.getItem("currentUserInfo"));
