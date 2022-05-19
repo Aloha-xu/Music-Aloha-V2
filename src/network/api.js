@@ -1080,12 +1080,9 @@ export function getMsgToMe() {
 // lasttime : 返回数据的 time ,默认-1,传入上一次返回结果的 time,将会返回下一页的数据
 // 接口地址 : /msg/notices
 // 调用例子 : /msg/notices?limit=3
-export function getMsgNotices(lasttime) {
+export function getMsgNotices() {
   return request({
     url: "/msg/notices",
-    params: {
-      lasttime,
-    },
   });
 }
 

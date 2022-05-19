@@ -62,6 +62,7 @@
       :show-close="false"
       @close="handleClose"
       @open="handleOpen"
+      :withHeader="false"
     >
       <div class="notice-popover">
         <!--  -->
@@ -227,6 +228,9 @@ import {
   getPrivateMsgHistory,
   SendText,
   outRefresh,
+  getMsgComments,
+  getMsgToMe,
+  getMsgNotices,
 } from "@/network/api";
 import { getYMD, getYestaryToday } from "@/utils/uctil";
 import Search from "./search/search.vue";
@@ -326,6 +330,7 @@ export default {
     },
     //这里需要修改 换一种方式刷新数据
     handleInnerOpen() {
+      this.getPrivateMsg(this.toUserInfo.uId);
       //计时器定时更新数据
       this.msgInterval = setInterval(() => {
         this.getPrivateMsg(this.toUserInfo.uId);
@@ -404,6 +409,9 @@ export default {
   async created() {
     const { data } = await getHotSearchDetail();
     this.HotSearchDetail = data.data;
+    await getMsgComments(this.currentUserInfo.userId);
+    await getMsgToMe();
+    await getMsgNotices();
   },
   computed: {
     ...mapGetters({

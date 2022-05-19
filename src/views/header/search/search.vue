@@ -192,7 +192,7 @@ export default {
       height: 30px;
       border-radius: 10px;
       border: none;
-      background-image: url("~@/assets/icon/search-active.svg");
+      // background-image: url("~@/assets/icon/search-active.svg");
       background-repeat: no-repeat;
       background-position: 145px;
       //去掉input获取焦点时候的边框
@@ -203,10 +203,10 @@ export default {
   .hot-search {
     position: absolute;
     left: -50px;
-    top: 48.5px;
+    top: 60px;
     width: 360px;
     height: 460px;
-    background-color: rgb(256, 256, 256);
+    background-color: rgba(256, 256, 256, 0.9);
     border-radius: 10px;
     z-index: 999;
     overflow: scroll;

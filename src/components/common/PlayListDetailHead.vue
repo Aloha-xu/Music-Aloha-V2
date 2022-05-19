@@ -197,7 +197,6 @@ export default {
     .creator-info {
       margin-top: 10px;
       font-size: 12.5px;
-
       .head-portrait {
         width: 25px;
         height: 25px;
@@ -205,6 +204,7 @@ export default {
         vertical-align: middle;
       }
       .creator-name {
+        cursor: pointer;
         vertical-align: middle;
         margin-left: 5px;
         color: rgb(115, 166, 190);

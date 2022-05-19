@@ -84,12 +84,12 @@
 <script>
 import PlayCard from "@/components/common/PlayCard.vue";
 import { getUserDetail, getUserPlaylist, setFollow } from "@/network/api";
+import { mapGetters } from "vuex";
 export default {
   components: { PlayCard },
   name: "UserDetail",
   data() {
     return {
-      //head数据
       img: null,
       userName: null,
       authTypes: null,
@@ -101,11 +101,8 @@ export default {
       selfIntroduction: null,
       sns: null,
       playlistCount: null,
-
+      isFocus: null,
       playListInfo: [],
-
-      //当前页面的用户信息
-      toUserInfo: {},
     };
   },
   methods: {
@@ -113,21 +110,16 @@ export default {
     async handleFocus() {
       if (this.isFocus) {
         await setFollow(this.toUserInfo.userId, 0);
-        this.toUserInfo.followed = false;
+        this.isFocus = false;
       } else {
         await setFollow(this.toUserInfo.userId, 1);
-        this.toUserInfo.followed = true;
+        this.isFocus = true;
       }
     },
 
     //显示私信弹出框
     handlePrivateMsg() {
       //通过vuex传信息给darwer下的innnerDarwer
-      this.$store.state.toUserInfo = {
-        cover: this.img,
-        name: this.userName,
-        uId: this.toUserInfo.userId,
-      };
       this.$store.commit("setShowMsgInnerDarwer");
       this.$store.commit("setShowMsgDarwer");
     },
@@ -140,7 +132,7 @@ export default {
     //处理全部数据
     async handleAllInfo() {
       const { data } = await getUserDetail(this.$route.params.id);
-      // console.log(data);
+      console.log(data);
       this.img = data.profile.avatarUrl;
       this.userName = data.profile.nickname;
       this.authTypes = data.profile.allAuthTypes.map(({ desc }) => desc);
@@ -159,15 +151,15 @@ export default {
       this.playListInfo = playListInfo.data.playlist;
 
       //设置用户的信息
-      this.toUserInfo = data.profile;
-      // console.log(playListInfo);
+      this.$store.commit("SET_TO_USER_INFO", {
+        cover: data.profile.avatarUrl,
+        name: data.profile.nickname,
+        uId: data.profile.userId,
+      });
     },
   },
   computed: {
-    //是否关注的控制变量
-    isFocus() {
-      return this.toUserInfo.followed;
-    },
+    ...mapGetters(["toUserInfo"]),
   },
   async created() {
     this.handleAllInfo();

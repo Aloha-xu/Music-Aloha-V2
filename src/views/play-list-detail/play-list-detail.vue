@@ -203,22 +203,34 @@ export default {
       const SongsInfo = resIds.data.songs;
       //这里返回的url是不按传入的id按需返回的 所以需要进行url校正
       const Urls = await getSongUrl(SongsInfo.map(({ id }) => id));
+      console.log(Urls);
       if (!this.playList.length == 0) {
         this.playList = [];
       }
 
+      //用歌曲的id做对象的key，url为value
+      let innerUrls = {};
+      Urls.data.data.forEach(({ id, url }) => {
+        innerUrls[id] = url;
+      });
+
       //这里筛选出来的数据是用来渲染歌单的歌曲列表的
+      //时间复杂度 2*n*n  需要 优化
       for (let i = 0; i < SongsInfo.length; i++) {
         let songinfo = {};
         songinfo.id = SongsInfo[i].id;
-        songinfo.url = "";
-        for (let j = 0; j < Urls.data.data.length; j++) {
-          if (Urls.data.data[j].id == songinfo.id) {
-            songinfo.url = Urls.data.data[j].url;
-          }
-        }
+        // songinfo.url = "";
+        // 插入 正确的 url
+        songinfo.url = innerUrls[songinfo.id];
+
+        // for (let j = 0; j < Urls.data.data.length; j++) {
+        //   if (Urls.data.data[j].id == songinfo.id) {
+        //     songinfo.url = Urls.data.data[j].url;
+        //   }
+        // }
         songinfo.name = SongsInfo[i].name;
         songinfo.singer = [];
+        //格式化 singer 数据格式
         for (let j = 0; j < SongsInfo[i].ar.length; j++) {
           songinfo.singer[j] = {
             name: SongsInfo[i].ar[j].name,
@@ -269,12 +281,9 @@ export default {
           //获取某一首歌的相似歌单信息
           let simimusic = await getSimiPlayList(v[0].id);
           this.$store.commit("SET_SIMI_SONG_LIST", simimusic.data.playlists);
-          // this.$store.state.SimiSongList = simimusic.data.playlists;
           //获取某一首歌的评论
           let musicComments = await getMusicComment(v[0].id, 100);
           this.$store.commit("SET_COMMENT_INFO", musicComments.data.comments);
-          // this.$store.state.commentInfo = musicComments.data.comments;
-
           this.$store.commit("setToRecordSongList", this.playList[v[1]]);
         }
       } catch (error) {
@@ -313,8 +322,6 @@ export default {
         await subPlaylist(1, this.headInfo.id);
         this.refreshUserSonglistInfo();
       }
-      //⭐⭐⭐⭐⭐⭐
-      //数据没有更新是因为网易云api接口做了短时间内多次访问只会拿到前一个的数据 ----缓存处理 ---加时间戳可以解决
     },
 
     //处理点击head组件的播放全部按钮
@@ -372,8 +379,7 @@ export default {
 
   watch: {
     $route() {
-      let id = this.$route.params.id;
-      if (id) {
+      if (this.$route.params.id) {
         this.itemClick(this.currentIndex);
         this.handleSongListDetailInfo();
         this.getCommentInfo();
@@ -405,6 +411,7 @@ export default {
           color: gray;
           padding-bottom: 5px;
           margin-right: 20px;
+          cursor: pointer;
         }
         .active {
           color: black;
