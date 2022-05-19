@@ -58,8 +58,11 @@ export default {
     };
   },
   computed: {
+    //少于1w 就显示原本的数字
     playCount() {
-      return parseInt((this.playcount / 10000).toFixed(0)) + "万";
+      return parseInt((this.playcount / 10000).toFixed(0)) === 0
+        ? this.playcount
+        : parseInt((this.playcount / 10000).toFixed(0)) + "万";
     },
   },
   methods: {

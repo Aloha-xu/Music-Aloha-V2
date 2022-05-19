@@ -1,7 +1,7 @@
 <template>
   <div class="albumlist-detail">
     <PlayListDetailHead
-      :values="headInfo"
+      :playListHeadInfo="headInfo"
       :isShowPlayListComponent="isShowPlayListComponent"
     >
     </PlayListDetailHead>

@@ -82,10 +82,10 @@
 </template>
 
 <script>
-import playCard from "@/components/common/PlayCard.vue";
+import PlayCard from "@/components/common/PlayCard.vue";
 import { getUserDetail, getUserPlaylist, setFollow } from "@/network/api";
 export default {
-  components: { playCard },
+  components: { PlayCard },
   name: "UserDetail",
   data() {
     return {

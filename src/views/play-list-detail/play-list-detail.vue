@@ -1,7 +1,7 @@
 <template>
   <div class="play-list-detail">
     <PlayListDetailHead
-      :values="headInfo"
+      :playListHeadInfo="headInfo"
       :isShowPlayListComponent="isShowPlayListComponent"
       @handleCollectSonglist="handleCollectSonglist"
       @handlePlayAllSongs="handlePlayAllSongs"
@@ -193,6 +193,7 @@ export default {
       songListHeadInfo.playCount = data.playlist.playCount;
       songListHeadInfo.description = data.playlist.description;
       songListHeadInfo.id = data.playlist.id;
+      songListHeadInfo.creatorId = data.playlist.creator.userId;
       this.headInfo = songListHeadInfo;
 
       //处理歌单中全部的歌曲的ids

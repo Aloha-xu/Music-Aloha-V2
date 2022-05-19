@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="left">
-      <div class="logo">
+      <div class="logo" @click="reloadProgrom">
         <img src="@/assets/icon/logo.png" alt="" />
       </div>
       <div class="back_go_tool">
@@ -28,12 +28,12 @@
     </div>
     <div class="right">
       <div class="user-info">
-        <div class="out-login" v-if="!currentUserInfo">
+        <div class="out-login" v-show="!currentUserInfo">
           <el-button type="text" @click="showLoginDialog">
             <i class="el-icon-user"></i> <span>未登录</span>
           </el-button>
         </div>
-        <div class="login" v-if="currentUserInfo" @click="handleOutLoginFun">
+        <div class="login" v-show="currentUserInfo" @click="handleOutLoginFun">
           <img :src="currentUserInfo.avatarUrl" alt="" />
           <span>{{ currentUserInfo.nickname }}</span>
         </div>
@@ -44,16 +44,12 @@
             <div class="clothes">
               <div
                 class="theme-item"
-                v-for="(item, index) in 6"
+                v-for="(item, index) in themeStyle"
                 :key="index"
-                @click="handleTheme(index, item)"
+                @click="handleChangeThemeStyle(index)"
               ></div>
             </div>
-            <img
-              slot="reference"
-              src="@/assets/icon/clothes.svg"
-              @click="handelChangeBackgroundColor"
-            />
+            <img slot="reference" src="@/assets/icon/clothes.svg" />
           </el-popover>
           <img src="@/assets/icon/setting.svg" alt="" />
         </div>
@@ -194,13 +190,23 @@
               show-word-limit
             >
             </el-input>
-            <el-button
-              type="primary"
-              round
-              @click="sendMsgs"
-              class="send-button"
-              >发送</el-button
+            <el-popover
+              placement="bottom"
+              width="200"
+              trigger="click"
+              content="不能发送空白信息"
+              :disabled="isShowEmptyTips"
             >
+              <el-button
+                type="primary"
+                round
+                @click="sendMsgs"
+                @change="sendMsgs"
+                class="send-button"
+                slot="reference"
+                >发送</el-button
+              >
+            </el-popover>
           </div>
         </el-drawer>
       </div>
@@ -224,7 +230,6 @@ import {
 } from "@/network/api";
 import { getYMD, getYestaryToday } from "@/utils/uctil";
 import Search from "./search/search.vue";
-import v from "@/assets/css/base.scss";
 import { mapGetters } from "vuex";
 import Login from "@/views/login/index.vue";
 export default {
@@ -246,9 +251,22 @@ export default {
       msgInterval: null,
       userPWD: null,
       userPhoneNumber: null,
+      isShowEmptyTips: false,
+      //主题颜色
+      themeStyle: {
+        0: "#242427",
+        1: "#EC4141",
+        2: "#67BFFD",
+        3: "#54C77B",
+        4: "#FAA4C6",
+        5: "#F8CF7F",
+      },
     };
   },
   methods: {
+    reloadProgrom() {
+      location.reload();
+    },
     showLoginDialog() {
       this.$store.commit("SET_LOGIN_DIALOG", true);
     },
@@ -258,36 +276,10 @@ export default {
       this.$store.dispatch("LogOut");
       await outRefresh();
     },
-    handleTheme(index, item) {
-      console.log(index, item);
-      if (index === 0) {
-        document
-          .getElementsByTagName("body")[0]
-          .style.setProperty("--theme", "#242427");
-      } else if (index === 1) {
-        document
-          .getElementsByTagName("body")[0]
-          .style.setProperty("--theme", "#EC4141");
-      } else if (index === 2) {
-        document
-          .getElementsByTagName("body")[0]
-          .style.setProperty("--theme", "#67BFFD");
-      } else if (index === 3) {
-        document
-          .getElementsByTagName("body")[0]
-          .style.setProperty("--theme", "#54C77B");
-      } else if (index === 4) {
-        document
-          .getElementsByTagName("body")[0]
-          .style.setProperty("--theme", "#FAA4C6");
-      } else {
-        document
-          .getElementsByTagName("body")[0]
-          .style.setProperty("--theme", "#F8CF7F");
-      }
-    },
-    handelChangeBackgroundColor() {
-      console.log(v.backgroundmaincolor1);
+    handleChangeThemeStyle(index) {
+      document
+        .getElementsByTagName("body")[0]
+        .style.setProperty("--theme", this.themeStyle[index]);
     },
     back() {
       history.back();
@@ -295,26 +287,9 @@ export default {
     go() {
       history.go(1);
     },
-
-    handleInputSearch() {},
     async handleChangeSearch(searchValues) {
       const SearchSuggest = await getSearchSuggest(searchValues);
       this.SearchDetail = SearchSuggest.data.result;
-    },
-    loadAll() {
-      for (let i = 0; i < this.HotSearchDetail.length; i++) {
-        let hotSearchDetail = {};
-        (hotSearchDetail.content = this.HotSearchDetail[i].content),
-          (hotSearchDetail.score = this.HotSearchDetail[i].score),
-          (hotSearchDetail.searchWord = this.HotSearchDetail[i].searchWord),
-          this.restaurants.push(hotSearchDetail);
-      }
-    },
-    handleSelect(item) {
-      console.log(item);
-    },
-    handleIconClick(ev) {
-      console.log(ev);
     },
     parseLastNotice(msg) {
       let afterMsg = JSON.parse(msg);
@@ -326,7 +301,6 @@ export default {
     getYestaryToday(time) {
       return getYestaryToday(time);
     },
-
     //展示darwer通知页面
     ShowMsgDarwer() {
       this.$store.commit("setShowMsgDarwer");
@@ -345,8 +319,7 @@ export default {
     },
     //drawer的回调事件
     handleOpen() {
-      // 差异bug待处理
-      this.getPrivateMsg(this.currentUserInfo.userId);
+      this.getNotices();
     },
     handleClose() {
       this.$store.commit("setShowMsgDarwer");
@@ -392,6 +365,7 @@ export default {
           });
         }
       }
+      this.$refs.innerConent.scrollTop = this.$refs.innerConent.scrollHeight;
     },
 
     //退出innnerPopover
@@ -407,45 +381,29 @@ export default {
 
     //处理发送消息事件
     async sendMsgs() {
-      //数据返回的是历史消息
+      //判断 发送空
+      if (this.text) {
+        this.isShowEmptyTips = true;
+      } else {
+        this.isShowEmptyTips = false;
+        return;
+      }
+
+      //数据返回的是刚刚发送过去的消息
       const { data } = await SendText(this.toUserInfo.uId, this.text);
-      // console.log(data);
-      //清除聊天数据
-      // this.beforMsgs = [];
-      // this.newMsgs = [];
-      // let nowTime = new Date().getTime();
-      // for (let i = 0; i < data.newMsgs.length; i++) {
-      //   if (nowTime - data.newMsgs[i].time >= 86400000) {
-      //     //前一天的消息
-      //     this.beforMsgs.unshift({
-      //       msg: data.newMsgs[i].msg,
-      //       uid: data.newMsgs[i].fromUser.userId,
-      //       time: data.newMsgs[i].time,
-      //     });
-      //   } else {
-      //     this.newMsgs.unshift({
-      //       msg: data.newMsgs[i].msg,
-      //       uid: data.newMsgs[i].fromUser.userId,
-      //       time: data.newMsgs[i].time,
-      //     });
-      //   }
-      // }
       this.newMsgs.push({
         msg: data.newMsgs[0].msg,
         uid: data.newMsgs[0].fromUser.userId,
         time: data.newMsgs[0].time,
       });
       this.text = "";
+      this.$refs.innerConent.scrollTop = this.$refs.innerConent.scrollHeight;
     },
   },
 
   async created() {
     const { data } = await getHotSearchDetail();
     this.HotSearchDetail = data.data;
-
-    this.getNotices();
-    //通过vuex传入touser的信息
-    // this.toUserInfo = this.$store.state.toUserInfo;
   },
   computed: {
     ...mapGetters({
@@ -459,7 +417,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/css/base.scss";
 $background-theme-color: (
   1: #242427,
@@ -694,7 +652,7 @@ $background-theme-color: (
     height: 82vh;
   }
   .send-button {
-    margin-top: 50px;
+    margin-top: 5px;
     float: right;
   }
 }
@@ -725,14 +683,15 @@ $background-theme-color: (
   margin-bottom: 15px;
 }
 
-// 不明白之前为什么写   穿透了  公司电脑看
-::v-deep {
-  .el-input {
-    position: absolute;
-    .el-input__inner {
-      margin-left: 15px;
-      width: 90%;
-    }
-  }
-}
+// 不明白之前为什么写   穿透了
+// 因为是在同一个header 包含了 login 的 el-input
+// ::v-deep {
+//   .el-input {
+//     position: absolute;
+//     .el-input__inner {
+//       margin-left: 15px;
+//       width: 90%;
+//     }
+//   }
+// }
 </style>

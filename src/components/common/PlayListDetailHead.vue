@@ -1,12 +1,12 @@
 <template>
   <div class="playlistdetail-head">
     <div class="left">
-      <img :src="values.coverImgUrl" />
+      <img :src="playListHeadInfo.coverImgUrl" />
     </div>
     <div class="right">
       <div class="title">
-        <span class="songlist-type">{{ values.titleType }}</span>
-        <span class="songlist-name">{{ values.name }}</span>
+        <span class="songlist-type">{{ playListHeadInfo.titleType }}</span>
+        <span class="songlist-name">{{ playListHeadInfo.name }}</span>
         <i
           v-show="isShowUpdataComponent"
           class="el-icon-edit-outline"
@@ -20,11 +20,11 @@
         ></i>
       </div>
       <div class="creator-info" v-if="isShowPlayListComponent">
-        <img :src="values.avatarUrl" alt="" class="head-portrait" />
+        <img :src="playListHeadInfo.avatarUrl" alt="" class="head-portrait" />
         <span class="creator-name" @click="clickToUserDetailPapg">{{
-          values.nickname
+          playListHeadInfo.nickname
         }}</span>
-        <span class="create-time">{{ values.createTime }}</span>
+        <span class="create-time">{{ playListHeadInfo.createTime }}</span>
       </div>
       <div class="tools">
         <el-button round>
@@ -36,27 +36,27 @@
         <el-button
           round
           @click="handleCollectSonglist"
-          v-if="!values.subscribed"
+          v-if="!playListHeadInfo.subscribed"
           :style="
             isShowUpdataComponent ? 'pointer-events: none; opacity: 0.6;' : ''
           "
         >
           <span class="el-icon-folder-add"
-            >收藏({{ values.subscribedCount }}万)</span
+            >收藏({{ playListHeadInfo.subscribedCount }}万)</span
           >
         </el-button>
         <el-button
           round
           @click="handleCollectSonglist"
-          v-if="values.subscribed"
+          v-if="playListHeadInfo.subscribed"
         >
           <span class="el-icon-folder-add"
-            >已收藏({{ values.subscribedCount }}万)</span
+            >已收藏({{ playListHeadInfo.subscribedCount }}万)</span
           >
         </el-button>
         <el-button round>
           <span class="el-icon-edit-outline"
-            >分享({{ values.shareCount }})</span
+            >分享({{ playListHeadInfo.shareCount }})</span
           >
         </el-button>
         <el-button round>
@@ -64,14 +64,14 @@
         </el-button>
       </div>
       <div class="album-info" v-if="!isShowPlayListComponent">
-        <span class="songer">歌手：{{ values.singer }}</span>
+        <span class="songer">歌手：{{ playListHeadInfo.singer }}</span>
         <br />
-        <span class="time">时间：{{ values.publishTime }}</span>
+        <span class="time">时间：{{ playListHeadInfo.publishTime }}</span>
       </div>
       <span class="biaoqian" v-if="isShowPlayListComponent">标签：</span>
       <span
         class="songlist-title"
-        v-for="item in values.tags"
+        v-for="item in playListHeadInfo.tags"
         :key="item"
         v-show="isShowPlayListComponent"
         >{{ item }}
@@ -79,12 +79,16 @@
       <span
         class="updata-type"
         v-if="
-          isShowPlayListComponent && values.tags && values.tags.length === 0
+          isShowPlayListComponent &&
+            playListHeadInfo.tags &&
+            playListHeadInfo.tags.length === 0
         "
         >添加标签</span
       >
       <div class="song-other-info" v-if="isShowPlayListComponent">
-        歌曲：{{ values.trackCount }} 播放：{{ values.playCount }}万
+        歌曲：{{ playListHeadInfo.trackCount }} 播放：{{
+          playListHeadInfo.playCount
+        }}万
       </div>
       <div
         v-if="isShowPlayListComponent"
@@ -99,9 +103,11 @@
         <span
           class="updata-desc"
           @click="handleToUpdataPapg"
-          v-show="isShowPlayListComponent && values.description === ''"
+          v-show="
+            isShowPlayListComponent && playListHeadInfo.description === ''
+          "
           >添加简介</span
-        >{{ values.description }}
+        >{{ playListHeadInfo.description }}
       </div>
     </div>
     <div
@@ -117,7 +123,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "PlayListDetailHead",
   props: {
-    values: Object,
+    playListHeadInfo: Object,
     isShowPlayListComponent: Boolean,
   },
   data() {
@@ -142,13 +148,10 @@ export default {
       this.$router.push("/userupdata/" + this.$route.params.id);
     },
     clickToUserDetailPapg() {
-      this.$router.push("/userdetail/" + this.info.creator.userId);
+      this.$router.push("/userdetail/" + this.playListHeadInfo.creatorId);
     },
   },
   computed: {
-    // isShowUpdataComponent() {
-    //   return this.$store.state.isShowUpdataComponent;
-    // },
     ...mapGetters(["isShowUpdataComponent", "playing"]),
   },
 };

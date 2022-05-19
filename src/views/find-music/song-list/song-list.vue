@@ -366,7 +366,7 @@ export default {
           display: inline-block;
           padding: 0px 15px;
           &:hover {
-            color: $click-grey;
+            color: #404040;
           }
         }
         .el-button:focus,
