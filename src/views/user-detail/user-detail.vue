@@ -82,8 +82,8 @@
 </template>
 
 <script>
-import playCard from "../../components/common/PlayCard.vue";
-import { getUserDetail, getUserPlaylist, setFollow } from "../../network/api";
+import playCard from "@/components/common/PlayCard.vue";
+import { getUserDetail, getUserPlaylist, setFollow } from "@/network/api";
 export default {
   components: { playCard },
   name: "UserDetail",

@@ -1,7 +1,7 @@
 <template>
   <div class="into-details-button" @click="intoDetailsClick">
     {{ intoDetailsButtonName }}
-    <img src="../../assets/icon/arrow-double-right.svg" alt="" />
+    <img src="@/assets/icon/arrow-double-right.svg" alt="" />
   </div>
 </template>
 

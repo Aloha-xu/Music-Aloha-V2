@@ -63,7 +63,7 @@
 
 <script>
 //bug：分类的男歌手 女歌手 乐队 这些按钮点击无对应的数据返回
-import { getArtistsList } from "../../../network/api";
+import { getArtistsList } from "@/network/api";
 import Loading from "@/components/common/loading.vue";
 import { mapGetters } from "vuex";
 export default {

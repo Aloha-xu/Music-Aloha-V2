@@ -25,6 +25,7 @@
             placeholder="请输入内容"
             prefix-icon="el-icon-search"
             v-model="searchValues"
+            @input="debounceWatch"
           >
           </el-input>
         </div>
@@ -106,6 +107,7 @@ export default {
       innerPlayList: null,
       // 1 发送, 2 回复 3 删除
       replyWay: 1,
+      debounceWatch: null,
     };
   },
   methods: {
@@ -141,16 +143,6 @@ export default {
         this.innerPlayList.forEach((item) => {
           innnerMap[item.id] && innerPlayList.push(item);
         });
-
-        // let innerPlayList = [];
-        // data.result.songs.some(({ id }) => {
-        //   return this.innerPlayList.some((item) => {
-        //     if (id === item.id) {
-        //       innerPlayList.push(item);
-        //       return true;
-        //     }
-        //   });
-        // });
 
         this.playList = innerPlayList;
       } else {
@@ -368,12 +360,11 @@ export default {
     ...mapGetters(["loading"]),
   },
   created() {
-    // this.$watch(
-    //   "searchValues",
-    //   _debounce(() => {
-    //     this.handleSearchInnerSong();
-    //   }, 1000)
-    // );
+    //保存这一个防抖函数到data 为了复用这个防抖函数
+    this.debounceWatch = _debounce(() => {
+      this.handleSearchInnerSong();
+    }, 500);
+
     this.itemClick(this.currentIndex);
     this.handleSongListDetailInfo();
   },
@@ -386,12 +377,6 @@ export default {
         this.handleSongListDetailInfo();
         this.getCommentInfo();
       }
-    },
-    //为什么  这里为什么进不去防抖？？？？？
-    searchValues() {
-      _debounce(function () {
-        this.handleSearchInnerSong();
-      }, 500);
     },
   },
 };
@@ -437,6 +422,5 @@ export default {
       padding-left: 20px;
     }
   }
-}
-</style
+}</style
 >>

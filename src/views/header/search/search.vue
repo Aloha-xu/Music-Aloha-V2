@@ -103,6 +103,7 @@ export default {
       isShowHotSearch: false,
       isShowStringSearch: false,
       searchValues: "",
+      unwatch: null,
     };
   },
   methods: {
@@ -162,21 +163,22 @@ export default {
       });
     },
 
+    //播放音乐
     handlePlaySong() {},
-    aaa() {
-      let that = this;
-      that.$emit("handleSearchValues", that.searchValues);
-    },
   },
 
   created() {
     //防抖
-    this.$watch(
+    this.unwatch = this.$watch(
       "searchValues",
       _debounce((searchValues) => {
         this.$emit("handleSearchValues", searchValues);
-      }, 200)
+      }, 500)
     );
+  },
+  beforeDestroy() {
+    // 移除监听
+    this.unwatch && this.unwatch();
   },
 };
 </script>
@@ -190,7 +192,7 @@ export default {
       height: 30px;
       border-radius: 10px;
       border: none;
-      background-image: url("../../../assets/icon/search-active.svg");
+      background-image: url("~@/assets/icon/search-active.svg");
       background-repeat: no-repeat;
       background-position: 145px;
       //去掉input获取焦点时候的边框

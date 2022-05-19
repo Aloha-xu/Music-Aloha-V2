@@ -96,7 +96,7 @@ import {
   getTopSonglistType,
   getTopSonglist,
   getSongList,
-} from "../../../network/api";
+} from "@/network/api";
 export default {
   name: "SongList",
   components: {

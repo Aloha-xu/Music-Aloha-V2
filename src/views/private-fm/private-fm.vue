@@ -12,7 +12,7 @@
                 @click="handlePlayingState"
               ></i>
               <img
-                src="../../assets/icon/controltools/stop.png"
+                src="@/assets/icon/controltools/stop.png"
                 alt=""
                 v-show="playing && goblePlayingState"
                 class="stop-button"
@@ -23,13 +23,13 @@
           <div class="tools">
             <div class="heart">
               <img
-                src="../../assets/icon/heart.svg"
+                src="@/assets/icon/heart.svg"
                 alt=""
                 v-show="false"
                 style="height: 30px; weight: 30px"
               />
               <img
-                src="../../assets/icon/heartactive.svg"
+                src="@/assets/icon/heartactive.svg"
                 alt=""
                 style="height: 30px; weight: 30px"
               />
@@ -90,13 +90,8 @@
 
 <script>
 import Comment from "@/components/common/Comment.vue";
-import { parseLyric } from "../../utils/lyric";
-import {
-  fm,
-  getSongUrl,
-  getSongLyric,
-  getMusicComment,
-} from "../../network/api";
+import { parseLyric } from "@/utils/lyric";
+import { fm, getSongUrl, getSongLyric, getMusicComment } from "@/network/api";
 import { mapGetters } from "vuex";
 export default {
   name: "PrivateFM",

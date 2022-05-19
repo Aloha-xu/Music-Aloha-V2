@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import { getTopSonglistType, getTopSonglist } from "../../network/api";
-import playCard from "../../components/common/PlayCard.vue";
+import { getTopSonglistType, getTopSonglist } from "@/network/api";
+import playCard from "@/components/common/PlayCard.vue";
 import VideoTypePopover from "../video/video-type-popover.vue";
 export default {
   components: { playCard, VideoTypePopover },

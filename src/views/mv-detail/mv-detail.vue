@@ -88,7 +88,7 @@
 
 <script>
 import Comment from "@/components/common/Comment.vue";
-import { getYMD } from "../../utils/uctil";
+import { getYMD } from "@/utils/uctil";
 import {
   getMvDetail,
   getMvUrl,

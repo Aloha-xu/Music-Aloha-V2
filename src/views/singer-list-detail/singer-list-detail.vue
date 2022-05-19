@@ -57,7 +57,7 @@ import {
   getArtistDesc,
   getSimiArtist,
   getArtistAlbum,
-} from "../../network/api";
+} from "@/network/api";
 export default {
   components: { Album, MV, ArtistDesc, SimiArtist },
   name: "SingerListDetail",
@@ -117,7 +117,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .singer-list-detail {
   width: 100%;
   padding-top: 25px;
