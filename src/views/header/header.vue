@@ -73,13 +73,13 @@
             v-for="(item, index) in tabItem"
             :key="item"
             :class="index == currentNav ? 'active' : ''"
-            @click="currentNav = index"
+            @click="handleChangeNav(index)"
           >
             {{ item }}
           </div>
         </div>
         <div class="content">
-          <div class="private">
+          <div class="private" v-show="currentNav == 0">
             <div
               class="notice-card"
               v-for="(item, index) in privateInfo"
@@ -104,6 +104,9 @@
               </div>
             </div>
           </div>
+          <div class="comment" v-show="currentNav == 1"></div>
+          <div class="artMe" v-show="currentNav == 2"></div>
+          <div class="notice" v-show="currentNav == 3"></div>
         </div>
         <!-- inner的具体聊天室 -->
         <el-drawer
@@ -268,6 +271,10 @@ export default {
     };
   },
   methods: {
+    handleChangeNav(index) {
+      this.currentNav = index;
+      //接口请求
+    },
     reloadProgrom() {
       location.reload();
     },
