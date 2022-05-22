@@ -106,7 +106,29 @@
           </div>
           <div class="comment" v-show="currentNav == 1"></div>
           <div class="artMe" v-show="currentNav == 2"></div>
-          <div class="notice" v-show="currentNav == 3"></div>
+          <div class="notice" v-show="currentNav == 3">
+            <div
+              class="notice-card"
+              v-for="(item, index) in noticeInfo"
+              :key="index"
+            >
+              <img
+                :src="item.user.avatarUrl"
+                alt=""
+                @click="clickToUserDetail(item.user.userId)"
+              />
+              <div class="text" @click="clickToCommentDetail()">
+                <div class="name">
+                  {{ item.user.nickname }}
+                  <span style="color: black"> 赞了你的评论</span>
+                </div>
+                <div class="time">{{ getYMD(item.comment.time) }}</div>
+                <div class="new-notice">
+                  {{ item.comment.content }}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- inner的具体聊天室 -->
         <el-drawer
@@ -249,7 +271,8 @@ export default {
       //搜索建议结果的数据
       SearchDetail: {},
       tabItem: ["私信", "评论", "@我", "通知"],
-      privateInfo: {},
+      privateInfo: [],
+      noticeInfo: [],
       currentNav: 0,
       beforMsgs: [],
       newMsgs: [],
@@ -271,6 +294,13 @@ export default {
     };
   },
   methods: {
+    //跳转到用户个人页面
+    clickToUserDetail(uId) {
+      console.log(111);
+      this.$router.push("/userdetail/" + uId);
+    },
+    //这一个点击通知 跳转到对应的歌单的 评论详情页 以后做
+    clickToCommentDetail() {},
     handleChangeNav(index) {
       this.currentNav = index;
       //接口请求
@@ -418,7 +448,10 @@ export default {
     this.HotSearchDetail = data.data;
     await getMsgComments(this.currentUserInfo.userId);
     await getMsgToMe();
-    await getMsgNotices();
+    const noticeInfo = await getMsgNotices();
+    this.noticeInfo = noticeInfo.data.notices.map(({ notice }) => {
+      return JSON.parse(notice);
+    });
   },
   computed: {
     ...mapGetters({
@@ -559,7 +592,8 @@ $background-theme-color: (
       }
     }
     .content {
-      .private {
+      .private,
+      .notice {
         .notice-card {
           display: flex;
           font-size: 12px;
@@ -583,6 +617,9 @@ $background-theme-color: (
             .name {
               color: rgba(0, 140, 255, 0.856);
               width: 60%;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
             }
             .time {
               font-size: 9px;
