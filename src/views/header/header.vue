@@ -104,8 +104,84 @@
               </div>
             </div>
           </div>
-          <div class="comment" v-show="currentNav == 1"></div>
-          <div class="artMe" v-show="currentNav == 2"></div>
+          <div class="comment" v-show="currentNav == 1">
+            <div
+              class="comment-card"
+              v-for="(item, index) in commentInfo"
+              :key="index"
+            >
+              <img
+                :src="item.user.avatarUrl"
+                alt=""
+                @click="clickToUserDetail(item.user.userId)"
+              />
+              <div class="text" @click="clickToCommentDetail()">
+                <div class="name">
+                  {{ item.user.nickname }}
+                </div>
+                <div class="time">{{ formatTime60orYMD(item.time) }}</div>
+                <div
+                  class="content"
+                  :class="item.content.indexOf('@') == 0 ? 'is-art' : ''"
+                >
+                  {{ item.content }}
+                </div>
+                <div class="be-replied-content">
+                  {{ item.beRepliedContent }}
+                </div>
+                <div class="reply-btn">
+                  <span class="reply-btn-content"
+                    ><i class="el-icon-chat-line-square"></i>回复</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="artMe" v-show="currentNav == 2">
+            <div
+              class="artMe-card"
+              v-for="(item, index) in artMeInfo"
+              :key="index"
+            >
+              <img
+                :src="item.comment.user.avatarUrl"
+                alt=""
+                @click="clickToUserDetail(item.comment.user.userId)"
+              />
+              <div class="text" @click="clickToCommentDetail()">
+                <div class="name">
+                  {{ item.comment.user.nickname }}
+                </div>
+                <div class="time">
+                  {{ formatTime60orYMD(item.comment.time) }}
+                </div>
+                <div class="content">
+                  评论:
+                  <span
+                    :class="
+                      item.comment.content.indexOf('@') == 0 ? 'is-art' : ''
+                    "
+                    >{{ item.comment.content }}</span
+                  >
+                </div>
+                <div class="be-replied-box">
+                  <img :src="item.resource.creator.avatarUrl" alt="" />
+                  <div class="be-replied-content">
+                    <div class="type">歌单</div>
+                    <div class="name">{{ item.resource.name }}</div>
+                    <div class="creator-name">
+                      by{{ item.resource.creator.nickname }}
+                    </div>
+                  </div>
+                </div>
+                <div class="reply-btn">
+                  <span class="reply-btn-content"
+                    ><i class="el-icon-chat-line-square"></i>回复</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="notice" v-show="currentNav == 3">
             <div
               class="notice-card"
@@ -257,7 +333,7 @@ import {
   getMsgToMe,
   getMsgNotices,
 } from "@/network/api";
-import { getYMD, getYestaryToday } from "@/utils/uctil";
+import { getYMD, getYestaryToday, set60Min } from "@/utils/uctil";
 import Search from "./search/search.vue";
 import { mapGetters } from "vuex";
 import Login from "@/views/login/index.vue";
@@ -273,6 +349,8 @@ export default {
       tabItem: ["私信", "评论", "@我", "通知"],
       privateInfo: [],
       noticeInfo: [],
+      commentInfo: [],
+      artMeInfo: [],
       currentNav: 0,
       beforMsgs: [],
       newMsgs: [],
@@ -294,6 +372,12 @@ export default {
     };
   },
   methods: {
+    //转化时间
+    formatTime60orYMD(timestamp) {
+      return new Date() - timestamp < 3600000
+        ? set60Min(timestamp)
+        : getYMD(timestamp);
+    },
     //跳转到用户个人页面
     clickToUserDetail(uId) {
       console.log(111);
@@ -441,17 +525,33 @@ export default {
       this.text = "";
       this.$refs.innerConent.scrollTop = this.$refs.innerConent.scrollHeight;
     },
+
+    async getMsgNoticesInfo() {
+      const { data } = await getMsgNotices();
+      this.noticeInfo = data.notices.map(({ notice }) => {
+        return JSON.parse(notice);
+      });
+    },
+
+    async getMsgToMeInfo() {
+      const { data } = await getMsgToMe();
+      this.artMeInfo = data.forwards.map(({ json }) => {
+        return JSON.parse(json);
+      });
+    },
+
+    async getMsgCommentsInfo() {
+      const { data } = await getMsgComments(this.currentUserInfo.userId);
+      this.commentInfo = data.comments;
+    },
   },
 
   async created() {
     const { data } = await getHotSearchDetail();
     this.HotSearchDetail = data.data;
-    await getMsgComments(this.currentUserInfo.userId);
-    await getMsgToMe();
-    const noticeInfo = await getMsgNotices();
-    this.noticeInfo = noticeInfo.data.notices.map(({ notice }) => {
-      return JSON.parse(notice);
-    });
+    this.getMsgToMeInfo();
+    this.getMsgCommentsInfo();
+    this.getMsgNoticesInfo();
   },
   computed: {
     ...mapGetters({
@@ -636,6 +736,152 @@ $background-theme-color: (
         .notice-card:hover {
           background-color: rgb(233, 233, 233);
           border-radius: 5px;
+        }
+      }
+      .comment {
+        .comment-card {
+          display: flex;
+          font-size: 12px;
+          padding-top: 10px;
+          padding-left: 15px;
+          cursor: pointer;
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            vertical-align: middle;
+          }
+          .text {
+            width: 290px;
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: 10px;
+            vertical-align: middle;
+            border-bottom: 1px solid rgb(233, 233, 233);
+            .name {
+              color: rgba(0, 140, 255, 0.856);
+              width: 60%;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+            .time {
+              font-size: 9px;
+              color: rgb(233, 233, 233);
+              width: 40%;
+            }
+            .content {
+              width: 100%;
+              padding: 10px 0;
+            }
+            .is-art {
+              color: #0070c0;
+              &:hover {
+                color: #0063aa;
+              }
+            }
+            .be-replied-content {
+              width: 100%;
+              background-color: $bg-grey;
+              padding: 10px;
+              border-radius: 5px;
+            }
+            .reply-btn {
+              width: 100%;
+              padding: 20px 0;
+              .reply-btn-content {
+                float: right;
+              }
+            }
+          }
+        }
+      }
+      .artMe {
+        .artMe-card {
+          display: flex;
+          font-size: 12px;
+          padding-top: 10px;
+          padding-left: 15px;
+          cursor: pointer;
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            vertical-align: middle;
+          }
+          .text {
+            width: 290px;
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: 10px;
+            vertical-align: middle;
+            border-bottom: 1px solid rgb(233, 233, 233);
+            .name {
+              color: rgba(0, 140, 255, 0.856);
+              width: 60%;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+            .time {
+              font-size: 9px;
+              color: rgb(233, 233, 233);
+              width: 40%;
+            }
+            .content {
+              width: 100%;
+              padding: 10px 0;
+              .is-art {
+                color: #0070c0;
+                &:hover {
+                  color: #0063aa;
+                }
+              }
+            }
+            .be-replied-box {
+              width: 100%;
+              background-color: $bg-grey;
+              padding: 10px;
+              border-radius: 5px;
+              display: flex;
+              flex-wrap: wrap;
+              img {
+                border-radius: 0%;
+                width: 40px;
+                height: 40px;
+                vertical-align: middle;
+              }
+              .be-replied-content {
+                margin-left: 20px;
+                .name {
+                  color: black;
+                  overflow: hidden;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                  display: inline-block;
+                  margin-left: 5px;
+                }
+                .type {
+                  width: 25px;
+                  border: 1px solid red;
+                  color: red;
+                  padding: 3px;
+                  display: inline-block;
+                }
+                .creator-name {
+                  color: gray;
+                  margin-top: 5px;
+                }
+              }
+            }
+            .reply-btn {
+              width: 100%;
+              padding: 20px 0;
+              .reply-btn-content {
+                float: right;
+              }
+            }
+          }
         }
       }
     }

@@ -98,3 +98,12 @@ export function getYestaryToday(timestamp) {
     .padStart(2, "0");
   return values + hours + ":" + minute + ":" + second;
 }
+
+//60分钟之内 显示 xx分钟
+export function set60Min(timestamp) {
+  const minute = new Date(new Date() - timestamp)
+    .getMinutes()
+    .toString()
+    .padStart(2, "0");
+  return minute + "分钟前";
+}

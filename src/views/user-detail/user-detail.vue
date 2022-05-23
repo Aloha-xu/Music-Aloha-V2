@@ -132,10 +132,10 @@ export default {
     //处理全部数据
     async handleAllInfo() {
       const { data } = await getUserDetail(this.$route.params.id);
-      console.log(data);
+      // console.log(data);
       this.img = data.profile.avatarUrl;
       this.userName = data.profile.nickname;
-      this.authTypes = data.profile.allAuthTypes.map(({ desc }) => desc);
+      this.authTypes = data.profile.allAuthTypes?.map(({ desc }) => desc);
       this.level = data.level;
       //gender 1 ==> 男 ♂  2 ==> 女 ♀
       this.gender = data.profile.gender;
