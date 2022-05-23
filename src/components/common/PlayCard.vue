@@ -73,61 +73,77 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 .card {
   position: relative;
   padding-bottom: 10px;
   margin-top: 10px;
   border-radius: 5px;
-}
-.playcard-img {
-  width: 100%;
-  border-radius: 5px;
-}
-.palycount {
-  position: absolute;
-  top: 3px;
-  right: 3px;
-  font-size: 12px;
-  color: white;
-}
-.text {
-  font-size: 13px;
-  letter-spacing: 0.7px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-top: 5px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-height: 20px;
-}
-.creattor {
-  position: absolute;
-  left: 10px;
-  bottom: 70px;
-  color: aliceblue;
-}
-.totle-paly-time {
-  position: absolute;
-  right: 8px;
-  bottom: 52px;
-  color: aliceblue;
-}
-.card-YY-MM-DD {
-  font-size: 13px;
-  font-weight: 300;
-  margin-top: 10px;
-}
-.track-count {
-  font-size: 13px;
-  font-weight: 300;
-}
-.image-slot {
-  width: 100%;
-  height: 100%;
-  /* width: 207px;
-  height: 207px; */
-  text-align: center;
-  /* line-height: 207px; */
+  &:hover {
+    animation: jump 1.2s ease infinite;
+  }
+  .card-pic {
+    .playcard-img {
+      width: 100%;
+      border-radius: 5px;
+      .image-slot {
+        width: 100%;
+        height: 100%;
+        /* width: 207px;
+        height: 207px; */
+        text-align: center;
+        /* line-height: 207px; */
+      }
+    }
+    .palycount {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      font-size: 12px;
+      color: white;
+    }
+    .creattor {
+      position: absolute;
+      left: 10px;
+      bottom: 70px;
+      color: aliceblue;
+    }
+    .totle-paly-time {
+      position: absolute;
+      right: 8px;
+      bottom: 52px;
+      color: aliceblue;
+    }
+  }
+  .text {
+    font-size: 13px;
+    letter-spacing: 0.7px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 5px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-height: 20px;
+  }
+  .card-YY-MM-DD {
+    font-size: 13px;
+    font-weight: 300;
+    margin-top: 10px;
+  }
+  .track-count {
+    font-size: 13px;
+    font-weight: 300;
+  }
 }
 </style>
