@@ -17,13 +17,34 @@
 export default {
   name: "SearchDetailCard",
   props: {
-    scover: String,
-    name: String,
-    number: Number,
-    creater: String,
-    other: String,
-    playlistType: Boolean,
-    djType: Boolean,
+    scover: {
+      type: String,
+      default: "",
+    },
+    name: {
+      type: String,
+      default: "",
+    },
+    creater: {
+      type: String,
+      default: "",
+    },
+    other: {
+      type: String,
+      default: "",
+    },
+    number: {
+      type: Number,
+      default: 0,
+    },
+    playlistType: {
+      type: Boolean,
+      default: false,
+    },
+    djType: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     handleToPapg() {
@@ -33,7 +54,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .search-detail-card {
   height: 100%;
   .pic {
@@ -77,7 +98,6 @@ export default {
     width: 10%;
     display: inline-block;
     vertical-align: middle;
-
   }
 }
 </style>

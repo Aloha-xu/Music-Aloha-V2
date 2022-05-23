@@ -1203,12 +1203,10 @@ export function account() {
 }
 
 export function getUserDetail(uid) {
-  let timestamp = new Date().getTime();
   return request({
     url: "/user/detail",
     params: {
       uid,
-      timestamp,
     },
   });
 }

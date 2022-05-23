@@ -203,7 +203,7 @@ export default {
       const SongsInfo = resIds.data.songs;
       //这里返回的url是不按传入的id按需返回的 所以需要进行url校正
       const Urls = await getSongUrl(SongsInfo.map(({ id }) => id));
-      console.log(Urls);
+      // console.log(Urls);
       if (!this.playList.length == 0) {
         this.playList = [];
       }

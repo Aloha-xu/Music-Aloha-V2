@@ -164,11 +164,6 @@ export default {
   async created() {
     this.handleAllInfo();
   },
-  watch: {
-    $route() {
-      this.handleAllInfo();
-    },
-  },
 };
 </script>
 

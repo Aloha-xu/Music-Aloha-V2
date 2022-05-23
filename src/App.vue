@@ -7,7 +7,7 @@
       </div>
       <div class="main">
         <keep-alive
-          exclude="PlayListDetail,AlbumListDetail,SingerListDetail,MvDetail,UpDataPapg"
+          exclude="PlayListDetail,AlbumListDetail,SingerListDetail,MvDetail,UpDataPapg,UserDetail"
         >
           <router-view></router-view>
         </keep-alive>

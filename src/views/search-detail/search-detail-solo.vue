@@ -1,10 +1,11 @@
 <template>
   <div class="search-detail-solo">
-    <div class="title-card">最佳匹配</div>
+    <div class="title-card" v-if="searchResult[0]">最佳匹配</div>
     <SearchDetailCard
-      v-if="searchResult"
-      :name="searchResult[0].name"
-      :scover="searchResult[0].img1v1Url"
+      v-if="searchResult[0]"
+      :name="searchResult[0] && searchResult[0].name"
+      :scover="searchResult[0] && searchResult[0].img1v1Url"
+      @handleToPapg="jumpToSingerDetail(searchResult[0].id)"
       class="card"
     ></SearchDetailCard>
     <div class="title-name">
@@ -20,16 +21,17 @@
       <img
         src="@/assets/icon/heart.svg"
         alt=""
-        v-show="!isClickHeart"
-        @click="ClickHeart(index)"
+        v-show="!isHeart(item.id)"
+        @click="ClickHeart(item.id, index)"
+        class="heart"
       />
       <img
         src="@/assets/icon/heartactive.svg"
         alt=""
-        v-show="isClickHeart"
-        @click="ClickHeart(index)"
+        v-show="isHeart(item.id)"
+        @click="ClickHeart(item.id, index)"
       />
-      <p class="el-icon-download"></p>
+      <i class="el-icon-download"></i>
       <div class="song-name" @click="HandleSongClick(item, index)">
         <span :class="item.id === currentSongInfo.id ? 'active' : ''">{{
           item.name
@@ -49,6 +51,7 @@
 
 <script>
 import { forMatTime } from "@/utils/format";
+import { getLikeList, setLike } from "@/network/api";
 import SearchDetailCard from "@/components/common/SearchDetailCard.vue";
 import { mapGetters } from "vuex";
 export default {
@@ -56,8 +59,28 @@ export default {
   name: "SearchDetailSolo",
   methods: {
     /* 点击指定红星添加收藏未做 */
-    ClickHeart() {
-      this.isClickHeart = !this.isClickHeart;
+    async ClickHeart(id) {
+      //把传进来的id与likelist对比    非-1则存在 红星 / -1 空红星
+      let currentIndex = this.likeList.findIndex((item) => item == id);
+      if (currentIndex == -1) {
+        const { data } = await setLike(id, true);
+        data.code === 200 &&
+          (this.likeList.push(id), this.$message.success("已加入我喜欢的音乐"));
+      } else {
+        const { data } = await setLike(id, false);
+        data.code === 200 &&
+          (this.likeList.splice(currentIndex, 1),
+          this.$message.success("已从我喜欢的音乐移除"));
+      }
+    },
+    async getLikeList() {
+      let uId = this.userinfo.userId;
+      let likeList = await getLikeList(uId);
+      this.likeList = likeList.data.ids;
+    },
+    isHeart(id) {
+      // console.log(new Date().getTime(), "test");
+      return this.likeList.findIndex((item) => item == id) == -1 ? false : true;
     },
     // 处理点击播放音乐事件
     async HandleSongClick(values, index) {
@@ -72,26 +95,41 @@ export default {
       let index = values + 1;
       return index < 10 ? "0" + index : index;
     },
+    jumpToSingerDetail(id) {
+      this.$router.push("/singerlistdetail/" + id);
+    },
   },
   computed: {
-    // currentId() {
-    //   return this.$store.state.currentSongInfo.id;
-    // },
-    ...mapGetters(["currentSongInfo"]),
+    ...mapGetters(["currentSongInfo", "userinfo"]),
   },
   data() {
     return {
       isClickHeart: false,
+      likeList: [],
     };
   },
   props: {
-    searchResult: Array,
-    songsInfo: Array,
+    searchResult: {
+      type: Array,
+      default: function() {
+        return [];
+      },
+    },
+    songsInfo: {
+      type: Array,
+      default: function() {
+        return [];
+      },
+    },
+  },
+  created() {
+    this.userinfo && this.getLikeList();
   },
 };
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/css/base.scss";
 .search-detail-solo {
   width: 100%;
   height: 100%;
@@ -132,15 +170,24 @@ export default {
     height: 30px;
     line-height: 30px;
     display: flex;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $active-grey;
+    }
     .index-number {
       margin: 0 10px 0 20px;
     }
-    img {
+    .heart {
       margin: 0 5px;
+      width: 20px;
+      height: 35px;
+      vertical-align: middle;
     }
-    p {
+    i {
       margin: 0 5px;
       margin-top: 7px;
+      line-height: 20px;
     }
     .song-name {
       flex: 6;

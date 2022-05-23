@@ -13,40 +13,39 @@
       </div>
     </div>
     <hr />
-    <div class="cloud-search-content" v-show="!loading">
+    <div class="cloud-search-content">
       <search-detail-solo
-        v-show="currentIndex === 0"
+        v-if="currentIndex === 0"
         :searchResult="searchResult"
         :songsInfo="playList"
         @handleSongClick="handleSongClick"
       ></search-detail-solo>
       <search-detail-singer
-        v-show="currentIndex === 1"
+        v-if="currentIndex === 1"
         :singerInfo="singerInfo"
       ></search-detail-singer>
       <search-detail-album
-        v-show="currentIndex === 2"
+        v-if="currentIndex === 2"
         :albumInfo="albumInfo"
       ></search-detail-album>
       <search-detail-video
-        v-show="currentIndex === 3"
+        v-if="currentIndex === 3"
         :videoInfo="mvInfo"
       ></search-detail-video>
       <search-detail-playlist
-        v-show="currentIndex === 4"
+        v-if="currentIndex === 4"
         :playlistInfo="playlistInfo"
       ></search-detail-playlist>
-      <search-detail-lyric v-show="currentIndex === 5"></search-detail-lyric>
+      <search-detail-lyric v-if="currentIndex === 5"></search-detail-lyric>
       <search-detail-anchor
-        v-show="currentIndex === 6"
+        v-if="currentIndex === 6"
         :anchorInfo="anchorInfo"
       ></search-detail-anchor>
       <search-detail-user
-        v-show="currentIndex === 7"
+        v-if="currentIndex === 7"
         :userInfo="userInfo"
       ></search-detail-user>
     </div>
-    <Loading v-show="loading" style="height:50vh"></Loading>
   </div>
 </template>
 
@@ -59,8 +58,6 @@ import SearchDetailSinger from "./search-detail-singer.vue";
 import SearchDetailSolo from "./search-detail-solo.vue";
 import SearchDetailUser from "./search-detail-user.vue";
 import SearchDetailVideo from "./search-detail-video.vue";
-import Loading from "@/components/common/loading.vue";
-import { mapGetters } from "vuex";
 import {
   getCloudSearch,
   getSearchMultimatch,
@@ -73,7 +70,6 @@ import {
 } from "@/network/api";
 import { parseLyric } from "@/utils/lyric";
 
-//一个弊端 solo页面 第一次进去的时候会很慢 因为请求太多数据了
 export default {
   components: {
     SearchDetailAlbum,
@@ -84,7 +80,6 @@ export default {
     SearchDetailSolo,
     SearchDetailUser,
     SearchDetailVideo,
-    Loading,
   },
   name: "SearchDetail",
   data() {
@@ -101,7 +96,7 @@ export default {
       ],
       currentIndex: 0,
       searchResult: [],
-      titleValue: "0首单曲",
+      titleValue: "",
       //每一个分页面下的数据
       singerInfo: {},
       albumInfo: {},
@@ -115,44 +110,35 @@ export default {
     };
   },
   methods: {
-    itemClick(value) {
-      switch (value) {
+    itemClick(index) {
+      switch (index) {
         case 0:
-          this.currentIndex = value;
-          this.titleValue = `${this.playList.length}` + "首单曲";
+          this.getSoloInfo(index);
           break;
         case 1:
-          this.currentIndex = value;
-          this.titleValue = `${this.singerInfo.artistCount}` + "位歌手";
+          this.getsingerInfo(index);
           break;
         case 2:
-          this.currentIndex = value;
-          this.titleValue = `${this.albumInfo.albumCount}` + "张专辑";
+          this.getAlbumInfoInfo(index);
           break;
         case 3:
-          this.currentIndex = value;
-          this.titleValue = `${this.mvInfo.mvCount}` + "个视频";
+          this.getMvInfo(index);
           break;
         case 4:
-          this.currentIndex = value;
-          this.titleValue = `${this.playlistInfo.playlistCount}` + "个歌单";
+          this.getPlaylistInfo(index);
           break;
         case 5:
-          this.currentIndex = value;
-          this.titleValue = `${this.lyricInfo.songCount}` + "首歌词";
+          this.getLyricInfo(index);
           break;
         case 6:
-          this.currentIndex = value;
-          this.titleValue = `${this.anchorInfo.djRadiosCount}` + "个电台";
+          this.getAnchorInfo(index);
           break;
         case 7:
-          this.currentIndex = value;
-          this.titleValue = `${this.userInfo.userprofileCount}` + "位用户";
+          this.getUserInfo(index);
           break;
       }
     },
-    async getInfo() {
-      this.$store.commit("setLoading", true);
+    async getSoloInfo(index) {
       if (!this.playList.length == 0) {
         this.playList = [];
       }
@@ -160,41 +146,71 @@ export default {
       const resIds = await getSongDetail(data.result.songs.map(({ id }) => id));
       const SongsInfo = resIds.data.songs;
       const Urls = await getSongUrl(SongsInfo.map(({ id }) => id));
+      let innerUrls = {};
+      Urls.data.data.forEach(({ id, url }) => {
+        innerUrls[id] = url;
+      });
       for (let j = 0; j < SongsInfo.length; j++) {
-        let currentsonginfo = {};
-        currentsonginfo.id = SongsInfo[j].id;
-        currentsonginfo.url = "";
-        for (let j = 0; j < Urls.data.data.length; j++) {
-          if (Urls.data.data[j].id == currentsonginfo.id) {
-            currentsonginfo.url = Urls.data.data[j].url;
-          }
-        }
-        currentsonginfo.name = SongsInfo[j].name;
-        currentsonginfo.singer = SongsInfo[j].ar.map(({ name }) => name);
-        currentsonginfo.pic = SongsInfo[j].al.picUrl;
-        currentsonginfo.totleTime = SongsInfo[j].dt;
-        currentsonginfo.lyric = [];
-        currentsonginfo.album = SongsInfo[j].al.name;
-        this.playList.push(currentsonginfo);
+        let songinfo = {};
+        songinfo.id = SongsInfo[j].id;
+        songinfo.url = innerUrls[songinfo.id];
+        songinfo.name = SongsInfo[j].name;
+        songinfo.singer = SongsInfo[j].ar.map(({ name }) => name);
+        songinfo.pic = SongsInfo[j].al.picUrl;
+        songinfo.totleTime = SongsInfo[j].dt;
+        songinfo.lyric = [];
+        songinfo.album = SongsInfo[j].al.name;
+        this.playList.push(songinfo);
       }
       let searchResult = await getSearchMultimatch(this.$route.query.keywords);
-      let albumInfo = await getCloudSearch(this.$route.query.keywords, 10);
-      let singerInfo = await getCloudSearch(this.$route.query.keywords, 100);
-      let playlistInfo = await getCloudSearch(this.$route.query.keywords, 1000);
-      let userInfo = await getCloudSearch(this.$route.query.keywords, 1002);
-      let mvInfo = await getCloudSearch(this.$route.query.keywords, 1004);
-      let lyricInfo = await getCloudSearch(this.$route.query.keywords, 1006);
-      let anchorInfo = await getCloudSearch(this.$route.query.keywords, 1009);
       this.searchResult = searchResult.data.result.artist;
-      this.singerInfo = singerInfo.data.result;
-      this.albumInfo = albumInfo.data.result;
-      this.playlistInfo = playlistInfo.data.result;
-      this.lyricInfo = lyricInfo.data.result;
-      this.anchorInfo = anchorInfo.data.result;
-      this.userInfo = userInfo.data.result;
-      this.mvInfo = mvInfo.data.result;
-      this.$store.commit("setLoading", false);
+
+      this.currentIndex = index;
+      this.titleValue = `${this.playList.length}` + "首单曲";
     },
+    async getsingerInfo(index) {
+      let singerInfo = await getCloudSearch(this.$route.query.keywords, 100);
+      this.singerInfo = singerInfo.data.result;
+      this.currentIndex = index;
+      this.titleValue = `${singerInfo.data.result.artistCount}` + "位歌手";
+    },
+    async getAlbumInfoInfo(index) {
+      let albumInfo = await getCloudSearch(this.$route.query.keywords, 10);
+      this.albumInfo = albumInfo.data.result;
+      this.currentIndex = index;
+      this.titleValue = `${albumInfo.data.result.albumCount}` + "张专辑";
+    },
+    async getMvInfo(index) {
+      let mvInfo = await getCloudSearch(this.$route.query.keywords, 1004);
+      this.mvInfo = mvInfo.data.result;
+      this.currentIndex = index;
+      this.titleValue = `${mvInfo.data.result.mvCount}` + "个视频";
+    },
+    async getPlaylistInfo(index) {
+      let playlistInfo = await getCloudSearch(this.$route.query.keywords, 1000);
+      this.playlistInfo = playlistInfo.data.result;
+      this.currentIndex = index;
+      this.titleValue = `${playlistInfo.data.result.playlistCount}` + "个歌单";
+    },
+    async getLyricInfo(index) {
+      let lyricInfo = await getCloudSearch(this.$route.query.keywords, 1006);
+      this.lyricInfo = lyricInfo.data.result;
+      this.currentIndex = index;
+      this.titleValue = `${lyricInfo.data.result.songCount}` + "首歌词";
+    },
+    async getAnchorInfo(index) {
+      let anchorInfo = await getCloudSearch(this.$route.query.keywords, 1009);
+      this.anchorInfo = anchorInfo.data.result;
+      this.currentIndex = index;
+      this.titleValue = `${anchorInfo.data.result.djRadiosCount}` + "个电台";
+    },
+    async getUserInfo(index) {
+      let userInfo = await getCloudSearch(this.$route.query.keywords, 1002);
+      this.userInfo = userInfo.data.result;
+      this.currentIndex = index;
+      this.titleValue = `${userInfo.data.result.userprofileCount}` + "位用户";
+    },
+
     async handleSongClick(v) {
       try {
         const checkmusic = await getCheckMusic(v[0].id);
@@ -223,36 +239,22 @@ export default {
           //获取某一首歌的相似歌单信息
           let simimusic = await getSimiPlayList(v[0].id);
           this.$store.commit("SET_SIMI_SONG_LIST", simimusic.data.playlists);
-          // this.$store.state.SimiSongList = simimusic.data.playlists;
           //获取某一首歌的评论
           let musicComments = await getMusicComment(v[0].id, 100);
           this.$store.commit("SET_COMMENT_INFO", musicComments.data.comments);
-          // this.$store.state.commentInfo = musicComments.data.comments;
         }
       } catch (error) {
         alert("音乐没有版权");
       }
     },
   },
+  created() {
+    this.itemClick(0);
+  },
   watch: {
     $route() {
-      this.getInfo();
-      this.setDelay = false;
-      this.currentIndex = 0;
-      setTimeout(() => {
-        this.setDelay = true;
-        this.itemClick(this.currentIndex);
-      }, 1500);
-    },
-  },
-  async created() {
-    this.getInfo();
-    setTimeout(() => {
       this.itemClick(0);
-    }, 3000);
-  },
-  computed: {
-    ...mapGetters(["loading"]),
+    },
   },
 };
 </script>
@@ -276,6 +278,7 @@ export default {
       color: rgb(61, 61, 61);
       padding-bottom: 5px;
       margin-right: 30px;
+      cursor: pointer;
     }
     .active {
       color: black;
