@@ -76,12 +76,16 @@
             @click="handleChangeNav(index)"
           >
             {{ item }}
+            <div class="badge" v-if="index == 0 ? true : false">
+              {{ index == 0 ? unReadPrivate : "" }}
+            </div>
           </div>
         </div>
         <div class="content">
           <div class="private" v-show="currentNav == 0">
             <div
-              class="notice-card"
+              class="notice-card "
+              :class="item.newMsgCount ? 'un-read' : ''"
               v-for="(item, index) in privateInfo"
               :key="index"
             >
@@ -351,6 +355,7 @@ export default {
       noticeInfo: [],
       commentInfo: [],
       artMeInfo: [],
+      unReadPrivate: 0,
       currentNav: 0,
       beforMsgs: [],
       newMsgs: [],
@@ -388,6 +393,10 @@ export default {
     handleChangeNav(index) {
       this.currentNav = index;
       //接口请求
+      index == 0 && this.getNotices();
+      index == 1 && this.getMsgCommentsInfo();
+      index == 2 && this.getMsgToMeInfo();
+      index == 3 && this.getMsgNoticesInfo();
     },
     reloadProgrom() {
       location.reload();
@@ -434,6 +443,7 @@ export default {
     async getNotices() {
       const { data } = await getMsgHistory();
       this.privateInfo = data.msgs;
+      this.unReadPrivate = data.newMsgCount;
       //可以做一个timeinterval刷新数据 有新数据就出现红点 并刷新最新一条数据信息 ⭐⭐⭐
     },
     //点击具体消息进去对应的私聊
@@ -686,9 +696,24 @@ $background-theme-color: (
         line-height: 30px;
         text-align: center;
         border-radius: 15px;
+        position: relative;
+        .badge {
+          position: absolute;
+          top: -10px;
+          right: 0;
+          padding: 1px 5px;
+          background-color: red;
+          color: white;
+          height: 20px;
+          border-radius: 90%;
+          line-height: 20px;
+          border: 1px solid white;
+          min-width: 13px;
+        }
       }
       .active {
-        background-color: $theme-color;
+        background-color: $nav-grey;
+        color: white;
       }
     }
     .content {
@@ -698,7 +723,7 @@ $background-theme-color: (
           display: flex;
           font-size: 12px;
           padding-top: 10px;
-          padding-left: 15px;
+          padding-left: 10px;
           height: 55px;
           cursor: pointer;
           img {
@@ -732,10 +757,25 @@ $background-theme-color: (
               text-overflow: ellipsis;
             }
           }
+          &:hover {
+            background-color: rgb(233, 233, 233);
+            border-radius: 5px;
+          }
+          &:before {
+            content: "";
+            padding-right: 5px;
+            width: 15px;
+          }
         }
-        .notice-card:hover {
-          background-color: rgb(233, 233, 233);
-          border-radius: 5px;
+        .un-read {
+          &:before {
+            width: 15px;
+            content: "·";
+            font-size: 60px;
+            color: red;
+            line-height: 35px;
+            padding-right: 5px;
+          }
         }
       }
       .comment {
