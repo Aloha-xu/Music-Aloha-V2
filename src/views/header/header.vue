@@ -457,7 +457,7 @@ export default {
     },
     //drawer的回调事件
     handleOpen() {
-      this.getNotices();
+      this.token && this.getNotices();
     },
     handleClose() {
       this.$store.commit("setShowMsgDarwer");
@@ -562,9 +562,11 @@ export default {
   async created() {
     const { data } = await getHotSearchDetail();
     this.HotSearchDetail = data.data;
-    this.getMsgToMeInfo();
-    this.getMsgCommentsInfo();
-    this.getMsgNoticesInfo();
+    if (this.token) {
+      this.getMsgToMeInfo();
+      this.getMsgCommentsInfo();
+      this.getMsgNoticesInfo();
+    }
   },
   computed: {
     ...mapGetters({

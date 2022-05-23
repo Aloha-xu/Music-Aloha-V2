@@ -118,7 +118,7 @@
                       <div
                         @click="getCaptcha"
                         v-show="!isShowCaptcha"
-                        style="color:#175199;cursor: pointer;"
+                        style="color: #175199; cursor: pointer"
                       >
                         点击获取验证码
                       </div>
@@ -133,7 +133,7 @@
                   <el-button
                     type="primary"
                     @click="submitForm('freeForm')"
-                    style="width:100%"
+                    style="width: 100%"
                     >登录</el-button
                   >
                 </el-form-item>
@@ -160,7 +160,7 @@
                   <el-button
                     type="primary"
                     @click="submitForm('normalForm')"
-                    style="width:100%"
+                    style="width: 100%"
                     >登录</el-button
                   >
                 </el-form-item>
@@ -261,7 +261,7 @@ export default {
         CountDownSeconds: 60,
         Divider: " ",
         that: this,
-        EndFunc: function(that) {
+        EndFunc: function (that) {
           //显示获取验证码验证码
           that.isShowCaptcha = !that.isShowCaptcha;
         },
@@ -321,10 +321,10 @@ export default {
       this.base64Image = Base64Image.data.data.qrimg;
       this.QRkey = data.data.unikey;
       //定时刷新看一下扫了没有
-      //10s 查一次
+      //5s 查一次
       this.timer = setInterval(() => {
         this.handleQRState();
-      }, 10000);
+      }, 5000);
     },
     //处理 QR 状态
     async handleQRState() {
@@ -338,11 +338,9 @@ export default {
       }
       if (QRinfo.data.code == "803") {
         clearInterval(this.timer);
-        //登陆成功
-        //设置cookie
-        // console.log(QRinfo.data.cookie);
-        // document.cookie = `${QRinfo.data.cookie}`;
-        await getStatus();
+        const { data } = await getStatus();
+        this.$store.commit("SET_TOKEN", "Uniquely_verify_QR_login");
+        this.$store.commit("SET_USER_INFO", data.data.profile);
         this.$store.commit("SET_LOGIN_DIALOG", false);
         //还有一系类的操作
       }
