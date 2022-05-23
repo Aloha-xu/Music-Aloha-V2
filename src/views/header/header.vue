@@ -76,7 +76,10 @@
             @click="handleChangeNav(index)"
           >
             {{ item }}
-            <div class="badge" v-if="index == 0 ? true : false">
+            <div
+              class="badge"
+              v-if="unReadPrivate && index == 0 ? true : false"
+            >
               {{ index == 0 ? unReadPrivate : "" }}
             </div>
           </div>
@@ -84,7 +87,7 @@
         <div class="content">
           <div class="private" v-show="currentNav == 0">
             <div
-              class="notice-card "
+              class="notice-card"
               :class="item.newMsgCount ? 'un-read' : ''"
               v-for="(item, index) in privateInfo"
               :key="index"
@@ -393,10 +396,10 @@ export default {
     handleChangeNav(index) {
       this.currentNav = index;
       //接口请求
-      index == 0 && this.getNotices();
-      index == 1 && this.getMsgCommentsInfo();
-      index == 2 && this.getMsgToMeInfo();
-      index == 3 && this.getMsgNoticesInfo();
+      index == 0 && this.token && this.getNotices();
+      index == 1 && this.token && this.getMsgCommentsInfo();
+      index == 2 && this.token && this.getMsgToMeInfo();
+      index == 3 && this.token && this.getMsgNoticesInfo();
     },
     reloadProgrom() {
       location.reload();
@@ -406,7 +409,7 @@ export default {
     },
     async handleOutLoginFun() {
       //清除localStorage sessionStorage
-      window.sessionStorage.removeItem("currentUserInfo");
+      localStorage.removeItem("currentUserInfo");
       this.$store.dispatch("LogOut");
       await outRefresh();
     },
@@ -570,7 +573,7 @@ export default {
       currentUserInfo: "userinfo",
     }),
     // toUserInfo 私信对象信息
-    ...mapGetters(["isShowLoginDialog", "toUserInfo"]),
+    ...mapGetters(["isShowLoginDialog", "toUserInfo", "token"]),
   },
 };
 </script>

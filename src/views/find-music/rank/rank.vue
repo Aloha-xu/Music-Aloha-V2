@@ -74,6 +74,7 @@ export default {
     font-weight: 900;
     font-size: 20px;
     margin-left: 5px;
+    margin-bottom: 10px;
   }
   .card {
     display: flex;

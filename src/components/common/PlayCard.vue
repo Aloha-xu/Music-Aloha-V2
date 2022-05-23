@@ -76,13 +76,10 @@ export default {
 <style scoped lang="scss">
 @keyframes jump {
   0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
+    transform: translate(0px, 0px);
   }
   100% {
-    transform: translateY(0);
+    transform: translate(0px, -12px);
   }
 }
 .card {
@@ -91,7 +88,8 @@ export default {
   margin-top: 10px;
   border-radius: 5px;
   &:hover {
-    animation: jump 1.2s ease infinite;
+    animation: jump 1.2s ease 1 normal;
+    transform: translate(0px, -12px);
   }
   .card-pic {
     .playcard-img {

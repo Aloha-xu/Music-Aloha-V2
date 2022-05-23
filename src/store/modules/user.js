@@ -1,10 +1,12 @@
 import { loginByPhone, checkCaptcha } from "@/network/login";
+import { clearAllCookie } from "@/utils/uctil.js"
 // import { Message } from "element-ui";
 
 const user = {
   state: {
+    //标识 是否已经登录
     token: localStorage.getItem("token") || "",
-    userinfo: JSON.parse(sessionStorage.getItem("currentUserInfo")) || "",
+    userinfo: JSON.parse(localStorage.getItem("currentUserInfo")) || "",
     isShowLoginDialog: false,
   },
 
@@ -14,7 +16,7 @@ const user = {
       state.token = token;
     },
     SET_USER_INFO: (state, info) => {
-      window.sessionStorage.setItem("currentUserInfo", JSON.stringify(info));
+      localStorage.setItem("currentUserInfo", JSON.stringify(info));
       state.userinfo = info;
     },
     SET_LOGIN_DIALOG: (state, val) => {
@@ -72,16 +74,15 @@ const user = {
       });
     },
     // 登出
-    LogOut({ commit, state }) {
-      console.log(state);
+    LogOut({ commit }) {
       return new Promise((resolve) => {
         commit("SET_TOKEN", "");
         commit("SET_USER_INFO", "");
-        location.reload();
+        clearAllCookie()
+        // location.reload();
         resolve();
       });
     },
-
     // 登录过期
     expired({ commit }) {
       return new Promise((resolve) => {

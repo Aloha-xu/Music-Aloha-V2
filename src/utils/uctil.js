@@ -12,7 +12,7 @@ export function _debounce(fn, delay) {
 //节流
 export function _throttle(fn, delay) {
   var prev = Date.now();
-  return function() {
+  return function () {
     var now = Date.now();
     if (now - prev > delay) {
       fn();
@@ -106,4 +106,13 @@ export function set60Min(timestamp) {
     .toString()
     .padStart(2, "0");
   return minute + "分钟前";
+}
+
+
+export function clearAllCookie() {
+  var keys = document.cookie.match(/[^ =;]+(?=\\=)/g);
+  if (keys) {
+    for (var i = keys.length; i--;)
+      document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+  }
 }

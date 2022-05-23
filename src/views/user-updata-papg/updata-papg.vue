@@ -151,7 +151,7 @@ export default {
 
       let fileUrl = window.URL.createObjectURL(file1);
       this.option.img = fileUrl;
-      onload = function() {
+      onload = function () {
         // 手动回收
         URL.revokeObjectURL(fileUrl);
       };
@@ -211,10 +211,10 @@ export default {
       return new Promise((resolve) => {
         let reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onload = function(theFile) {
+        reader.onload = function (theFile) {
           let image = new Image();
           image.src = theFile.target.result;
-          image.onload = function() {
+          image.onload = function () {
             resolve({
               width: this.width,
               height: this.height,
@@ -252,7 +252,7 @@ export default {
       this.$router.back();
     },
     async getUserPlaylist() {
-      let uInfo = JSON.parse(window.sessionStorage.getItem("currentUserInfo"));
+      let uInfo = JSON.parse(localStorage.getItem("currentUserInfo"));
       let uId = uInfo.userId;
       let playlist = await getUserPlaylist(uId);
       console.log(playlist);

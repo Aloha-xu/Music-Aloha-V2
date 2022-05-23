@@ -410,7 +410,7 @@ const player = {
 
     //获取用户的歌单列表
     async getUserPlayList({ commit }) {
-      let uInfo = JSON.parse(window.sessionStorage.getItem("currentUserInfo"));
+      let uInfo = JSON.parse(localStorage.getItem("currentUserInfo"));
       let uId = uInfo.userId;
       let playlist = await getUserPlaylist(uId);
       commit("setUserSonglistInfo", playlist);
