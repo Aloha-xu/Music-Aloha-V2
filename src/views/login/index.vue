@@ -137,6 +137,9 @@
                     >登录</el-button
                   >
                 </el-form-item>
+                <p class="tips">
+                  欢迎来到Aloha的Music平台，本项目仅供学习使用,请尊重版权，请勿利用此项目从事商业行为或进行破坏版权行为
+                </p>
               </el-form>
             </el-tab-pane>
             <!--  密码登录-->
@@ -164,6 +167,9 @@
                     >登录</el-button
                   >
                 </el-form-item>
+                <p class="tips">
+                  欢迎来到Aloha的Music平台，本项目仅供学习使用,请尊重版权，请勿利用此项目从事商业行为或进行破坏版权行为
+                </p>
               </el-form>
             </el-tab-pane>
           </el-tabs>
@@ -328,7 +334,6 @@ export default {
     },
     //处理 QR 状态
     async handleQRState() {
-      //cookie 803 之后 返回的cookie 不会自动保存在cookie
       const QRinfo = await getQRPState({
         key: this.QRkey,
         timestamp: new Date().getTime(),
@@ -342,7 +347,6 @@ export default {
         this.$store.commit("SET_TOKEN", "Uniquely_verify_QR_login");
         this.$store.commit("SET_USER_INFO", data.data.profile);
         this.$store.commit("SET_LOGIN_DIALOG", false);
-        //还有一系类的操作
       }
     },
     //处理关闭弹窗
@@ -428,6 +432,7 @@ export default {
   .login-content {
     .normal-login {
       height: 406px;
+      margin-top: 20px;
     }
     .QR-login {
       text-align: center;
@@ -443,6 +448,11 @@ export default {
         line-height: 25px;
       }
     }
+  }
+  .tips {
+    margin: 20px 0;
+    line-height: 25px;
+    text-align: center;
   }
 }
 </style>
