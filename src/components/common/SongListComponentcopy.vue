@@ -8,67 +8,64 @@
       <span>专辑</span>
       <span>时长</span>
     </div>
-    <div @contextmenu.prevent="onContextmenu">
-      <draggable
-        v-model="innerSongInfo"
-        animation="300"
-        :disabled="!isShowUpdataComponent"
-      >
-        <transition-group>
-          <div
-            class="song-item"
-            v-for="(item, index) in innerSongInfo"
-            :key="index"
-            :class="item.id === currentSongInfo.id ? 'active-bg' : ''"
-            :innerIndex="index"
-          >
-            <div class="index-number">
-              {{ setIndex(index) }}
-            </div>
-            <!-- 红心 -->
-            <img
-              src="@/assets/icon/heart.svg"
-              alt=""
-              v-show="!isHeart(item.id)"
-              @click="ClickHeart(item.id, index)"
-              class="no-active-heart"
-            />
-            <img
-              src="@/assets/icon/heartactive.svg"
-              alt=""
-              v-show="isHeart(item.id)"
-              @click="ClickHeart(item.id, index)"
-              class="active-heart"
-            />
-            <!-- 下载 -->
-            <p class="el-icon-download" @click="handleDownload(item)"></p>
-            <div class="song-name" @click="HandleSongClick(item, index)">
-              <span
-                :class="item.id === currentSongInfo.id ? 'active-name' : ''"
-                >{{ item.name }}</span
-              >
-              <!-- SQ MV logo的卡槽 -->
-              <slot name="SQlogo"></slot>
-              <slot name="MVlogo"></slot>
-            </div>
-            <!-- 飙升榜的数据卡槽 -->
-            <slot name="SoaringrateData"></slot>
-            <div class="singer">
-              <span
-                v-for="(item1, index1) in item.singer"
-                :key="index1"
-                @click="clickToSingerPapg(item1.id)"
-                >{{ item1.name }}&nbsp;</span
-              >
-            </div>
-            <div class="album" @click="clickToAlbumPapg(item.album.id)">
-              {{ item.album.name }}
-            </div>
-            <div class="time">{{ setSongTime(item.totleTime) }}</div>
+    <draggable
+      v-model="innerSongInfo"
+      animation="300"
+      :disabled="!isShowUpdataComponent"
+    >
+      <transition-group>
+        <div
+          class="song-item"
+          v-for="(item, index) in innerSongInfo"
+          :key="index"
+          :class="item.id === currentSongInfo.id ? 'active-bg' : ''"
+        >
+          <div class="index-number">
+            {{ setIndex(index) }}
           </div>
-        </transition-group>
-      </draggable>
-    </div>
+          <!-- 红心 -->
+          <img
+            src="@/assets/icon/heart.svg"
+            alt=""
+            v-show="!isHeart(item.id)"
+            @click="ClickHeart(item.id, index)"
+            class="no-active-heart"
+          />
+          <img
+            src="@/assets/icon/heartactive.svg"
+            alt=""
+            v-show="isHeart(item.id)"
+            @click="ClickHeart(item.id, index)"
+            class="active-heart"
+          />
+          <!-- 下载 -->
+          <p class="el-icon-download" @click="handleDownload(item)"></p>
+          <div class="song-name" @click="HandleSongClick(item, index)">
+            <span
+              :class="item.id === currentSongInfo.id ? 'active-name' : ''"
+              >{{ item.name }}</span
+            >
+            <!-- SQ MV logo的卡槽 -->
+            <slot name="SQlogo"></slot>
+            <slot name="MVlogo"></slot>
+          </div>
+          <!-- 飙升榜的数据卡槽 -->
+          <slot name="SoaringrateData"></slot>
+          <div class="singer">
+            <span
+              v-for="(item1, index1) in item.singer"
+              :key="index1"
+              @click="clickToSingerPapg(item1.id)"
+              >{{ item1.name }}&nbsp;</span
+            >
+          </div>
+          <div class="album" @click="clickToAlbumPapg(item.album.id)">
+            {{ item.album.name }}
+          </div>
+          <div class="time">{{ setSongTime(item.totleTime) }}</div>
+        </div>
+      </transition-group>
+    </draggable>
   </div>
 </template>
 
@@ -86,8 +83,6 @@ export default {
       //歌单的全部列表信息
       allSongList: [],
       likeList: [],
-      //用于右击弹出菜单的innerIndex标识
-      innerIndex: null,
     };
   },
   props: {
@@ -148,77 +143,6 @@ export default {
       let uId = this.userinfo.userId;
       let likeList = await getLikeList(uId);
       this.likeList = likeList.data.ids;
-    },
-
-    onContextmenu(event) {
-      this.$contextmenu({
-        items: [
-          {
-            label: "查看评论",
-            icon: "el-icon-chat-line-square",
-            onClick: () => {
-              //跳转 这个谋一首歌的评论 详情 还没写
-              console.log("跳转到评论");
-            },
-          },
-          // 播放
-          {
-            label: "播放(Enter)",
-            icon: "el-icon-video-play",
-            onClick: () => {
-              this.HandleSongClick(
-                this.innerSongInfo[this.innerIndex],
-                this.innerIndex
-              );
-            },
-          },
-          //下一首播放 就是把这首歌 插进去歌单里面的下一首位置
-          {
-            label: "下一首播放",
-            icon: "el-icon-d-arrow-right",
-            divided: true,
-            onClick: () => {},
-          },
-          //收藏歌单 需要登录 需要判断
-          {
-            label: "收藏到歌单",
-            icon: "el-icon-folder-add",
-            children: [{ label: "遍历循环" }],
-          },
-          //分享 先不做
-          { label: "分享...", icon: "el-icon-share" },
-          //这个复制链接 格式好像是 ：https://music.163.com/song?id=1898044638&userid=3233744982
-          //可以拼接  后续写
-          { label: "复制链接", icon: "el-icon-link" },
-          //下载
-          {
-            label: "下载",
-            icon: "el-icon-download",
-            onClick: () => {
-              this.handleDownload(this.innerSongInfo[this.innerIndex]);
-            },
-          },
-        ],
-        event,
-        //x: event.clientX,
-        //y: event.clientY,
-        customClass: "class-a",
-        zIndex: 3,
-        minWidth: 230,
-      });
-      this.getSongId([event.path[1], event.path[2]]);
-      // console.log(event.path[1].getAttribute("id"));
-      // console.log(event.path[0].innerHTML);
-      return false;
-    },
-    getSongId(arry) {
-      arry.forEach((item) => {
-        // console.log(item);
-        if (item.getAttribute("innerIndex")) {
-          this.innerIndex = +item.getAttribute("innerIndex");
-        }
-      });
-      console.log(this.innerIndex);
     },
   },
   computed: {
