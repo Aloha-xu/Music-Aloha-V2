@@ -47,9 +47,16 @@
         :key="index"
         @click="ToSingerDetailClick(item.id)"
       >
-        <el-image :src="item.img1v1Url" lazy style="width:165px;height:165px">
-          <div slot="placeholder" class="image-slot">
-            <div>加载中....</div>
+        <el-image
+          :src="item.img1v1Url"
+          lazy
+          style="width: 165px; height: 165px"
+        >
+          <div slot="placeholder" class="image-slot" style="font-size: 20px">
+            <i class="el-icon-loading"></i>
+          </div>
+          <div slot="error" class="image-slot">
+            <i class="el-icon-picture-outline"></i>
           </div>
         </el-image>
         <div class="name">
@@ -57,7 +64,7 @@
         </div>
       </div>
     </div>
-    <Loading v-show="loading" style="height:50vh"></Loading>
+    <Loading v-show="loading" style="height: 50vh"></Loading>
   </div>
 </template>
 
@@ -301,5 +308,6 @@ export default {
   height: 165px;
   text-align: center;
   line-height: 165px;
+  background-color: rgba(204, 207, 213, 0.289);
 }
 </style>

@@ -1,4 +1,5 @@
 <template>
+  <!-- 旧版 歌单列表 -->
   <div class="songlist-component">
     <div class="title-name">
       <span>音乐标题</span>

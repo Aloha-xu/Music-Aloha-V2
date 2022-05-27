@@ -2,8 +2,11 @@
   <div class="card">
     <div class="card-pic">
       <el-image :src="pic" @click="cardClick" class="playcard-img" lazy>
-        <div slot="placeholder" class="image-slot">
-          <div>加载中....</div>
+        <div slot="placeholder" class="image-slot" style="font-size: 20px">
+          <i class="el-icon-loading"></i>
+        </div>
+        <div slot="error" class="image-slot">
+          <i class="el-icon-picture-outline"></i>
         </div>
       </el-image>
       <span class="palycount">
@@ -93,15 +96,13 @@ export default {
   }
   .card-pic {
     .playcard-img {
-      width: 100%;
       border-radius: 5px;
       .image-slot {
-        width: 100%;
-        height: 100%;
-        /* width: 207px;
-        height: 207px; */
+        width: 207px;
+        height: 207px;
         text-align: center;
-        /* line-height: 207px; */
+        background-color: rgba(204, 207, 213, 0.289);
+        line-height: 207px;
       }
     }
     .palycount {
