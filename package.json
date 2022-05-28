@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "element-ui": "^2.4.5",
     "vue": "^2.6.11",
+    "vue-contextmenujs": "^1.3.13",
     "vue-cropper": "^0.5.8",
     "vue-drag-resize": "^1.5.4",
     "vue-router": "^3.4.9",

@@ -1,12 +1,15 @@
 <template>
-<div class="swiper">
-<el-carousel :interval="4000" type="card" height="220px" >
-    <el-carousel-item v-for="(item,index) in banner" :key="index" class="swiper-item">
-      <a href="" class="medium"><img :src="item.imageUrl" alt="" /></a>
-    </el-carousel-item>
-  </el-carousel>
-</div>
-  
+  <div class="swiper">
+    <el-carousel :interval="4000" type="card" height="220px">
+      <el-carousel-item
+        v-for="(item, index) in banner"
+        :key="index"
+        class="swiper-item"
+      >
+        <img :src="item.imageUrl" alt="" />
+      </el-carousel-item>
+    </el-carousel>
+  </div>
 </template>
 <script>
 export default {
@@ -42,11 +45,11 @@ export default {
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
- img{
-    width: 100%;
-    height: 100%;
+img {
+  width: 100%;
+  height: 100%;
 }
-.swiper-item{
-    border-radius: 10px;
+.swiper-item {
+  border-radius: 10px;
 }
 </style>

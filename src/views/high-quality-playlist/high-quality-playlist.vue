@@ -105,6 +105,7 @@ export default {
       display: flex;
       .card {
         width: 25%;
+        height: 85%;
       }
       .des-text {
         display: inline-block;
@@ -130,6 +131,7 @@ export default {
     @media (min-width: 1921px) {
       .cards {
         width: 33%;
+        height: 85%;
       }
     }
   }

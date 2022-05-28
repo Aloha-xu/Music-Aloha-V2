@@ -7,6 +7,8 @@ import store from "./store";
 
 import VueCropper from "vue-cropper";
 Vue.use(VueCropper);
+import Contextmenu from "vue-contextmenujs"
+Vue.use(Contextmenu);
 
 Vue.config.productionTip = false;
 

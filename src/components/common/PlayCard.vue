@@ -96,13 +96,17 @@ export default {
   }
   .card-pic {
     .playcard-img {
+      width: 100%;
       border-radius: 5px;
       .image-slot {
-        width: 207px;
-        height: 207px;
+        width: 100%;
+        height: 100%;
+        line-height: 207px;
+        // width: 207px;
+        // height: 207px;
+        // line-height: 207px;
         text-align: center;
         background-color: rgba(204, 207, 213, 0.289);
-        line-height: 207px;
       }
     }
     .palycount {

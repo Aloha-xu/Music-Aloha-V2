@@ -57,8 +57,10 @@ export default {
     display: flex;
     flex-wrap: wrap; /*用了flex-wrap:wrap;自动换行属性后*/
     justify-content: space-around;
+    height: 569px;
     .item {
       width: 18.86%;
+      height: 34.5%;
       // min-width: 18.5%;
     }
     .item:nth-child(3) {

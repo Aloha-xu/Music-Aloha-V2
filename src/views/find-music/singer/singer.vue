@@ -4,7 +4,8 @@
       <div class="left">语种：</div>
       <div class="right">
         <div
-          :class="LanguageCurrentChoose === item ? 'singer_active' : ''"
+          class="select-bar-item"
+          :class="LanguageCurrentChoose === item ? 'singer-active' : ''"
           v-for="item in selectBarInfo[0].language"
           :key="item"
           @click="handleLanguageChoose(item)"
@@ -17,7 +18,8 @@
       <div class="left">分类：</div>
       <div class="right">
         <div
-          :class="ClassifyCurrentChoose === item ? 'singer_active' : ''"
+          class="select-bar-item"
+          :class="ClassifyCurrentChoose === item ? 'singer-active' : ''"
           v-for="item in selectBarInfo[1].classify"
           :key="item"
           @click="handleClassifyChoose(item)"
@@ -30,7 +32,8 @@
       <div class="left">筛选：</div>
       <div class="right">
         <div
-          :class="FirstletterCurrentChoose === item ? 'singer_active' : ''"
+          class="select-bar-item"
+          :class="FirstletterCurrentChoose === item ? 'singer-active' : ''"
           v-for="item in selectBarInfo[2].firstletter"
           :key="item"
           @click="handleFirstletterChoose(item)"
@@ -50,7 +53,7 @@
         <el-image
           :src="item.img1v1Url"
           lazy
-          style="width: 165px; height: 165px"
+          style="width: 165px; height: 165px; border-radius: 10px"
         >
           <div slot="placeholder" class="image-slot" style="font-size: 20px">
             <i class="el-icon-loading"></i>
@@ -255,6 +258,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/css/base.scss";
 .singer {
   font-size: 13px;
   color: rgb(87, 87, 87);
@@ -271,12 +275,16 @@ export default {
       padding: 0px 10px;
       display: flex;
       flex-wrap: wrap;
-      div {
+      .select-bar-item {
+        cursor: pointer;
         padding: 7px 25px;
+        border-radius: 10px;
+        &:hover {
+          background-color: $theme-color;
+        }
       }
-      .singer_active {
-        background-color: rgb(255, 216, 216) !important;
-        border-radius: 10px !important;
+      .singer-active {
+        background-color: $theme-color;
       }
     }
   }

@@ -30,7 +30,6 @@
           </el-input>
         </div>
       </div>
-
       <SongListComponent
         v-if="currentIndex === 0 && !loading"
         :songsInfo="playList"
@@ -428,6 +427,7 @@ export default {
     }
     .comment {
       padding-left: 20px;
+      width: calc(100% - 20px);
     }
   }
 }

@@ -1,17 +1,16 @@
 <template>
   <div class="card" @click="clickCard">
-    <div class="pic" >
-      <el-image :src="pic" lazy/>
+    <div class="pic">
+      <el-image :src="pic" lazy />
       <span class="palycount">{{ playCount }}</span>
     </div>
     <div class="text">
       {{ text }}
     </div>
     <div class="singer">
-      <span v-for="(item,index) in singer" :key="index">
-        {{item}}
+      <span v-for="(item, index) in singer" :key="index">
+        {{ item }}
       </span>
-        
     </div>
   </div>
 </template>
@@ -23,8 +22,8 @@ export default {
     playcount: Number,
     text: String,
     id: String,
-    singer:Array,
-    playType:String,
+    singer: Array,
+    playType: String,
   },
   data() {
     return {
@@ -33,20 +32,20 @@ export default {
   },
   computed: {
     playCount() {
-      let playcount 
-      if(parseInt((this.playcount / 10000).toFixed(0))<=1){
-        playcount=this.playcount
-      }else{
-        playcount=parseInt((this.playcount / 10000).toFixed(0)) + "万";
+      let playcount;
+      if (parseInt((this.playcount / 10000).toFixed(0)) <= 1) {
+        playcount = this.playcount;
+      } else {
+        playcount = parseInt((this.playcount / 10000).toFixed(0)) + "万";
       }
-      return playcount
+      return playcount;
     },
   },
   methods: {
     clickCard() {
-      if(this.playType=='video'){
+      if (this.playType == "video") {
         this.$router.push("/mvdetail/" + this.id);
-      }else{
+      } else {
         this.$router.push("/mvdetail/" + Number(this.id));
       }
     },
@@ -55,7 +54,6 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-
 .card {
   position: relative;
   padding-bottom: 10px;
@@ -65,9 +63,10 @@ export default {
 }
 img {
   width: 100%;
+  height: 148px;
   border-radius: 5px;
 }
-.palycount{
+.palycount {
   position: absolute;
   top: 3px;
   right: 3px;
@@ -75,27 +74,27 @@ img {
   color: white;
 }
 .text {
-  color:rgb(90, 90, 90);
+  color: rgb(90, 90, 90);
   font-size: 14px;
   letter-spacing: 0.7px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;/* 不允许换行 */
+  white-space: nowrap; /* 不允许换行 */
   margin-top: 5px;
 }
-.text:hover{
-    color:rgb(0, 0, 0);
+.text:hover {
+  color: rgb(0, 0, 0);
 }
-.singer{
+.singer {
   font-size: 13px;
-  color:rgb(146, 146, 146);
+  color: rgb(146, 146, 146);
   letter-spacing: 0.7px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;/* 不允许换行 */
-  margin-top: 5px;  
+  white-space: nowrap; /* 不允许换行 */
+  margin-top: 5px;
 }
-.singer:hover{
-    color: rgb(110, 110, 110);
+.singer:hover {
+  color: rgb(110, 110, 110);
 }
 </style>

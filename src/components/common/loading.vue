@@ -1,18 +1,18 @@
 <template>
   <div class="icon-loading">
-      <i class="el-icon-loading"></i>
-      <span>加载中</span>
+    <i class="el-icon-loading"></i>
+    <span style="color: grey">加载中</span>
   </div>
 </template>
 
 <script>
 export default {
-    name:'Loading',
-}
+  name: "Loading",
+};
 </script>
 
 <style scoped lang='scss'>
-.icon-loading{
+.icon-loading {
   width: 100%;
   height: 100%;
   display: flex;
