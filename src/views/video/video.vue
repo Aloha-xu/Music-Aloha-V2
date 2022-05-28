@@ -18,7 +18,11 @@
           </div>
         </div>
       </div>
-      <div class="all-card" v-show="!loading">
+      <div
+        class="all-card"
+        v-infinite-scroll="loadingMoreInfo"
+        :infinite-scroll-delay="1000"
+      >
         <MvCard
           v-for="(item, index) in videoInfo"
           :key="index"
@@ -30,7 +34,10 @@
           :playType="playType"
         ></MvCard>
       </div>
-      <Loading v-show="loading" style="height:50vh"></Loading>
+      <Loading
+        v-show="loading"
+        style="height: 10vh; margin-bottom: 100px"
+      ></Loading>
       <video-type-popover
         :videoType="allvideoType"
         @handleVideoTypeClick="handleVideoTypeClick"
@@ -64,16 +71,34 @@ export default {
         "MV",
       ],
       currentVideoType: "",
+      currentVideoTypeId: 58107,
       allvideoType: [],
       isShowPopover: false,
       videoInfo: [],
       playType: "video",
+      innerIndex: 0,
     };
   },
   computed: {
     ...mapGetters(["loading"]),
   },
   methods: {
+    //加载更多
+    async loadingMoreInfo() {
+      this.$store.commit("setLoading", true);
+      const videoInfo = await getVideoType(
+        this.currentVideoTypeId,
+        +this.innerIndex + 1
+      );
+      this.videoInfo.push(...(videoInfo.data.datas || ""));
+      const videoInfo1 = await getVideoType(
+        this.currentVideoTypeId,
+        +this.innerIndex + 2
+      );
+      this.videoInfo.push(...(videoInfo1.data.datas || ""));
+      this.innerIndex++;
+      this.$store.commit("setLoading", false);
+    },
     handleShowPopover() {
       this.isShowPopover = !this.isShowPopover;
     },
@@ -94,8 +119,9 @@ export default {
       } else {
         this.currentVideoType = "";
       }
-      const videoInfo = await getVideoType(value.id);
-      this.videoInfo = videoInfo.data.datas;
+      this.currentVideoTypeId = value.id;
+      this.innerIndex = 0;
+      this.getVideoInfo();
       this.$store.commit("setLoading", false);
     },
     async handleHotVideoTypeClick(value) {
@@ -103,23 +129,34 @@ export default {
       this.currentVideoType = value;
       this.currentPopoverType = value;
       let index = this.allvideoType.findIndex((item) => item.name === value);
-      const videoInfo = await getVideoType(this.allvideoType[index].id);
-      this.videoInfo = videoInfo.data.datas;
+      this.currentVideoTypeId = this.allvideoType[index].id;
+      this.innerIndex = 0;
+      this.getVideoInfo();
+      this.$store.commit("setLoading", false);
+    },
+    //获取视频信息
+    async getVideoInfo() {
+      let innerVideInfo = [];
+      this.$store.commit("setLoading", true);
+      const videoInfo = await getVideoType(
+        this.currentVideoTypeId,
+        +this.innerIndex + 1
+      );
+      innerVideInfo.push(...(videoInfo.data.datas || ""));
+      const videoInfo1 = await getVideoType(
+        this.currentVideoTypeId,
+        +this.innerIndex + 2
+      );
+      innerVideInfo.push(...(videoInfo1.data.datas || ""));
+      this.innerIndex++;
+      this.videoInfo = innerVideInfo;
       this.$store.commit("setLoading", false);
     },
   },
   async created() {
-    let res = await getVideoCategoryList();
-    console.log(res);
-    console.log(this.allvideoType);
-    for (let i = 0; i < 108; i++) {
-      let video = {};
-      video.id = res.data.data[i].id;
-      video.name = res.data.data[i].name;
-      this.allvideoType.push(video);
-    }
-    let videoInfo = await getVideoType(58107);
-    this.videoInfo = videoInfo.data.datas;
+    let { data } = await getVideoCategoryList();
+    this.allvideoType = data.data;
+    this.getVideoInfo(58107);
   },
 };
 </script>
@@ -181,6 +218,8 @@ export default {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      overflow: hidden;
+      padding-bottom: 20px;
       .card {
         width: 24%;
         margin-left: 10px;

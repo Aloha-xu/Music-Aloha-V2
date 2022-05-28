@@ -79,7 +79,7 @@ const user = {
         commit("SET_TOKEN", "");
         commit("SET_USER_INFO", "");
         clearAllCookie()
-        // location.reload();
+        location.reload();
         resolve();
       });
     },

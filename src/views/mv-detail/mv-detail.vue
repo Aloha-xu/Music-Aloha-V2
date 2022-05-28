@@ -2,7 +2,10 @@
   <div class="mv-detail">
     <div class="content">
       <div class="detail">
-        <div class="title"><i class="el-icon-arrow-left"></i>MV详情</div>
+        <!-- <div class="title"><i class="el-icon-arrow-left"></i>MV详情</div> -->
+        <br />
+        <br />
+        <br />
         <div class="video">
           <video
             :src="mvUrl"

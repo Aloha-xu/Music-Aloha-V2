@@ -22,6 +22,7 @@ export default {
 
 <style scoped lang="scss">
 .into-details-button {
+  cursor: pointer;
   display: flex;
   line-height: 30px;
   font-weight: 900;

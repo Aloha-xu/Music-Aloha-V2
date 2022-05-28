@@ -1,14 +1,16 @@
 <template>
   <div class="card">
-    <div class="card-pic">
-      <el-image :src="pic" @click="cardClick" class="playcard-img" lazy>
-        <div slot="placeholder" class="image-slot" style="font-size: 20px">
-          <i class="el-icon-loading"></i>
-        </div>
-        <div slot="error" class="image-slot">
-          <i class="el-icon-picture-outline"></i>
-        </div>
-      </el-image>
+    <div class="card-content">
+      <div class="pic">
+        <el-image :src="pic" @click="cardClick" class="playcard-img" lazy>
+          <div slot="placeholder" class="image-slot" style="font-size: 20px">
+            <i class="el-icon-loading"></i>
+          </div>
+          <div slot="error" class="image-slot">
+            <i class="el-icon-picture-outline"></i>
+          </div>
+        </el-image>
+      </div>
       <span class="palycount">
         <slot name="card_palycount">{{ playCount }}</slot>
       </span>
@@ -94,19 +96,21 @@ export default {
     animation: jump 1.2s ease 1 normal;
     transform: translate(0px, -12px);
   }
-  .card-pic {
-    .playcard-img {
-      width: 100%;
-      border-radius: 5px;
-      .image-slot {
+  .card-content {
+    .pic {
+      .playcard-img {
         width: 100%;
-        height: 100%;
-        line-height: 207px;
-        // width: 207px;
-        // height: 207px;
-        // line-height: 207px;
-        text-align: center;
-        background-color: rgba(204, 207, 213, 0.289);
+        border-radius: 5px;
+        .image-slot {
+          width: 100%;
+          height: 100%;
+          line-height: 207px;
+          // width: 207px;
+          // height: 207px;
+          // line-height: 207px;
+          text-align: center;
+          background-color: rgba(204, 207, 213, 0.289);
+        }
       }
     }
     .palycount {

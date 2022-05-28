@@ -61,6 +61,14 @@ export default {
   border-radius: 5px;
   width: 24%;
 }
+.pic {
+  width: 100%;
+  height: 148px;
+}
+::v-deep .el-image {
+  width: 100%;
+  height: 148px;
+}
 img {
   width: 100%;
   height: 148px;

@@ -63,6 +63,7 @@ export default {
     padding: 8px 0px 10px 15px;
     .video-item,
     .mv-item {
+      cursor: pointer;
       width: 80px;
     }
     .active {
