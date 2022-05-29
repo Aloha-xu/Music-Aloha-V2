@@ -116,3 +116,16 @@ export function clearAllCookie() {
       document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
   }
 }
+
+//判断手机端还是电脑端
+export function IsPc() {
+  let userAgentInfo = navigator.userAgent;
+  let flag = true;
+  if (userAgentInfo.indexOf('Windows') < 0) {
+    flag = false;
+  }
+  if (window.screen.width >= 768) {
+    flag = true;
+  }
+  return flag;
+}

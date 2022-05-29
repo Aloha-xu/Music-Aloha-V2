@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { IsPc } from '@/utils/uctil.js'
 
 Vue.use(VueRouter)
 const routes = [
@@ -135,9 +136,19 @@ const routes = [
     },
 ]
 
+const routerToModile = [
+    {
+        path: '',
+        redirect: '/home',
+        component: () => import(/* webpackChunkName: "homeToModile" */ '../AppToModile.vue'),
+    },
+]
+
+const currentRoutes = IsPc() ? routes : routerToModile;
+
 //注册router
 const router = new VueRouter({
-    routes,
+    currentRoutes,
     mode: "history"
 })
 
