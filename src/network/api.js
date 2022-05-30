@@ -1233,3 +1233,45 @@ export function getUserRecord(uid, type) {
     },
   });
 }
+
+
+// 给评论点赞
+// 说明 : 调用此接口 , 传入 type, 资源 id, 和评论 id cid 和 是否点赞参数 t 即可给对 应评论点赞 ( 需要登录 )
+// 必选参数 : 
+//  id : 资源 id, 如歌曲 id,mv id
+// cid : 评论 id
+// t : 是否点赞 ,1 为点赞 ,0 为取消点赞
+// tpye: 数字 , 资源类型 , 对应歌曲 , mv, 专辑 , 歌单 , 电台, 视频对应以下类型
+// 0: 歌曲
+// 1: mv
+// 2: 歌单
+// 3: 专辑
+// 4: 电台
+// 5: 视频
+// 6: 动态
+// 接口地址 : /comment/like
+// 调用例子 : /comment/like?id=29178366&cid=12840183&t=1&type=0 对应给 https://music.163.com/#/song?id=29178366 (opens new window)最热门的评论点赞
+// 注意： 动态点赞不需要传入 id 参数，需要传入动态的 threadId 参数,如：/comment/like?type=6&cid=1419532712&threadId=A_EV_2_6559519868_32953014&t=0， threadId 可通过 /event，/user/event 接口获取
+
+export function setCommentLike(params) {
+  return request({
+    url: "/comment/like",
+    params
+  });
+}
+
+
+// 对歌单添加或删除歌曲
+// 说明: 调用此接口, 可以添加歌曲到歌单或者从歌单删除某首歌曲(需要登录)
+// 必选参数:
+// op: 从歌单增加单曲为 add, 删除为 del
+// pid: 歌单 id tracks: 歌曲 id, 可多个, 用逗号隔开
+// 接口地址: /playlist/tracks
+// 调用例子: /playlist/tracks ? op = add & pid=24381616 & tracks=347231(对应把歌曲添加到 ' 我 ' 的歌单, 测试的时候请把这里的 pid 换成你自己的, id 和 tracks 不对可能会报 502 错误)
+
+export function setSongToMyselfPlayList(params) {
+  return request({
+    url: "/playlist/tracks",
+    params
+  });
+}

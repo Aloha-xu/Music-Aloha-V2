@@ -370,6 +370,10 @@ const player = {
     SET_MY_SONGLIST(state, info) {
       state.mySonglist = info;
     },
+    //在歌单列表中插入歌曲
+    ADD_SONG_TO_PLAYLIST(state, info) {
+      state.songList.splice(state.currentIndex + 1, 0, info)
+    }
   },
 
   actions: {

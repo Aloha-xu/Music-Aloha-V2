@@ -261,8 +261,6 @@ export default {
           this.$store.commit("setCurrentIndex", v[1]);
 
           this.playList[v[1]].lyric = parseLyric(lyric.data.lrc.lyric);
-          console.log(lyric.data.lrc.lyric);
-          console.log(this.playList[v[1]].lyric);
 
           //修改当前播放的音乐信息
           this.$store.commit("changeCurrentPlay", this.playList[v[1]]);

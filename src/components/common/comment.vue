@@ -25,14 +25,16 @@
         :text="item.content"
         :time="item.time"
         :uid="item.commentId"
+        :liked="item.liked"
         @handleReplyComment="handleReplyComment"
+        @handleClickLike="handleClickLike(item.commentId, item.liked)"
       ></CommentCard>
     </div>
   </div>
 </template>
 <script>
 import CommentCard from "./CommentCard.vue";
-import { SendOrDelComment } from "@/network/api";
+import { SendOrDelComment, setCommentLike } from "@/network/api";
 export default {
   components: { CommentCard },
   name: "Comment",
@@ -62,6 +64,16 @@ export default {
     },
   },
   methods: {
+    //点赞
+    async handleClickLike(cid, liked) {
+      const { data } = await setCommentLike({
+        id: this.$route.params.id,
+        cid,
+        t: liked ? 0 : 1,
+        tpye: this.type,
+      });
+      console.log(data);
+    },
     async sendComment() {
       const { data } = await SendOrDelComment(
         this.t,

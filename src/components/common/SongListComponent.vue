@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { getLikeList, setLike } from "@/network/api";
+import { getLikeList, setLike, setSongToMyselfPlayList } from "@/network/api";
 import { forMatTime } from "@/utils/format";
 import { mapGetters } from "vuex";
 import draggable from "vuedraggable";
@@ -82,12 +82,12 @@ export default {
   name: "SongListComponent",
   data() {
     return {
-      isClickHeart: false,
       //歌单的全部列表信息
       allSongList: [],
       likeList: [],
       //用于右击弹出菜单的innerIndex标识
       innerIndex: null,
+      MyselfPlaylistTemplate: null,
     };
   },
   props: {
@@ -177,13 +177,19 @@ export default {
             label: "下一首播放",
             icon: "el-icon-d-arrow-right",
             divided: true,
-            onClick: () => {},
+            onClick: () => {
+              this.$store.commit(
+                "ADD_SONG_TO_PLAYLIST",
+                this.innerSongInfo[this.innerIndex]
+              );
+              this.$message.success("已添加到播放列表");
+            },
           },
           //收藏歌单 需要登录 需要判断
           {
             label: "收藏到歌单",
             icon: "el-icon-folder-add",
-            children: [{ label: "遍历循环" }],
+            children: this.MyselfPlaylistTemplate,
           },
           //分享 先不做
           { label: "分享...", icon: "el-icon-share" },
@@ -213,16 +219,40 @@ export default {
     },
     getSongId(arry) {
       arry.forEach((item) => {
-        // console.log(item);
         if (item.getAttribute("innerIndex")) {
           this.innerIndex = +item.getAttribute("innerIndex");
         }
       });
-      console.log(this.innerIndex);
+    },
+    createMyselfPlaylistTemplate() {
+      let MyselfPlaylistTemplate = [];
+      for (let index = 0; index < this.mySonglist.length; index++) {
+        MyselfPlaylistTemplate.push({
+          label: this.mySonglist[index].name,
+          onClick: () => {
+            this.addSongToMyselfPlaylist(this.mySonglist[index].id);
+          },
+        });
+      }
+      this.MyselfPlaylistTemplate = MyselfPlaylistTemplate;
+    },
+    async addSongToMyselfPlaylist(pid) {
+      const { data } = await setSongToMyselfPlayList({
+        op: "add",
+        pid,
+        tracks: this.innerSongInfo[this.innerIndex].id,
+      });
+      data.body.code == 200 && this.$message.success("添加成功");
+      data.body?.message && this.$message(data.body?.message);
     },
   },
   computed: {
-    ...mapGetters(["currentSongInfo", "userinfo", "isShowUpdataComponent"]),
+    ...mapGetters([
+      "currentSongInfo",
+      "userinfo",
+      "isShowUpdataComponent",
+      "mySonglist",
+    ]),
     innerSongInfo: {
       get() {
         return this.songsInfo;
@@ -234,6 +264,7 @@ export default {
   },
   async created() {
     this.userinfo && this.getLikeList();
+    this.createMyselfPlaylistTemplate();
   },
 };
 </script>

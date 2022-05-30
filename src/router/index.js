@@ -148,7 +148,8 @@ const currentRoutes = IsPc() ? routes : routerToModile;
 
 //注册router
 const router = new VueRouter({
-    currentRoutes,
+    //routes名字
+    routes: currentRoutes,
     mode: "history"
 })
 
