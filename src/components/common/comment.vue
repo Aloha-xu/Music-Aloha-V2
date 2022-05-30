@@ -29,6 +29,11 @@
         @handleReplyComment="handleReplyComment"
         @handleClickLike="handleClickLike(item.commentId, item.liked)"
       ></CommentCard>
+      <el-empty
+        :image-size="200"
+        :style="{ height: 50 + 'vh', textAlign: 'center', width: 100 + '%' }"
+        v-if="!commentInfo.length"
+      ></el-empty>
     </div>
   </div>
 </template>

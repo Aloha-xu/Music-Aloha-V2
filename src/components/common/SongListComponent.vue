@@ -8,7 +8,7 @@
       <span>专辑</span>
       <span>时长</span>
     </div>
-    <div @contextmenu.prevent="onContextmenu">
+    <div @contextmenu.prevent="onContextmenu" v-if="innerSongInfo.length > 0">
       <draggable
         v-model="innerSongInfo"
         animation="300"
@@ -69,6 +69,11 @@
         </transition-group>
       </draggable>
     </div>
+    <el-empty
+      :image-size="200"
+      :style="{ height: 50 + 'vh' }"
+      v-else
+    ></el-empty>
   </div>
 </template>
 

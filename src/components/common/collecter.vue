@@ -4,6 +4,11 @@
       <el-image :src="item.avatarUrl" alt="" lazy class="image-style" />
       <div class="nikcname">{{ item.nickname }}</div>
     </div>
+    <el-empty
+      :image-size="200"
+      :style="{ height: 50 + 'vh', textAlign: 'center', width: 100 + '%' }"
+      v-if="!collecter.length"
+    ></el-empty>
   </div>
 </template>
 
