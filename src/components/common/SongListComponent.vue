@@ -199,8 +199,17 @@ export default {
           //分享 先不做
           { label: "分享...", icon: "el-icon-share" },
           //这个复制链接 格式好像是 ：https://music.163.com/song?id=1898044638&userid=3233744982
-          //可以拼接  后续写
-          { label: "复制链接", icon: "el-icon-link" },
+          {
+            label: "复制链接",
+            icon: "el-icon-link",
+            onClick: () => {
+              navigator.clipboard.writeText(
+                `https://music.163.com/song?id=${
+                  this.innerSongInfo[this.innerIndex].id
+                }&userid=${this.userinfo.userId}`
+              );
+            },
+          },
           //下载
           {
             label: "下载",
@@ -240,13 +249,16 @@ export default {
       }
       this.MyselfPlaylistTemplate = MyselfPlaylistTemplate;
 
+      //判断是否已经登陆
       if (!this.userinfo) {
-        this.MyselfPlaylistTemplate = {
-          label: "未登录,点击登录",
-          onClick: () => {
-            this.$store.commit("SET_LOGIN_DIALOG", true);
+        this.MyselfPlaylistTemplate = [
+          {
+            label: "未登录,点击登录",
+            onClick: () => {
+              this.$store.commit("SET_LOGIN_DIALOG", true);
+            },
           },
-        };
+        ];
       }
     },
     async addSongToMyselfPlaylist(pid) {

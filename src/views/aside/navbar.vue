@@ -183,7 +183,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("getUserPlayList");
+    this.token && this.$store.dispatch("getUserPlayList");
   },
 };
 </script>
