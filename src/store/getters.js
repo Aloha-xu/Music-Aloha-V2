@@ -28,4 +28,5 @@ export default {
   userinfo: (state) => state.user.userinfo,
   isShowLoginDialog: (state) => state.user.isShowLoginDialog,
   isShowLyric: (state) => state.player.isShowLyric,
+  likeList: (state) => state.player.likeLists,
 };

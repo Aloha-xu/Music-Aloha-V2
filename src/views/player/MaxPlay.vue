@@ -14,18 +14,18 @@
           </div>
         </div>
         <div class="tools">
-          <div class="heart">
+          <div class="heart" @click="ClickHeart()">
             <img
               src="@/assets/icon/heart.svg"
               alt=""
-              v-show="false"
+              v-show="!isHeart()"
               style="height: 30px; weight: 30px"
             />
             <img
               src="@/assets/icon/heartactive.svg"
               alt=""
+              v-show="isHeart()"
               style="height: 30px; weight: 30px"
-              @click="init()"
             />
           </div>
           <div class="collect" @click="handleCollectSong">
@@ -101,6 +101,7 @@
 <script>
 import NewMusicCard from "@/views/find-music/recommend/new-music/new-music-card.vue";
 import Comment from "@/components/common/Comment.vue";
+import { setLike, getLikeList } from "@/network/api.js";
 import { mapGetters } from "vuex";
 export default {
   name: "MaxPlay",
@@ -117,9 +118,37 @@ export default {
     };
   },
   methods: {
+    isHeart() {
+      return this.likeList.findIndex(
+        (item) => item == this.currentSongInfo.id
+      ) == -1
+        ? false
+        : true;
+    },
+    async getLikeList() {
+      let uId = this.userinfo.userId;
+      let likeList = await getLikeList(uId);
+      this.$store.commit("SET_LIKELISTS", likeList.data.ids);
+    },
+    //不想写了
     handleCollectSong() {},
+    async ClickHeart() {
+      let id = this.currentSongInfo.id;
+      let innerLikeList = JSON.parse(JSON.stringify(this.likeList));
+      let currentIndex = innerLikeList.findIndex((item) => item == id);
+      if (currentIndex == -1) {
+        const { data } = await setLike(id, true);
+        data.code === 200 &&
+          (innerLikeList.push(id), this.$message.success("已加入我喜欢的音乐"));
+      } else {
+        const { data } = await setLike(id, false);
+        data.code === 200 &&
+          (innerLikeList.splice(currentIndex, 1),
+          this.$message.success("已从我喜欢的音乐移除"));
+      }
+      this.$store.commit("SET_LIKELISTS", innerLikeList);
+    },
     handleDownloadSong() {
-      console.log(12);
       this.$store.dispatch("downloadSong", {
         url: this.currentSongInfo.url,
         name: this.currentSongInfo.name,
@@ -167,7 +196,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["currentSongInfo", "SimiSongList", "commentInfo"]),
+    ...mapGetters([
+      "currentSongInfo",
+      "SimiSongList",
+      "commentInfo",
+      "token",
+      "likeList",
+    ]),
     ...mapGetters({
       currentPlayTime: "currentTime",
     }),
@@ -190,6 +225,9 @@ export default {
       }
       lyric.scrollTop = (currentIndex - 4) * offset;
     },
+  },
+  created() {
+    this.token && this.getLikeList();
   },
 };
 </script>
@@ -215,7 +253,7 @@ export default {
       flex: 1;
       align-items: center; //纵轴对齐
       flex-direction: column;
-      // overflow: hidden;
+      overflow: hidden;
       height: 500px;
       .pic {
         display: flex;
@@ -262,6 +300,7 @@ export default {
         .collect,
         .download,
         .share {
+          cursor: pointer;
           padding: 10px;
           padding-top: 30px;
           padding-left: 40px;

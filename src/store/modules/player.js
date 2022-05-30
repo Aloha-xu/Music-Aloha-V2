@@ -85,6 +85,9 @@ const player = {
 
     //控制 歌词显示是否
     isShowLyric: false,
+
+    //user喜欢的音乐列表
+    likeLists: []
   },
 
   mutations: {
@@ -373,6 +376,10 @@ const player = {
     //在歌单列表中插入歌曲
     ADD_SONG_TO_PLAYLIST(state, info) {
       state.songList.splice(state.currentIndex + 1, 0, info)
+    },
+    //设置喜欢的歌单列表  现在只用在了maxplayer的喜欢删
+    SET_LIKELISTS(state, info) {
+      state.likeLists = info
     }
   },
 
