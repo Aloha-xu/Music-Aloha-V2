@@ -46,4 +46,15 @@ module.exports = {
   //       },
   //     },
   //   },
+
+
+  devServer: {
+    //配置关闭eslintt检查
+    overlay: {
+      warnings: false, //不显示警告
+      errors: false	//不显示错误
+    }
+  },
+  lintOnSave: false //关闭eslint检查
+
 };

@@ -28,13 +28,13 @@
               @click="init()"
             />
           </div>
-          <div class="collect">
+          <div class="collect" @click="handleCollectSong">
             <i class="el-icon-folder-add" style="font-size: 30px"></i>
           </div>
-          <div class="download">
+          <div class="download" @click="handleDownloadSong">
             <i class="el-icon-download" style="font-size: 30px"></i>
           </div>
-          <div class="share">
+          <div class="share" @click="handleShareSong">
             <i class="el-icon-share" style="font-size: 30px"></i>
           </div>
         </div>
@@ -117,6 +117,15 @@ export default {
     };
   },
   methods: {
+    handleCollectSong() {},
+    handleDownloadSong() {
+      console.log(12);
+      this.$store.dispatch("downloadSong", {
+        url: this.currentSongInfo.url,
+        name: this.currentSongInfo.name,
+      });
+    },
+    handleShareSong() {},
     setReplyWay(val) {
       this.replyWay = val;
     },
@@ -206,7 +215,7 @@ export default {
       flex: 1;
       align-items: center; //纵轴对齐
       flex-direction: column;
-      overflow: hidden;
+      // overflow: hidden;
       height: 500px;
       .pic {
         display: flex;
@@ -256,6 +265,7 @@ export default {
           padding: 10px;
           padding-top: 30px;
           padding-left: 40px;
+          z-index: 999;
         }
       }
       &:hover {

@@ -80,7 +80,7 @@ import {
 } from "@/network/api";
 import { parseLyric } from "@/utils/lyric";
 import { _debounce } from "@/utils/uctil";
-import download from "@/utils/dowmload";
+import download from "@/utils/download";
 export default {
   components: {
     PlayListDetailHead,

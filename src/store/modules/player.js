@@ -1,5 +1,5 @@
 import { getUserPlaylist } from "@/network/api";
-
+import download from "@/utils/download.js";
 const player = {
   state: {
     //当前的播放歌曲信息
@@ -420,6 +420,11 @@ const player = {
       commit("setUserSonglistInfo", playlist);
       commit("updataSonglist", uId);
     },
+
+    async downloadSong({ state }, songInfo) {
+      await download(songInfo.url, songInfo.name);
+    }
+
   },
 };
 

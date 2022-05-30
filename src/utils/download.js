@@ -1,5 +1,5 @@
 import axios from 'axios'
-export default function download(url,name){
+export default function download(url, name) {
     axios({
         method: 'get',
         url: url,
