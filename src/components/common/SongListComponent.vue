@@ -218,8 +218,6 @@ export default {
         minWidth: 230,
       });
       this.getSongId([event.path[1], event.path[2]]);
-      // console.log(event.path[1].getAttribute("id"));
-      // console.log(event.path[0].innerHTML);
       return false;
     },
     getSongId(arry) {
@@ -234,12 +232,22 @@ export default {
       for (let index = 0; index < this.mySonglist.length; index++) {
         MyselfPlaylistTemplate.push({
           label: this.mySonglist[index].name,
+          icon: "el-icon-eleme",
           onClick: () => {
             this.addSongToMyselfPlaylist(this.mySonglist[index].id);
           },
         });
       }
       this.MyselfPlaylistTemplate = MyselfPlaylistTemplate;
+
+      if (!this.userinfo) {
+        this.MyselfPlaylistTemplate = {
+          label: "未登录,点击登录",
+          onClick: () => {
+            this.$store.commit("SET_LOGIN_DIALOG", true);
+          },
+        };
+      }
     },
     async addSongToMyselfPlaylist(pid) {
       const { data } = await setSongToMyselfPlayList({
