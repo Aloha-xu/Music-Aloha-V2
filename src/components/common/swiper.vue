@@ -6,7 +6,7 @@
         :key="index"
         class="swiper-item"
       >
-        <img :src="item.imageUrl" alt="" />
+        <img :src="item.imageUrl + '?param=550y220'" alt="" />
       </el-carousel-item>
     </el-carousel>
   </div>

@@ -95,6 +95,29 @@
         @setReplyWay="setReplyWay"
       ></Comment>
     </div>
+    <el-dialog
+      title="收藏到歌单"
+      :visible.sync="centerDialogVisible"
+      width="30%"
+      center
+    >
+      <div class="playlist-box">
+        <div class="create-playlist-card">
+          <div class="cover">
+            <i class="el-icon-plus" style="color: red; font-size: 35px"></i>
+          </div>
+          <div class="text">新建歌单</div>
+        </div>
+        <div class="my-love-playlist-card">
+          <div class="cover"></div>
+          <div class="text">
+            <div class="name"></div>
+            <div class="music-count"></div>
+          </div>
+        </div>
+        <div class="my-playlist-card"></div>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -111,6 +134,7 @@ export default {
   },
   data() {
     return {
+      centerDialogVisible: true,
       textarea: "",
       interval: null,
       isShowRecordTools: false,
@@ -202,6 +226,7 @@ export default {
       "commentInfo",
       "token",
       "likeList",
+      "userinfo",
     ]),
     ...mapGetters({
       currentPlayTime: "currentTime",
@@ -386,6 +411,28 @@ export default {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+.playlist-box {
+  .create-playlist-card {
+    display: flex;
+    .cover {
+      width: 60px;
+      height: 60px;
+      background-color: $bg-grey;
+      line-height: 60px;
+      text-align: center;
+      border-radius: 10px;
+    }
+    .text {
+      line-height: 60px;
+      margin-left: 10px;
+    }
+  }
+  .my-love-playlist-card {
+  }
+  .my-playlist-card {
   }
 }
 </style>

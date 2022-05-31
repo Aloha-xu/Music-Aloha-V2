@@ -9,7 +9,7 @@
         class="item"
         v-for="item in PlayCarInfo"
         :key="item.id"
-        :pic="item.picUrl"
+        :pic="item.picUrl + '?param=250y250'"
         :playcount="item.playCount"
         :text="item.name"
         :id="item.id"

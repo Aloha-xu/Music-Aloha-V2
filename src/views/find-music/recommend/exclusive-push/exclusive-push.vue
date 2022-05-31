@@ -9,7 +9,7 @@
         class="item"
         v-for="item in ExclusivePushInfo"
         :key="item.id"
-        :pic="item.sPicUrl"
+        :pic="item.sPicUrl + '?param=160y90'"
         :text="item.name"
       ></exclusiver-push-card>
     </div>

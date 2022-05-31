@@ -6,7 +6,7 @@
     ></IntoDetailsButton>
     <div class="card">
       <div class="card-item" v-for="(item, index) in cardInfo" :key="index">
-        <img :src="item.picUrl" alt="" />
+        <img :src="item.picUrl + '?param=170y170'" alt="" />
       </div>
     </div>
   </div>

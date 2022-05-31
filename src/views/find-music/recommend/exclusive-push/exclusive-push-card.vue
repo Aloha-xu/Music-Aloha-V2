@@ -1,9 +1,9 @@
 <template>
   <div class="exclusiver-push-card">
-      <div class="pic" @click="clickCard">
-          <img :src="pic" alt="">
-      </div>
-      <div class="text">
+    <div class="pic" @click="clickCard">
+      <img :src="pic" alt="" />
+    </div>
+    <div class="text">
       {{ text }}
     </div>
   </div>
@@ -11,37 +11,44 @@
 
 <script>
 export default {
-    name:'ExclusiverPushCard',
-    props:{
-        pic:{
-            type:String,
-            default:''
-        },
-        text:{
-            type:String,
-            default:''
-        }
+  name: "ExclusiverPushCard",
+  props: {
+    pic: {
+      type: String,
+      default: "",
     },
-    methods: {
-        clickCard(){
-            this.$store.commit('exclusiverPushCardClick')
-        }
+    text: {
+      type: String,
+      default: "",
     },
-}
+  },
+  methods: {
+    clickCard() {
+      this.$store.commit("exclusiverPushCardClick");
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
-.exclusiver-push-card .pic img{
-    width: 100%;
-    border-radius: 10px;
-}
-.exclusiver-push-card .text{
+.exclusiver-push-card {
+  .pic {
+    width: 357px;
+    height: 201px;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+  }
+  .text {
     font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-top: 5px;
     display: -webkit-box;
-  -webkit-line-clamp: 2; /* 显示两行 */
-  line-height: 20px;
+    -webkit-line-clamp: 2; /* 显示两行 */
+    line-height: 20px;
+  }
 }
 </style>

@@ -9,7 +9,7 @@
         v-for="item in cardInfo"
         :key="item.id"
         :id="String(item.id)"
-        :pic="item.picUrl"
+        :pic="item.picUrl + '?param=264y148'"
         :playcount="item.playCount"
         :text="item.name"
         :singer="item.artists.map(({ name }) => name)"

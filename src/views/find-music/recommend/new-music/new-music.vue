@@ -8,7 +8,7 @@
       <NewMusicCard
         v-for="item in NewMusicCardInfo"
         :key="item.id"
-        :pic="item.picUrl"
+        :pic="item.picUrl + '?param=50y50'"
         :songname="item.name"
         :singer="item.song.artists.map(({ name }) => name)"
         class="item"
