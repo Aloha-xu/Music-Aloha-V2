@@ -44,6 +44,8 @@ import {
   InfiniteScroll,
   FormItem,
   TabPane,
+  Skeleton,
+  SkeletonItem,
 } from "element-ui";
 
 Vue.use(Pagination);
@@ -78,6 +80,8 @@ Vue.use(Empty);
 Vue.use(InfiniteScroll);
 Vue.use(FormItem);
 Vue.use(TabPane);
+Vue.use(Skeleton);
+Vue.use(SkeletonItem);
 
 Vue.use(Loading.directive);
 

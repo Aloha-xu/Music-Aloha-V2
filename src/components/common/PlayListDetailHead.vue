@@ -1,9 +1,9 @@
 <template>
   <div class="playlistdetail-head">
-    <div class="left">
+    <div class="left" v-show="!loading">
       <img :src="playListHeadInfo.coverImgUrl + '?param=180y180'" />
     </div>
-    <div class="right">
+    <div class="right" v-show="!loading">
       <div class="title">
         <span class="songlist-type">{{ playListHeadInfo.titleType }}</span>
         <span class="songlist-name">{{ playListHeadInfo.name }}</span>
@@ -119,6 +119,64 @@
       class="el-icon-caret-bottom show-description"
       @click="showDescription()"
     ></div>
+    <el-skeleton style="width:100%;" :loading="loading" animated>
+      <template slot="template">
+        <el-skeleton-item
+          variant="image"
+          style="width: 207px; height: 180px;margin-left:20px;border-radius:10px;margin-bottom:7px"
+        />
+        <div
+          style="padding-left: 20px; width:100%;display:flex;flex-direction: column;"
+        >
+          <el-skeleton-item
+            variant="image"
+            style="width: 20%;height:30px;border-radius:10px ;"
+          />
+          <div
+            style="width:50%;display:flex;align-items: center;margin-top:10px"
+          >
+            <el-skeleton-item
+              variant="p"
+              style="width: 25px; height: 25px;border-radius:50%;"
+            />
+            <el-skeleton-item
+              variant="p"
+              style="width: 20%;height:25px;margin-left:10px"
+            />
+          </div>
+          <div style="width:50%;display:flex;margin-top:10px;">
+            <el-skeleton-item
+              variant="h1"
+              style="width: 15%;height:30px;border-radius:20px;"
+            />
+            <el-skeleton-item
+              variant="h1"
+              style="width: 15%;height:30px;margin-left:10px;border-radius:20px;"
+            />
+            <el-skeleton-item
+              variant="h1"
+              style="width: 15%;height:30px;margin-left:10px;border-radius:20px;"
+            />
+            <el-skeleton-item
+              variant="h1"
+              style="width: 15%;height:30px;margin-left:10px;border-radius:20px;"
+            />
+          </div>
+          <el-skeleton-item
+            variant="p"
+            style="width: 8%;height:15px;margin-top:10px"
+          />
+          <el-skeleton-item
+            variant="p"
+            style="width: 12%;height:15px;margin-top:10px"
+          />
+          <el-skeleton-item
+            variant="p"
+            style="width: 80%;height:15px;margin-top:10px"
+          />
+        </div>
+      </template>
+    </el-skeleton>
   </div>
 </template>
 
@@ -156,7 +214,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["isShowUpdataComponent", "playing"]),
+    ...mapGetters(["isShowUpdataComponent", "playing", "loading"]),
   },
 };
 </script>
@@ -292,6 +350,11 @@ export default {
     position: absolute;
     right: 60px;
     top: 187px;
+  }
+}
+::v-deep {
+  .el-skeleton {
+    display: flex;
   }
 }
 </style>
