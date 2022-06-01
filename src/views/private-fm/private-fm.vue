@@ -5,7 +5,22 @@
         <div class="record-tools">
           <div class="record">
             <div class="pic">
-              <img :src="currentSongInfo.pic" class="current-pic" />
+              <el-image
+                :src="currentSongInfo.pic + '?param=300y300'"
+                class="current-pic"
+              >
+                <!-- 先不做这一块 -->
+                <!-- <div slot="placeholder" class="image-slot">
+                  <el-skeleton>
+                    <template slot="template">
+                      <el-skeleton-item
+                        variant="image"
+                        style="width: 300px; height: 300px"
+                      />
+                    </template>
+                  </el-skeleton>
+                </div> -->
+              </el-image>
               <i
                 class="el-icon-caret-right play-button"
                 v-show="!playing || !goblePlayingState"
@@ -91,6 +106,7 @@
 <script>
 import Comment from "@/components/common/Comment.vue";
 import { parseLyric } from "@/utils/lyric";
+import { _throttle } from "@/utils/uctil";
 import { fm, getSongUrl, getSongLyric, getMusicComment } from "@/network/api";
 import { mapGetters } from "vuex";
 export default {
@@ -103,6 +119,7 @@ export default {
       playList: [],
       tag: true,
       replyWay: 1,
+      unwatch: null,
     };
   },
   components: {
@@ -196,8 +213,10 @@ export default {
       let flag = false;
       let currentTime = parseInt(this.currentTime / 1000);
       if (
+        //到最后数组没有下一个了
+        this.currentSongInfo.lyric[index + 1] &&
         currentTime >= values.time &&
-        currentTime < this.currentSongInfo.lyric[index + 1].time &&
+        currentTime < this.currentSongInfo.lyric[index + 1]?.time &&
         index <= this.currentSongInfo.lyric.length
       ) {
         flag = true;
@@ -219,28 +238,36 @@ export default {
   async created() {
     this.$store.commit("SET_IS_SHOW_FM_PLAYER", true);
     this.getSongInfo();
+    //注册监听器
+    this.unwatch = this.$watch(
+      "currentTime",
+      _throttle(() => {
+        let offset = 36;
+        let lyric = this.$refs.lyric;
+        let currentIndex = this.currentSongInfo.lyric.findIndex(
+          (item) => parseInt(this.currentTime / 1000) === item.time
+        );
+        if (
+          currentIndex <= 4 ||
+          currentIndex + 4 === this.currentSongInfo.lyric.length
+        ) {
+          return;
+        }
+        lyric.scrollTop = (currentIndex - 4) * offset;
+      }, 700)
+    );
   },
   activated() {
     this.$store.commit("SET_IS_SHOW_FM_PLAYER", true);
     this.getSongInfo();
   },
+  beforeDestroy() {
+    // 移除监听
+    this.unwatch && this.unwatch();
+  },
   watch: {
     isTagMinPlayerToNext() {
       this.nextSong();
-    },
-    currentTime() {
-      let offset = 36;
-      let lyric = this.$refs.lyric;
-      let currentIndex = this.currentSongInfo.lyric.findIndex(
-        (item) => parseInt(this.currentTime / 1000) === item.time
-      );
-      if (
-        currentIndex <= 4 ||
-        currentIndex + 4 === this.currentSongInfo.lyric.length
-      ) {
-        return;
-      }
-      lyric.scrollTop = (currentIndex - 4) * offset;
     },
   },
 };

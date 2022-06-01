@@ -12,9 +12,9 @@
     <el-empty
       :image-size="200"
       :style="{ height: 50 + 'vh', textAlign: 'center', width: 100 + '%' }"
-      v-if="!collecter.length && loading"
+      v-if="!collecter.length && !loading"
     ></el-empty>
-    <Loading v-show="loading" style="height: 50vh"></Loading>
+    <Loading v-if="loading" style="height: 50vh"></Loading>
   </div>
 </template>
 

@@ -428,8 +428,11 @@ export default {
       history.go(1);
     },
     async handleChangeSearch(searchValues) {
-      const SearchSuggest = await getSearchSuggest(searchValues);
-      this.SearchDetail = SearchSuggest.data.result;
+      //搜索keyword为空的时候，搜索会报错
+      if (searchValues) {
+        const SearchSuggest = await getSearchSuggest(searchValues);
+        this.SearchDetail = SearchSuggest.data.result;
+      }
     },
     parseLastNotice(msg) {
       let afterMsg = JSON.parse(msg);

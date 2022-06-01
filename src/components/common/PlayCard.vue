@@ -3,8 +3,18 @@
     <div class="card-content">
       <div class="pic">
         <el-image :src="pic" @click="cardClick" class="playcard-img" lazy>
-          <div slot="placeholder" class="image-slot" style="font-size: 20px">
-            <i class="el-icon-loading"></i>
+          <div slot="placeholder" class="image-slot">
+            <span style="font-size: 10px; margin-right: 5px; font-weight: 600"
+              >加载中</span
+            ><i style="font-size: 20px" class="el-icon-loading"></i>
+            <!-- <el-skeleton animated>
+              <template slot="template">
+                <el-skeleton-item
+                  variant="image"
+                  style="width: 100%; height: 100%"
+                />
+              </template>
+            </el-skeleton> -->
           </div>
           <div slot="error" class="image-slot">
             <i class="el-icon-picture-outline"></i>
@@ -97,6 +107,7 @@ export default {
     transform: translate(0px, -12px);
   }
   .card-content {
+    width: 100%;
     .pic {
       .playcard-img {
         width: 100%;
@@ -105,9 +116,6 @@ export default {
           width: 100%;
           height: 100%;
           line-height: 207px;
-          // width: 207px;
-          // height: 207px;
-          // line-height: 207px;
           text-align: center;
           background-color: rgba(204, 207, 213, 0.289);
         }
@@ -153,4 +161,10 @@ export default {
     font-weight: 300;
   }
 }
+
+// ::v-deep {
+//   .el-skeleton {
+//     height: 100%;
+//   }
+// }
 </style>

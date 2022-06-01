@@ -67,8 +67,10 @@
           >
             {{ item.content }}
           </div>
+          <div class="noLyric" v-if="currentSongInfo.lyric.length == 0">
+            纯音乐
+          </div>
         </div>
-        <div class="noLyric" v-else>纯音乐</div>
       </div>
       <!-- 相似的歌曲 -->
       <div class="simi-song">
@@ -126,6 +128,8 @@ import NewMusicCard from "@/views/find-music/recommend/new-music/new-music-card.
 import Comment from "@/components/common/Comment.vue";
 import { setLike, getLikeList } from "@/network/api.js";
 import { mapGetters } from "vuex";
+import { _throttle } from "@/utils/uctil";
+import { scrollTo } from "@/utils/scroll-to.js";
 export default {
   name: "MaxPlay",
   components: {
@@ -139,6 +143,7 @@ export default {
       interval: null,
       isShowRecordTools: false,
       replyWay: 1,
+      unwatch: null,
     };
   },
   methods: {
@@ -209,9 +214,11 @@ export default {
       // let controlLyricSpeedValues = -0.5;
       let currentTime = parseInt(this.currentPlayTime / 1000);
       if (
+        //到最后数组没有下一个了
+        this.currentSongInfo.lyric[index + 1] &&
         values.time &&
         currentTime >= values.time &&
-        currentTime < this.currentSongInfo.lyric[index + 1].time &&
+        currentTime < this.currentSongInfo.lyric[index + 1]?.time &&
         index <= this.currentSongInfo.lyric.length
       ) {
         flag = true;
@@ -232,27 +239,50 @@ export default {
       currentPlayTime: "currentTime",
     }),
   },
-  watch: {
-    //监听 vuex
-    //发现currenttime改变了 那么就重新计算 歌词的位置
-    currentPlayTime() {
-      let offset = 36;
-      let lyric = this.$refs.lyric;
-      //拿到当前时间的秒数对应的歌词下标
-      let currentIndex = this.currentSongInfo.lyric.findIndex(
-        (item) => parseInt(this.currentPlayTime / 1000) === item.time
-      );
-      if (
-        currentIndex <= 4 ||
-        currentIndex + 4 === this.currentSongInfo.lyric.length
-      ) {
-        return;
-      }
-      lyric.scrollTop = (currentIndex - 4) * offset;
-    },
-  },
+  // watch: {
+  //监听 vuex
+  //发现currenttime改变了 那么就重新计算 歌词的位置
+  // currentPlayTime() {
+  //   let offset = 36;
+  //   let lyric = this.$refs.lyric;
+  //   //拿到当前时间的秒数对应的歌词下标
+  //   let currentIndex = this.currentSongInfo.lyric.findIndex(
+  //     (item) => parseInt(this.currentPlayTime / 1000) === item.time
+  //   );
+  //   if (
+  //     currentIndex <= 4 ||
+  //     currentIndex + 4 === this.currentSongInfo.lyric.length
+  //   ) {
+  //     return;
+  //   }
+  //   lyric.scrollTop = (currentIndex - 4) * offset;
+  // },
+  // },
   created() {
     this.token && this.getLikeList();
+    //注册监听器
+    this.unwatch = this.$watch(
+      "currentPlayTime",
+      _throttle(() => {
+        let offset = 36;
+        let lyric = this.$refs.lyric;
+        let currentIndex = this.currentSongInfo.lyric.findIndex(
+          (item) => parseInt(this.currentPlayTime / 1000) === item.time
+        );
+        if (
+          currentIndex <= 4 ||
+          currentIndex + 4 === this.currentSongInfo.lyric.length
+        ) {
+          return;
+        }
+        // scrollTo((currentIndex - 4) * offset, 50, lyric);
+        lyric.scrollTop = (currentIndex - 4) * offset;
+      }, 500)
+    );
+  },
+  beforeDestroy() {
+    // 移除监听
+    this.unwatch && this.unwatch();
   },
 };
 </script>

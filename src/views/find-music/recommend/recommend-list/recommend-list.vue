@@ -65,7 +65,6 @@ export default {
     .item {
       width: 18.86%;
       height: 34.5%;
-      // min-width: 18.5%;
     }
     .item:nth-child(3) {
       margin-left: 15px;

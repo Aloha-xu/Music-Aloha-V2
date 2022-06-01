@@ -6,7 +6,7 @@
         <img
           :src="
             TopSongListInfo[0] &&
-              TopSongListInfo[0].coverImgUrl + '?param=10y10'
+            TopSongListInfo[0].coverImgUrl + '?param=10y10'
           "
           alt=""
         />
@@ -15,7 +15,7 @@
         <img
           :src="
             TopSongListInfo[0] &&
-              TopSongListInfo[0].coverImgUrl + '?param=150y150'
+            TopSongListInfo[0].coverImgUrl + '?param=150y150'
           "
           alt=""
         />
@@ -53,17 +53,17 @@
       <div class="allcard" v-show="!loading">
         <PlayCard
           v-for="item in SongListInfo"
+          class="song-list-item"
           :key="item.id"
           :id="item.id"
           :pic="item.coverImgUrl + '?param=210y210'"
           :playcount="item.playCount"
           :text="item.name"
-          class="item song-list-item"
           @cardClick="cardClick"
         >
         </PlayCard>
       </div>
-      <Loading v-show="loading" style="height:50vh"></Loading>
+      <Loading v-show="loading" style="height: 50vh"></Loading>
     </div>
 
     <!-- 页码组件 -->
@@ -393,7 +393,7 @@ export default {
       display: flex;
       flex-wrap: wrap; /*用了flex-wrap:wrap;自动换行属性后*/
       justify-content: space-around;
-      .item {
+      .song-list-item {
         width: 18.86%;
       }
     }

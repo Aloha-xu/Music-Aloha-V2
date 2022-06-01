@@ -111,40 +111,43 @@ export default {
   },
   methods: {
     itemClick(index) {
+      this.currentIndex = index;
       switch (index) {
         case 0:
-          this.getSoloInfo(index);
+          this.getSoloInfo();
           break;
         case 1:
-          this.getsingerInfo(index);
+          this.getsingerInfo();
           break;
         case 2:
-          this.getAlbumInfoInfo(index);
+          this.getAlbumInfoInfo();
           break;
         case 3:
-          this.getMvInfo(index);
+          this.getMvInfo();
           break;
         case 4:
-          this.getPlaylistInfo(index);
+          this.getPlaylistInfo();
           break;
         case 5:
-          this.getLyricInfo(index);
+          this.getLyricInfo();
           break;
         case 6:
-          this.getAnchorInfo(index);
+          this.getAnchorInfo();
           break;
         case 7:
-          this.getUserInfo(index);
+          this.getUserInfo();
           break;
       }
     },
-    async getSoloInfo(index) {
+    async getSoloInfo() {
       if (!this.playList.length == 0) {
         this.playList = [];
       }
       const { data } = await getCloudSearch(this.$route.query.keywords, 1);
-      const resIds = await getSongDetail(data.result.songs.map(({ id }) => id));
-      const SongsInfo = resIds.data.songs;
+      const resIds = await getSongDetail(
+        data.result?.songs.map(({ id }) => id)
+      );
+      const SongsInfo = resIds.data?.songs;
       const Urls = await getSongUrl(SongsInfo.map(({ id }) => id));
       let innerUrls = {};
       Urls.data.data.forEach(({ id, url }) => {
@@ -165,52 +168,43 @@ export default {
       let searchResult = await getSearchMultimatch(this.$route.query.keywords);
       this.searchResult = searchResult.data.result.artist;
 
-      this.currentIndex = index;
       this.titleValue = `${this.playList.length}` + "首单曲";
     },
-    async getsingerInfo(index) {
+    async getsingerInfo() {
       let singerInfo = await getCloudSearch(this.$route.query.keywords, 100);
       this.singerInfo = singerInfo.data.result;
-      this.currentIndex = index;
       this.titleValue = `${singerInfo.data.result.artistCount}` + "位歌手";
     },
-    async getAlbumInfoInfo(index) {
+    async getAlbumInfoInfo() {
       let albumInfo = await getCloudSearch(this.$route.query.keywords, 10);
       this.albumInfo = albumInfo.data.result;
-      this.currentIndex = index;
       this.titleValue = `${albumInfo.data.result.albumCount}` + "张专辑";
     },
-    async getMvInfo(index) {
+    async getMvInfo() {
       let mvInfo = await getCloudSearch(this.$route.query.keywords, 1004);
       this.mvInfo = mvInfo.data.result;
-      this.currentIndex = index;
       this.titleValue = `${mvInfo.data.result.mvCount}` + "个视频";
     },
-    async getPlaylistInfo(index) {
+    async getPlaylistInfo() {
       let playlistInfo = await getCloudSearch(this.$route.query.keywords, 1000);
       this.playlistInfo = playlistInfo.data.result;
-      this.currentIndex = index;
       this.titleValue = `${playlistInfo.data.result.playlistCount}` + "个歌单";
     },
-    async getLyricInfo(index) {
+    async getLyricInfo() {
       let lyricInfo = await getCloudSearch(this.$route.query.keywords, 1006);
       this.lyricInfo = lyricInfo.data.result;
-      this.currentIndex = index;
       this.titleValue = `${lyricInfo.data.result.songCount}` + "首歌词";
     },
-    async getAnchorInfo(index) {
+    async getAnchorInfo() {
       let anchorInfo = await getCloudSearch(this.$route.query.keywords, 1009);
       this.anchorInfo = anchorInfo.data.result;
-      this.currentIndex = index;
       this.titleValue = `${anchorInfo.data.result.djRadiosCount}` + "个电台";
     },
-    async getUserInfo(index) {
+    async getUserInfo() {
       let userInfo = await getCloudSearch(this.$route.query.keywords, 1002);
       this.userInfo = userInfo.data.result;
-      this.currentIndex = index;
       this.titleValue = `${userInfo.data.result.userprofileCount}` + "位用户";
     },
-
     async handleSongClick(v) {
       try {
         const checkmusic = await getCheckMusic(v[0].id);
@@ -252,8 +246,10 @@ export default {
     this.itemClick(0);
   },
   watch: {
-    $route() {
-      this.itemClick(0);
+    $route(NEWV, OLDV) {
+      if (NEWV.query.keywords != OLDV.query.keywords && NEWV.query) {
+        this.itemClick(0);
+      }
     },
   },
 };
