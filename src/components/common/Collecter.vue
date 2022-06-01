@@ -12,16 +12,25 @@
     <el-empty
       :image-size="200"
       :style="{ height: 50 + 'vh', textAlign: 'center', width: 100 + '%' }"
-      v-if="!collecter.length"
+      v-if="!collecter.length && loading"
     ></el-empty>
+    <Loading v-show="loading" style="height: 50vh"></Loading>
   </div>
 </template>
 
 <script>
+import Loading from "@/components/common/loading.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "Collecter",
   props: {
     collecter: Array,
+  },
+  computed: {
+    ...mapGetters(["loading"]),
+  },
+  components: {
+    Loading,
   },
 };
 </script>

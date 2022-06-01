@@ -15,7 +15,7 @@
         >发送</el-button
       >
     </div>
-    <div class="comment-item" v-if="commentInfo.length">
+    <div class="comment-item">
       <CommentCard
         v-for="(item, index) in commentInfo"
         :key="index + item.content"
@@ -33,15 +33,18 @@
     <el-empty
       :image-size="200"
       :style="{ height: 50 + 'vh', textAlign: 'center', width: 100 + '%' }"
-      v-else
+      v-if="!commentInfo.length && loading"
     ></el-empty>
+    <Loading v-show="loading" style="height: 50vh"></Loading>
   </div>
 </template>
 <script>
+import Loading from "@/components/common/loading.vue";
 import CommentCard from "./CommentCard.vue";
 import { SendOrDelComment, setCommentLike } from "@/network/api";
+import { mapGetters } from "vuex";
 export default {
-  components: { CommentCard },
+  components: { CommentCard, Loading },
   name: "Comment",
   data() {
     return {
@@ -102,6 +105,9 @@ export default {
       // document.getElementById("input").focus();
       this.$refs.input_.focus();
     },
+  },
+  computed: {
+    ...mapGetters(["loading"]),
   },
 };
 </script>
