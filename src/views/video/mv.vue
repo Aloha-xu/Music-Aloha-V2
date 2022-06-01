@@ -23,7 +23,7 @@
           <MvCard
             v-for="item in newMvInfo.data"
             :key="item.id"
-            :id="item.id"
+            :id="item.id + ''"
             :pic="item.cover + '?param=264y148'"
             :playcount="item.playCount"
             :singer="item.artists.map(({ name }) => name)"
@@ -41,8 +41,8 @@
           <MvCard
             v-for="item in hotMvInfo.data"
             :key="item.id"
-            :id="item.id"
-            :pic="item.cover"
+            :id="item.id + ''"
+            :pic="item.cover + '?param=264y148'"
             :playcount="item.playCount"
             :singer="item.artists.map(({ name }) => name)"
             :text="item.name"
@@ -59,8 +59,8 @@
           <MvCard
             v-for="item in wycpMvInfo.data"
             :key="item.id"
-            :id="item.id"
-            :pic="item.cover"
+            :id="item.id + ''"
+            :pic="item.cover + '?param=264y148'"
             :playcount="item.playCount"
             :singer="item.artists.map(({ name }) => name)"
             :text="item.name"
@@ -103,7 +103,7 @@ export default {
     ClickNewMv() {
       this.$router.push({
         path: "/allmvpapg",
-        query: { area: this.currentArea },
+        query: { area: this.currentArea || "全部" },
       });
     },
     ClickHotMv() {

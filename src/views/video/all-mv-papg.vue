@@ -106,9 +106,7 @@ export default {
       this.$store.commit("setLoading", false);
     },
   },
-  //当页面被缓存了 再一次返回页面执行的钩子函数
-  activated() {
-    console.log("我是再次返回执行的activated钩子函数");
+  created() {
     if (this.$route.query.area) {
       this.currentArea = this.$route.query.area;
     }
