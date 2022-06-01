@@ -46,8 +46,8 @@
         <MvCard
           v-for="item in mvInfo"
           :key="item.id"
-          :id="item.id"
-          :pic="item.cover"
+          :id="item.id + ''"
+          :pic="item.cover + '?param=264y148'"
           :playcount="item.playCount"
           :singer="item.artists.map(({ name }) => name)"
           :text="item.name"
@@ -160,6 +160,7 @@ export default {
         display: flex;
         flex-wrap: wrap;
         div {
+          cursor: pointer;
           padding: 7px 25px;
         }
         .active {

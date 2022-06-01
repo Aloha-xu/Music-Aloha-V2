@@ -12,7 +12,7 @@
       <div class="cards" v-for="(item, index) in hqPlaylistInfo" :key="index">
         <PlayCard
           :id="item.id"
-          :pic="item.coverImgUrl"
+          :pic="item.coverImgUrl + '?param=250y250'"
           :playcount="item.playCount"
         ></PlayCard>
         <div class="des-text">

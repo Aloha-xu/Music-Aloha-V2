@@ -1,7 +1,7 @@
 <template>
   <div class="playlistdetail-head">
     <div class="left">
-      <img :src="playListHeadInfo.coverImgUrl" />
+      <img :src="playListHeadInfo.coverImgUrl + '?param=180y180'" />
     </div>
     <div class="right">
       <div class="title">
@@ -20,7 +20,11 @@
         ></i>
       </div>
       <div class="creator-info" v-if="isShowPlayListComponent">
-        <img :src="playListHeadInfo.avatarUrl" alt="" class="head-portrait" />
+        <img
+          :src="playListHeadInfo.avatarUrl + '?param=25y25'"
+          alt=""
+          class="head-portrait"
+        />
         <span class="creator-name" @click="clickToUserDetailPapg">{{
           playListHeadInfo.nickname
         }}</span>

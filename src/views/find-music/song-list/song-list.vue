@@ -4,13 +4,19 @@
     <div class="high-quality-playlist" @click="clickToHighQualityPlaylistPapg">
       <div class="backgroundimage">
         <img
-          :src="TopSongListInfo[0] && TopSongListInfo[0].coverImgUrl"
+          :src="
+            TopSongListInfo[0] &&
+              TopSongListInfo[0].coverImgUrl + '?param=10y10'
+          "
           alt=""
         />
       </div>
       <div class="pic">
         <img
-          :src="TopSongListInfo[0] && TopSongListInfo[0].coverImgUrl"
+          :src="
+            TopSongListInfo[0] &&
+              TopSongListInfo[0].coverImgUrl + '?param=150y150'
+          "
           alt=""
         />
       </div>

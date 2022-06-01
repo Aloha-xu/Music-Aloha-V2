@@ -24,7 +24,7 @@
             v-for="item in newMvInfo.data"
             :key="item.id"
             :id="item.id"
-            :pic="item.cover"
+            :pic="item.cover + '?param=264y148'"
             :playcount="item.playCount"
             :singer="item.artists.map(({ name }) => name)"
             :text="item.name"

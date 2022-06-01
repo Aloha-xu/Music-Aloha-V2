@@ -26,3 +26,4 @@ bug - 聊天室 报参数错误 应该是传参那个 touser fromuser 弄错了 
 optimzie - 加载图片的大小 包的大小
 optimzie - 下一页之后跳到顶部
 optimzie - 图片都限制大小 加载更小
+optimzie - 配置了 dev production 环境变量

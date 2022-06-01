@@ -28,7 +28,7 @@
           :key="index"
           :id="item.data.vid"
           :playcount="item.data.praisedCount"
-          :pic="item.data.coverUrl"
+          :pic="item.data.coverUrl + '?param=264y148'"
           :singer="item.data.creator.nickname.split('')"
           :text="item.data.title"
           :playType="playType"
