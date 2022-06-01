@@ -247,7 +247,7 @@ export default {
   },
   watch: {
     $route(NEWV, OLDV) {
-      if (NEWV.query.keywords != OLDV.query.keywords && NEWV.query) {
+      if (NEWV.query.keywords && NEWV.query.keywords != OLDV.query.keywords) {
         this.itemClick(0);
       }
     },
