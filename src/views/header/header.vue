@@ -92,7 +92,7 @@
               v-for="(item, index) in privateInfo"
               :key="index"
             >
-              <img :src="item.fromUser.avatarUrl" alt="" />
+              <img :src="item.fromUser.avatarUrl + '?param=40y40'" alt="" />
               <div
                 class="text"
                 @click="
@@ -118,7 +118,7 @@
               :key="index"
             >
               <img
-                :src="item.user.avatarUrl"
+                :src="item.user.avatarUrl + '?param=40y40'"
                 alt=""
                 @click="clickToUserDetail(item.user.userId)"
               />
@@ -151,7 +151,7 @@
               :key="index"
             >
               <img
-                :src="item.comment.user.avatarUrl"
+                :src="item.comment.user.avatarUrl + '?param=40y40'"
                 alt=""
                 @click="clickToUserDetail(item.comment.user.userId)"
               />
@@ -172,7 +172,10 @@
                   >
                 </div>
                 <div class="be-replied-box">
-                  <img :src="item.resource.creator.avatarUrl" alt="" />
+                  <img
+                    :src="item.resource.creator.avatarUrl + '?param=40y40'"
+                    alt=""
+                  />
                   <div class="be-replied-content">
                     <div class="type">歌单</div>
                     <div class="name">{{ item.resource.name }}</div>
@@ -196,7 +199,7 @@
               :key="index"
             >
               <img
-                :src="item.user.avatarUrl"
+                :src="item.user.avatarUrl + '?param=40y40'"
                 alt=""
                 @click="clickToUserDetail(item.user.userId)"
               />
@@ -245,7 +248,7 @@
                     :class="toUserInfo.uId === item.uid ? '' : 'active'"
                   >
                     <img
-                      :src="toUserInfo.cover"
+                      :src="toUserInfo.cover + '?param=40y40'"
                       alt=""
                       v-show="toUserInfo.uId == item.uid"
                     />
@@ -271,7 +274,7 @@
                     :class="toUserInfo.uId === item.uid ? '' : 'active'"
                   >
                     <img
-                      :src="toUserInfo.cover"
+                      :src="toUserInfo.cover + '?param=40y40'"
                       alt=""
                       v-show="toUserInfo.uId == item.uid"
                     />

@@ -51,7 +51,7 @@
         @click="ToSingerDetailClick(item.id)"
       >
         <el-image
-          :src="item.img1v1Url"
+          :src="item.img1v1Url + '?param=165y165'"
           lazy
           style="width: 165px; height: 165px; border-radius: 10px"
         >

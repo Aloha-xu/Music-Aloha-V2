@@ -5,7 +5,7 @@
         v-for="(item, index) in ArtistAlbumInfo"
         :key="index"
         :id="item.id"
-        :pic="item.picUrl"
+        :pic="item.picUrl + '?param=220y220'"
         :text="item.name"
         class="item"
       >

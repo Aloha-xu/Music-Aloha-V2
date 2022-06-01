@@ -49,7 +49,7 @@
           v-for="item in SongListInfo"
           :key="item.id"
           :id="item.id"
-          :pic="item.coverImgUrl"
+          :pic="item.coverImgUrl + '?param=210y210'"
           :playcount="item.playCount"
           :text="item.name"
           class="item song-list-item"
@@ -209,8 +209,6 @@ export default {
       this.CurrentPage = e;
       //请求下x页的数据
       this.getSongList(this.CurrentType, 100, e * 100);
-      //返回顶部  refs ref 处理dom节点
-      this.$refs.song_list.scrollTo(0, 0, true);
     },
 
     //判断回来的数据是什么类别

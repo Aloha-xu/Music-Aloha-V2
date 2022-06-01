@@ -21,7 +21,7 @@
         :key="index + item.content"
         :likedCount="item.likedCount"
         :name="item.user.nickname"
-        :pic="item.user.avatarUrl"
+        :pic="item.user.avatarUrl + '?param=40y40'"
         :text="item.content"
         :time="item.time"
         :uid="item.commentId"

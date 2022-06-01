@@ -4,7 +4,7 @@
       v-for="(item, index) in ArtistMVInfo"
       :key="index"
       :id="item.id"
-      :pic="item.imgurl16v9"
+      :pic="item.imgurl16v9 + '?param=307y173'"
       :playcount="item.playCount"
       :text="item.name"
       class="item"

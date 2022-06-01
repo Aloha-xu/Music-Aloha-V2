@@ -2,14 +2,18 @@ import Vue from "vue";
 import App from "./App.vue";
 import AppToModile from "./AppToModile.vue";
 import router from "./router";
+//element组件
 import "./plugins/element.js";
+//基本样式
 import "./assets/css/base.scss";
 import store from "./store";
-import { IsPc } from './utils/uctil.js'
+import { IsPc } from "./utils/uctil.js";
 
+//拖拽
 import VueCropper from "vue-cropper";
 Vue.use(VueCropper);
-import Contextmenu from "vue-contextmenujs"
+//右击菜单
+import Contextmenu from "vue-contextmenujs";
 Vue.use(Contextmenu);
 
 Vue.config.productionTip = false;

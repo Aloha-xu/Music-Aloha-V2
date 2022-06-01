@@ -1,7 +1,12 @@
 <template>
   <div class="collecter">
     <div class="item" v-for="(item, index) in collecter" :key="index">
-      <el-image :src="item.avatarUrl" alt="" lazy class="image-style" />
+      <el-image
+        :src="item.avatarUrl + '?param=170y170'"
+        alt=""
+        lazy
+        class="image-style"
+      />
       <div class="nikcname">{{ item.nickname }}</div>
     </div>
     <el-empty

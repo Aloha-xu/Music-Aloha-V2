@@ -2,7 +2,7 @@
   <div class="singer-list-detail">
     <div class="head">
       <div class="pic">
-        <img :src="ArtistInfo.cover" alt="" />
+        <img :src="ArtistInfo.cover + '?param=180y180'" alt="" />
       </div>
       <div class="text">
         <div class="name">{{ ArtistInfo.name }}</div>

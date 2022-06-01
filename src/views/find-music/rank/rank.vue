@@ -5,7 +5,7 @@
       <PlayCard
         v-for="item in RankInfo"
         :key="item.id"
-        :pic="item.coverImgUrl"
+        :pic="item.coverImgUrl + '?param=210y210'"
         :playcount="item.playCount"
         :text="item.name"
         :id="item.id"
