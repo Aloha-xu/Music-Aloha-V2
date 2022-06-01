@@ -27,4 +27,4 @@ optimzie - 加载图片的大小 包的大小 √
 optimzie - 下一页之后跳到顶部 √
 optimzie - 图片都限制大小 加载更小 √
 optimzie - 配置了 dev production 环境变量 √
-optimzie - 优化进去画面 加入骨架 palylistdetail
+optimzie - 优化进去画面 加入骨架 palylistdetail √
