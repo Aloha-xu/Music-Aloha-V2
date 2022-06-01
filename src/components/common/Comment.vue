@@ -15,7 +15,7 @@
         >发送</el-button
       >
     </div>
-    <div class="comment-item">
+    <div class="comment-item" v-if="commentInfo.length">
       <CommentCard
         v-for="(item, index) in commentInfo"
         :key="index + item.content"
@@ -29,12 +29,12 @@
         @handleReplyComment="handleReplyComment"
         @handleClickLike="handleClickLike(item.commentId, item.liked)"
       ></CommentCard>
-      <el-empty
-        :image-size="200"
-        :style="{ height: 50 + 'vh', textAlign: 'center', width: 100 + '%' }"
-        v-if="!commentInfo.length"
-      ></el-empty>
     </div>
+    <el-empty
+      :image-size="200"
+      :style="{ height: 50 + 'vh', textAlign: 'center', width: 100 + '%' }"
+      v-else
+    ></el-empty>
   </div>
 </template>
 <script>
