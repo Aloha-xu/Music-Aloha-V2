@@ -8,6 +8,7 @@
       :playcount="item.playCount"
       :text="item.name"
       class="item"
+      @cardClick="cardClick"
     >
       <span slot="totlepalytime">{{ Duration(item.duration) }}</span>
     </PlayCard>
@@ -26,6 +27,9 @@ export default {
   methods: {
     Duration(time) {
       return forMatTime(time / 1000);
+    },
+    cardClick(id) {
+      this.$router.push("/mvdetail/" + id);
     },
   },
 };

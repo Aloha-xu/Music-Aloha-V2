@@ -13,6 +13,7 @@
         :playcount="item.playCount"
         :text="item.name"
         :id="item.id"
+        @cardClick="cardClick"
       >
       </PlayCard>
     </div>
@@ -46,6 +47,9 @@ export default {
     },
     intoDetailsClick() {
       this.$router.push("/songlist");
+    },
+    cardClick(id) {
+      this.$router.push("/playlistdetail/" + id);
     },
   },
 };

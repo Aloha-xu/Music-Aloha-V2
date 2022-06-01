@@ -75,6 +75,7 @@
           :playcount="item.playCount"
           :trackCount="item.trackCount"
           :text="item.name"
+          @cardClick="cardClick"
         ></PlayCard>
       </div>
     </div>
@@ -106,6 +107,9 @@ export default {
     };
   },
   methods: {
+    cardClick(id) {
+      this.$router.push("/playlistdetail/" + id);
+    },
     //判断是否关注
     async handleFocus() {
       if (this.isFocus) {

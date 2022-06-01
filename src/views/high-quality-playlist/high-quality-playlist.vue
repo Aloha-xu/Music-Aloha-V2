@@ -14,6 +14,7 @@
           :id="item.id"
           :pic="item.coverImgUrl + '?param=250y250'"
           :playcount="item.playCount"
+          @cardClick="cardClick"
         ></PlayCard>
         <div class="des-text">
           <div class="name">{{ item.name }}</div>
@@ -68,6 +69,9 @@ export default {
       } else {
         this.isShow = true;
       }
+    },
+    cardClick(id) {
+      this.$router.push("/playlistdetail/" + id);
     },
   },
   created() {

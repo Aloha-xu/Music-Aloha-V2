@@ -8,6 +8,7 @@
         :pic="item.picUrl + '?param=220y220'"
         :text="item.name"
         class="item"
+        @cardClick="cardClick"
       >
         <span slot="yymmdd">{{ getYMD(item.publishTime) }}</span>
       </PlayCard>
@@ -27,6 +28,9 @@ export default {
   methods: {
     getYMD(time) {
       return getYMD(time);
+    },
+    cardClick(id) {
+      this.$router.push("/playlistdetail/" + id);
     },
   },
 };

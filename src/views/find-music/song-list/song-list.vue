@@ -59,6 +59,7 @@
           :playcount="item.playCount"
           :text="item.name"
           class="item song-list-item"
+          @cardClick="cardClick"
         >
         </PlayCard>
       </div>
@@ -267,6 +268,9 @@ export default {
     },
     clickToHighQualityPlaylistPapg() {
       this.$router.push("/highqualityplaylist");
+    },
+    cardClick(id) {
+      this.$router.push("/playlistdetail/" + id);
     },
   },
   async created() {

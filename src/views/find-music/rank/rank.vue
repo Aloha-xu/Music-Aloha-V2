@@ -10,6 +10,7 @@
         :text="item.name"
         :id="item.id"
         class="item"
+        @cardClick="cardClick"
       >
       </PlayCard>
     </div>
@@ -54,6 +55,9 @@ export default {
       // //     console.log(res2)
       // //    this.RankInfo.push(...res2.data)
       // //  }
+    },
+    cardClick(id) {
+      this.$router.push("/playlistdetail/" + id);
     },
   },
   async created() {

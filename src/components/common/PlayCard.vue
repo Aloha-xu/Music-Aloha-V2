@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     cardClick() {
-      this.$router.push("/playlistdetail/" + this.id);
+      this.$emit("cardClick", this.id);
     },
   },
 };
