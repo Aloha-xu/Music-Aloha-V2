@@ -4,7 +4,7 @@
       v-for="(item, index) in singerInfo.artists"
       :key="index"
       :name="item.name"
-      :scover="item.img1v1Url"
+      :scover="item.img1v1Url + '?param=60y60'"
       @handleToPapg="handleToSingerPapg(item.id)"
     ></SearchDetailCard>
   </div>

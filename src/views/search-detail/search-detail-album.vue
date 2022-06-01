@@ -4,7 +4,7 @@
       v-for="(item, index) in albumInfo.albums"
       :key="index"
       :name="item.name"
-      :scover="item.picUrl"
+      :scover="item.picUrl + '?param=60y60'"
       :creater="item.artist.name"
       @handleToPapg="handleToAlbumPapg(item.id)"
     ></SearchDetailCard>

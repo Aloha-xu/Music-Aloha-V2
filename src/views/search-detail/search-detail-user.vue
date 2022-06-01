@@ -4,7 +4,7 @@
       v-for="(item, index) in userInfo.userprofiles"
       :key="index"
       :name="item.nickname"
-      :scover="item.avatarUrl"
+      :scover="item.avatarUrl + '?param=60y60'"
       :other="item.signature"
       @handleToPapg="handleToUserPapg(item.id)"
     ></SearchDetailCard>

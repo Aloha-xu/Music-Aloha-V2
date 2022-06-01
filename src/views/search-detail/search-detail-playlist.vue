@@ -4,7 +4,7 @@
       v-for="(item, index) in playlistInfo.playlists"
       :key="index"
       :name="item.name"
-      :scover="item.coverImgUrl"
+      :scover="item.coverImgUrl + '?param=60y60'"
       :creater="item.creator.nickname"
       :number="item.trackCount"
       :playlistType="true"

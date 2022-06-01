@@ -4,7 +4,7 @@
     <SearchDetailCard
       v-if="searchResult[0]"
       :name="searchResult[0] && searchResult[0].name"
-      :scover="searchResult[0] && searchResult[0].img1v1Url"
+      :scover="searchResult[0] && searchResult[0].img1v1Url + '?param=60y60'"
       @handleToPapg="jumpToSingerDetail(searchResult[0].id)"
       class="card"
     ></SearchDetailCard>

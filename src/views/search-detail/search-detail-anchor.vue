@@ -4,7 +4,7 @@
       v-for="(item, index) in anchorInfo.djRadios"
       :key="index"
       :name="item.name"
-      :scover="item.picUrl"
+      :scover="item.picUrl + '?param=60y60'"
       :creater="item.dj.nickname"
       :djType="true"
       @handleToPapg="handleToAnchorPapg(item.id)"

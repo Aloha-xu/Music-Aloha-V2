@@ -4,7 +4,7 @@
       <MvCard
         v-for="(item, index) in videoInfo.mvs"
         :key="index"
-        :pic="item.cover"
+        :pic="item.cover + '?param=314y148'"
         :id="String(item.id)"
         :playcount="item.playCount"
         :playType="playType"

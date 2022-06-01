@@ -1,7 +1,12 @@
 <template>
   <div class="simi-artist-compontent">
-    <div class="item" v-for="(item, index) in SimiArtist" :key="index">
-      <img :src="item.img1v1Url + '?param=307y325'" alt="" />
+    <div
+      class="item"
+      v-for="(item, index) in SimiArtist"
+      :key="index"
+      @click="clickToSingerDetail(item.id)"
+    >
+      <img :src="item.img1v1Url + '?param=175y175'" alt="" />
       <div class="name">{{ item.name }}</div>
     </div>
   </div>
@@ -13,6 +18,11 @@ export default {
   props: {
     SimiArtist: Array,
   },
+  methods: {
+    clickToSingerDetail(singerId) {
+      this.$emit("clickToSingerDetail", singerId);
+    },
+  },
 };
 </script>
 
@@ -22,15 +32,16 @@ export default {
   margin-left: 20px;
   display: flex;
   flex-wrap: wrap;
-}
-.simi-artist-compontent .item {
-  width: 18.5%;
-  margin: 10px;
-  margin-top: 30px;
-}
-.simi-artist-compontent .item img {
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
+  .item {
+    width: 10%;
+    height: 10%;
+    margin: 10px;
+    margin-top: 30px;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+    }
+  }
 }
 </style>

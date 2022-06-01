@@ -21,7 +21,7 @@
           <div
             v-for="(item, index) in navbar"
             :key="index"
-            @click="itemClick(index)"
+            @click="currentIndex = index"
             class="item"
             :class="currentIndex === index ? 'active' : ''"
           >
@@ -40,7 +40,11 @@
         :ArtistDescdata="ArtistDescInfo"
         :name="ArtistInfo.name"
       ></artist-desc>
-      <simi-artist v-else :SimiArtist="SimiArtistInfo"></simi-artist>
+      <simi-artist
+        v-else
+        :SimiArtist="SimiArtistInfo"
+        @clickToSingerDetail="clickToSingerDetail"
+      ></simi-artist>
     </div>
   </div>
 </template>
@@ -73,24 +77,10 @@ export default {
     };
   },
   methods: {
-    itemClick(index) {
-      switch (index) {
-        case 0:
-          this.currentIndex = index;
-          break;
-        case 1:
-          this.currentIndex = index;
-          break;
-        case 2:
-          this.currentIndex = index;
-          break;
-        case 3:
-          this.currentIndex = index;
-          break;
-      }
+    clickToSingerDetail(id) {
+      this.$router.push("/singerlistdetail/" + id);
     },
     async init() {
-      this.itemClick(this.currentIndex);
       this.id = this.$route.params.id;
       const { data } = await getArtistDetail(this.id);
       this.ArtistInfo = data.data.artist;
@@ -111,6 +101,7 @@ export default {
 
   watch: {
     $route() {
+      this.currentIndex = 0;
       this.init();
     },
   },
@@ -186,6 +177,7 @@ export default {
           color: gray;
           padding-bottom: 5px;
           margin-right: 20px;
+          cursor: pointer;
         }
         .active {
           color: black;
