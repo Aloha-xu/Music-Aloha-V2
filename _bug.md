@@ -28,5 +28,8 @@ optimzie - 下一页之后跳到顶部 √
 optimzie - 图片都限制大小 加载更小 √
 optimzie - 配置了 dev production 环境变量 √
 optimzie - 优化进去画面 加入骨架 palylistdetail √
-bug - 修复 滚动函数的最后一个歌词数组+1是没有值的 √
+bug - 修复 滚动函数的最后一个歌词数组+1 是没有值的 √
 bug - 修复一些 中间.找属性 找不的问题 √
+
+6.2
+optimzie - 重新设计一下播放信息的管理

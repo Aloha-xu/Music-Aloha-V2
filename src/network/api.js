@@ -1234,10 +1234,9 @@ export function getUserRecord(uid, type) {
   });
 }
 
-
 // 给评论点赞
 // 说明 : 调用此接口 , 传入 type, 资源 id, 和评论 id cid 和 是否点赞参数 t 即可给对 应评论点赞 ( 需要登录 )
-// 必选参数 : 
+// 必选参数 :
 //  id : 资源 id, 如歌曲 id,mv id
 // cid : 评论 id
 // t : 是否点赞 ,1 为点赞 ,0 为取消点赞
@@ -1256,10 +1255,9 @@ export function getUserRecord(uid, type) {
 export function setCommentLike(params) {
   return request({
     url: "/comment/like",
-    params
+    params,
   });
 }
-
 
 // 对歌单添加或删除歌曲
 // 说明: 调用此接口, 可以添加歌曲到歌单或者从歌单删除某首歌曲(需要登录)
@@ -1272,6 +1270,27 @@ export function setCommentLike(params) {
 export function setSongToMyselfPlayList(params) {
   return request({
     url: "/playlist/tracks",
-    params
+    params,
+  });
+}
+
+// 获取每日推荐歌单
+// 说明 : 调用此接口 , 可获得每日推荐歌单 ( 需要登录 )
+// 接口地址 : /recommend/resource
+
+export function getRecommendResource(params) {
+  return request({
+    url: "/recommend/resource",
+    params,
+  });
+}
+// 获取每日推荐歌曲
+// 说明 : 调用此接口 , 可获得每日推荐歌曲 ( 需要登录 )
+// 接口地址 : /recommend/songs
+
+export function getRecommendSongs(params) {
+  return request({
+    url: "/recommend/songs",
+    params,
   });
 }

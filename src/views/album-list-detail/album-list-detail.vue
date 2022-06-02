@@ -111,17 +111,21 @@ export default {
       const SongsInfo = res.data.songs;
       const Urls = await getSongUrl(SongsInfo.map(({ id }) => id));
 
+      //用歌曲的id做对象的key，url为value
+      let innerUrls = {};
+      Urls.data.data.forEach(({ id, url }) => {
+        innerUrls[id] = url;
+      });
+
+      //这里筛选出来的数据是用来渲染歌单的歌曲列表的
+      //时间复杂度 2*n*n  需要 优化
       for (let i = 0; i < SongsInfo.length; i++) {
         let songinfo = {};
         songinfo.id = SongsInfo[i].id;
-        songinfo.url = "";
-        for (let j = 0; j < Urls.data.data.length; j++) {
-          if (Urls.data.data[j].id == songinfo.id) {
-            songinfo.url = Urls.data.data[j].url;
-          }
-        }
+        songinfo.url = innerUrls[songinfo.id];
         songinfo.name = SongsInfo[i].name;
         songinfo.singer = [];
+        //格式化 singer 数据格式
         for (let j = 0; j < SongsInfo[i].ar.length; j++) {
           songinfo.singer[j] = {
             name: SongsInfo[i].ar[j].name,
@@ -131,7 +135,10 @@ export default {
         songinfo.pic = SongsInfo[i].al.picUrl;
         songinfo.totleTime = SongsInfo[i].dt;
         songinfo.lyric = [];
-        songinfo.album = { name: SongsInfo[i].al.name, id: SongsInfo[i].al.id };
+        songinfo.album = {
+          name: SongsInfo[i].al.name,
+          id: SongsInfo[i].al.id,
+        };
         this.playList.push(songinfo);
       }
     },

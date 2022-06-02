@@ -87,7 +87,7 @@ const player = {
     isShowLyric: false,
 
     //user喜欢的音乐列表
-    likeLists: []
+    likeLists: [],
   },
 
   mutations: {
@@ -126,7 +126,6 @@ const player = {
     setToRecordSongList(state, song) {
       //判断里面是否已经存在这首歌曲
       let flag = state.recordSongList.findIndex((item) => song.id === item.id);
-      console.log(flag);
       if (flag === -1) {
         state.recordSongList.push(song);
       }
@@ -375,50 +374,19 @@ const player = {
     },
     //在歌单列表中插入歌曲
     ADD_SONG_TO_PLAYLIST(state, info) {
-      state.songList.splice(state.currentIndex + 1, 0, info)
+      state.songList.splice(state.currentIndex + 1, 0, info);
     },
     //设置喜欢的歌单列表  现在只用在了maxplayer的喜欢删
     SET_LIKELISTS(state, info) {
-      state.likeLists = info
-    }
+      state.likeLists = info;
+    },
+    //设置当前播放歌曲的歌词
+    SET_CURRENT_SONG_LYRIC(state, info, index) {
+      state.songList[index].lyric = info;
+    },
   },
 
   actions: {
-    // // 用户名登录
-    // LoginByUsername({ commit }, userInfo) {
-    //   const params = {
-    //     name: userInfo.name.trim(),
-    //     password: userInfo.password,
-    //   };
-    //   return new Promise((resolve, reject) => {
-    //     loginByUsername(params)
-    //       .then((response) => {
-    //         resolve(response);
-    //         const token = response.retBody.token;
-    //         commit("SET_TOKEN", token);
-    //       })
-    //       .catch((error) => {
-    //         reject(error);
-    //       });
-    //   });
-    // },
-
-    // // 登出
-    // LogOut({ commit, state }) {
-    //   return new Promise((resolve) => {
-    //     commit("SET_TOKEN", "");
-    //     resolve();
-    //   });
-    // },
-
-    // // 登录过期
-    // expired({ commit }) {
-    //   return new Promise((resolve) => {
-    //     commit("SET_TOKEN", "");
-    //     resolve();
-    //   });
-    // },
-
     //获取用户的歌单列表
     async getUserPlayList({ commit }) {
       let uInfo = JSON.parse(localStorage.getItem("currentUserInfo"));
@@ -428,10 +396,12 @@ const player = {
       commit("updataSonglist", uId);
     },
 
+    //下载歌曲  后面加版权问题
     async downloadSong({ state }, songInfo) {
       await download(songInfo.url, songInfo.name);
-    }
+    },
 
+    //
   },
 };
 

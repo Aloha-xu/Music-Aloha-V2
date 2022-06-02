@@ -34,7 +34,6 @@
         v-if="currentIndex === 0 && !loading"
         :songsInfo="playList"
         @handleSongClick="handleSongClick"
-        @handleDownload="handleDownload"
         @setSongInfo="setSongInfo"
       >
       </SongListComponent>
@@ -80,7 +79,7 @@ import {
 } from "@/network/api";
 import { parseLyric } from "@/utils/lyric";
 import { _debounce } from "@/utils/uctil";
-import download from "@/utils/download";
+
 export default {
   components: {
     PlayListDetailHead,
@@ -142,7 +141,6 @@ export default {
         this.innerPlayList.forEach((item) => {
           innnerMap[item.id] && innerPlayList.push(item);
         });
-
         this.playList = innerPlayList;
       } else {
         this.playList = this.innerPlayList;
@@ -220,15 +218,7 @@ export default {
         for (let i = 0; i < SongsInfo.length; i++) {
           let songinfo = {};
           songinfo.id = SongsInfo[i].id;
-          // songinfo.url = "";
-          // 插入 正确的 url
           songinfo.url = innerUrls[songinfo.id];
-
-          // for (let j = 0; j < Urls.data.data.length; j++) {
-          //   if (Urls.data.data[j].id == songinfo.id) {
-          //     songinfo.url = Urls.data.data[j].url;
-          //   }
-          // }
           songinfo.name = SongsInfo[i].name;
           songinfo.singer = [];
           //格式化 singer 数据格式
@@ -296,17 +286,17 @@ export default {
       }
     },
 
-    async handleDownload(v) {
-      try {
-        const checkmusic = await getCheckMusic(v.id);
-        //判断音乐是否有版权
-        if (checkmusic.data.success) {
-          download(v.url, v.name);
-        }
-      } catch (error) {
-        alert("音乐没有版权,无法下载");
-      }
-    },
+    // async handleDownload(v) {
+    //   try {
+    //     const checkmusic = await getCheckMusic(v.id);
+    //     //判断音乐是否有版权
+    //     if (checkmusic.data.success) {
+    //       download(v.url, v.name);
+    //     }
+    //   } catch (error) {
+    //     alert("音乐没有版权,无法下载");
+    //   }
+    // },
 
     //收藏歌单
     async handleCollectSonglist() {
@@ -436,6 +426,5 @@ export default {
       width: calc(100% - 20px);
     }
   }
-}
-</style
+}</style
 >>
