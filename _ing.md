@@ -15,8 +15,3 @@
 把固定的高度写在 scss 里面 长度呀 按钮长度呀 之类的
 
 还可以 使用 sass 的提出一些公共的样式出来
-
-用到 vuex 的 songlist 这一套信息的页面
-maxpalyer
-minplayer
-私人 fm

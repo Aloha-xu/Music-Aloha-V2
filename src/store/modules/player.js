@@ -171,6 +171,23 @@ const player = {
         state.recordSongList.push(state.songList[currentPlayIndex + 1]);
       }
     },
+    //私人FM的下一首
+    setNextSongForFm(state) {
+      let currentPlayIndex = state.songList.findIndex(
+        (item) => item.id == state.currentSongInfo.id
+      );
+      state.currentSongInfo = state.songList[currentPlayIndex + 1];
+      //更换现在播放歌曲的下标
+      state.currentIndex = state.currentIndex + 1;
+
+      //把数据放到最近播放
+      let flag = state.recordSongList.findIndex(
+        (item) => item.id === state.songList[currentPlayIndex + 1].id
+      );
+      if (flag === -1) {
+        state.recordSongList.push(state.songList[currentPlayIndex + 1]);
+      }
+    },
 
     //列表循环上一首
     setPreSong(state) {

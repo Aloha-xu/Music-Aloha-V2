@@ -52,7 +52,7 @@
             <div class="delete">
               <i class="el-icon-delete" style="font-size: 30px"></i>
             </div>
-            <div class="next" @click="nextSong">
+            <div class="next" @click="playNextSong">
               <i class="el-icon-caret-right" style="font-size: 30px"></i>
             </div>
             <div class="more">
@@ -108,7 +108,7 @@ import Comment from "@/components/common/Comment.vue";
 import { parseLyric } from "@/utils/lyric";
 import { _throttle } from "@/utils/uctil";
 import { fm, getSongUrl, getSongLyric, getMusicComment } from "@/network/api";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   name: "PrivateFM",
   data() {
@@ -126,8 +126,10 @@ export default {
     Comment,
   },
   methods: {
+    ...mapMutations(["setNextSongForFm"]),
     //私人fm接口数据
     async getSongInfo() {
+      this.playing = [];
       const { data } = await fm();
       const Urls = await getSongUrl(data.data.map(({ id }) => id));
 
@@ -191,10 +193,11 @@ export default {
     },
 
     //点击下一首歌曲按钮
-    nextSong() {
+    playNextSong() {
+      this.playing = false;
       //判断是否是最后一首
       //是 --》请求数据     不是 --》切下一首
-      if (this.currentSongIndex > this.playList.length) {
+      if (this.currentSongIndex + 1 == this.playList.length) {
         console.log("请求数据");
         //清除原有的数据
         this.$store.commit("resetCurrentSongInfo");
@@ -206,8 +209,9 @@ export default {
       } else {
         console.log("不请求数据");
         this.playing = true;
-        this.$store.commit("setCurrentIndex", this.currentSongIndex + 1);
-        this.$store.commit("changeCurrentPlay", this.currentSongInfo);
+        this.setNextSongForFm();
+        // this.$store.commit("setCurrentIndex", this.currentSongIndex + 1);
+        // this.$store.commit("changeCurrentPlay", this.currentSongInfo);
         this.getCommentInfo();
         this.getLyricInfo();
       }
@@ -241,6 +245,7 @@ export default {
   },
   async created() {
     this.$store.commit("SET_IS_SHOW_FM_PLAYER", true);
+    this.$store.commit("setCurrentIndex", 0);
     console.log("created");
     // this.getSongInfo();
     //注册监听器
@@ -264,7 +269,7 @@ export default {
   },
   activated() {
     this.$store.commit("SET_IS_SHOW_FM_PLAYER", true);
-    console.log("activated");
+    this.$store.commit("setCurrentIndex", 0);
     this.getSongInfo();
   },
   beforeDestroy() {
@@ -273,7 +278,7 @@ export default {
   },
   watch: {
     isTagMinPlayerToNext() {
-      this.nextSong();
+      this.playNextSong();
     },
   },
 };

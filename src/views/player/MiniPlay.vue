@@ -1,7 +1,7 @@
 <template>
   <div class="mini-play">
     <!-- 歌曲信息 -->
-    <div class="song-des">
+    <div class="song-des" v-show="!isShowFmPlayer">
       <div class="pic" @click="handleShowMaxPlayer">
         <img :src="currentSongInfo.pic" v-if="isLoad" />
       </div>
@@ -18,7 +18,7 @@
       </div>
     </div>
     <!-- 中间控制器 -->
-    <div class="control-tools">
+    <div class="control-tools" v-show="!isShowFmPlayer">
       <div class="top">
         <div class="way-of-play" @click="handleChangePlayWay">
           <img
@@ -175,7 +175,7 @@ export default {
       //控制播放方式的开关
       wayOfPlay: 0,
       //音量 1--100
-      volumeValue: 50,
+      volumeValue: 20,
     };
   },
   computed: {
@@ -351,7 +351,7 @@ export default {
           break;
       }
       this.getMaxPlayAllInfo();
-      this.$store.commit("SET_Tag_MIN_PLAYER_TO_NEXT");
+      // this.$store.commit("SET_Tag_MIN_PLAYER_TO_NEXT");
       this.currentPlayTime = 0;
     },
 
