@@ -13,6 +13,7 @@ const commonOptions = {
 export function request(config) {
   const instance = axios.create({
     baseURL: process.env.VUE_APP_BASE_HOST,
+    // baseURL: process.env.VUE_APP_BASE_HOST,
     timeout: 5000,
     //解决了跨域问题 这个设置网站可以带cookie请求
     withCredentials: true, //关键

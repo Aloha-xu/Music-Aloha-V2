@@ -34,27 +34,23 @@ module.exports = {
   },
 
   productionSourceMap: false,
-  //   devServer: {
-  //     proxy: {
-  //       "/api": {
-  //         target: "",
-  //         changeOrigin: true,
-  //         secure: false, // ws: true,
-  //         pathRewrite: {
-  //           "^/api": "/", //自定义
-  //         },
-  //       },
-  //     },
-  //   },
-
 
   devServer: {
     //配置关闭eslintt检查
     overlay: {
       warnings: false, //不显示警告
-      errors: false	//不显示错误
-    }
+      errors: false, //不显示错误
+    },
+    // proxy: {
+    //   "/": {
+    //     label: "服务器",
+    //     target: "http://114.132.239.118:3000",
+    //     changeOrigin: true, //是否允许跨越
+    //     pathRewrite: {
+    //       "^/": "", //重写,
+    //     },
+    //   },
+    // },
   },
-  lintOnSave: false //关闭eslint检查
-
+  lintOnSave: false, //关闭eslint检查
 };
