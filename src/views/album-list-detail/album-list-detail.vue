@@ -23,7 +23,6 @@
       <SongListComponent
         v-if="currentIndex === 0"
         :songsInfo="playList"
-        @handleSongClick="handleSongClick"
       ></SongListComponent>
       <div v-else-if="currentIndex === 2" class="albumdetail"></div>
       <Comment
@@ -143,49 +142,12 @@ export default {
       }
     },
 
-    //v[0] 歌曲信息    v[1] 歌曲下标
-    async handleSongClick(v) {
-      try {
-        const checkmusic = await getCheckMusic(v[0].id);
-        //判断音乐是否有版权
-        if (checkmusic.data.success) {
-          //获取歌曲的歌词
-          let lyric = await getSongLyric(v[0].id);
-          console.log(lyric);
-
-          //更新当前播放的下标
-          this.$store.commit("setCurrentIndex", v[1]);
-
-          this.playList[v[1]].lyric = parseLyric(lyric.data.lrc.lyric);
-
-          //修改当前播放的音乐信息
-          this.$store.commit("changeCurrentPlay", this.playList[v[1]]);
-
-          //点击任意一首歌后把歌单歌曲添加到播放列表中
-          this.$store.commit(
-            "setAllSongsToPlayList",
-            JSON.parse(JSON.stringify(this.playList))
-          );
-
-          //isload图片
-          this.$store.commit("setIsLoad", "true");
-
-          //获取某一首歌的相似歌单信息
-          let simimusic = await getSimiPlayList(v[0].id);
-          this.$store.commit("SET_SIMI_SONG_LIST", simimusic.data.playlists);
-          //获取某一首歌的评论
-          let musicComments = await getMusicComment(v[0].id, 100);
-          this.$store.commit("SET_COMMENT_INFO", musicComments.data.comments);
-        }
-      } catch (error) {
-        alert("音乐没有版权");
-      }
-    },
     async getCommentInfo() {
       this.id = this.$route.params.id;
       const { data } = await getAlbumComment(this.id, 50);
       this.commentInfo = data.comments;
     },
+
     addCommentToCache(val) {
       this.commentInfo.unshift(val);
     },

@@ -1,5 +1,12 @@
-import { getUserPlaylist } from "@/network/api";
+import {
+  getUserPlaylist,
+  getCheckMusic,
+  getSongLyric,
+  getSimiPlayList,
+  getMusicComment,
+} from "@/network/api";
 import download from "@/utils/download.js";
+import { parseLyric } from "@/utils/lyric";
 const player = {
   state: {
     //当前的播放歌曲信息
@@ -88,9 +95,17 @@ const player = {
 
     //user喜欢的音乐列表
     likeLists: [],
+
+    //当前播放歌曲的歌单id  用于判断是不是点击同一个歌单里面的歌曲，这个时候就不把歌单放到vuex里面了。
+    currentSongListId: null,
   },
 
   mutations: {
+    //设置当前播放歌曲的歌单id
+    SET_CURRENT_SONGLIST_ID(state, id) {
+      state.currentSongListId = id;
+    },
+
     //刷新当前nav下标  发现页面下的
     refeshCurrentNavIndex(state, index) {
       state.navCurrentIndex = index;
@@ -104,13 +119,13 @@ const player = {
     //设置播放状态
     play(state) {
       state.playing = true;
-      console.log("stop");
+      console.log("play");
     },
 
     //设置暂停状态
     stop(state) {
       state.playing = false;
-      console.log("play");
+      console.log("stop");
     },
 
     //已经赛选后的数据放到播放列表中
@@ -123,7 +138,7 @@ const player = {
       state.songList = allSongs;
     },
 
-    setToRecordSongList(state, song) {
+    SET_RECORD_SONG_LIST(state, song) {
       //判断里面是否已经存在这首歌曲
       let flag = state.recordSongList.findIndex((item) => song.id === item.id);
       if (flag === -1) {
@@ -152,7 +167,6 @@ const player = {
       let flag = state.recordSongList.findIndex(
         (item) => item.id === state.songList[currentPlayIndex + 1].id
       );
-      console.log(flag);
       if (flag === -1) {
         state.recordSongList.push(state.songList[currentPlayIndex + 1]);
       }
@@ -199,12 +213,10 @@ const player = {
       );
       state.currentPlayIndex = state.songList[currentPlayIndex];
       state.currentIndex = currentPlayIndex;
-
-      //把数据放到最近播放
+      // 把数据放到最近播放
       let flag = state.recordSongList.findIndex(
         (item) => item.id === state.currentPlayIndex.id
       );
-      console.log(flag);
       if (flag === -1) {
         state.recordSongList.push(state.currentPlayIndex);
       }
@@ -374,7 +386,16 @@ const player = {
     },
     //在歌单列表中插入歌曲
     ADD_SONG_TO_PLAYLIST(state, info) {
-      state.songList.splice(state.currentIndex + 1, 0, info);
+      //如果是同一歌单里面的歌曲 那就换顺序
+      if (state.songList.length == 0) {
+        state.songList.splice(state.currentIndex + 1, 0, info);
+      } else {
+        let flag = state.songList.findIndex((item) => item.id === info.id);
+        state.songList.splice(state.currentIndex + 1, 0, info);
+        if (flag != -1) {
+          state.songList.splice(flag, 1);
+        }
+      }
     },
     //设置喜欢的歌单列表  现在只用在了maxplayer的喜欢删
     SET_LIKELISTS(state, info) {
@@ -402,6 +423,44 @@ const player = {
     },
 
     //
+    async clickToPlaySong({ state, commit }, songInfo) {
+      try {
+        const checkmusic = await getCheckMusic(songInfo.id);
+        //判断音乐是否有版权
+        if (checkmusic.data.success) {
+          //获取歌曲的歌词
+          let lyric = await getSongLyric(songInfo.id);
+
+          //更新当前播放的下标
+          commit(
+            "setCurrentIndex",
+            state.songList.findIndex((item) => item.id === songInfo.id)
+          );
+
+          //设置歌词
+          songInfo.lyric = parseLyric(lyric.data.lrc.lyric);
+
+          //修改当前播放的音乐信息
+          commit("changeCurrentPlay", songInfo);
+
+          //isload图片
+          commit("setIsLoad", "true");
+
+          //获取某一首歌的相似歌单信息
+          let simimusic = await getSimiPlayList(songInfo.id);
+          commit("SET_SIMI_SONG_LIST", simimusic.data.playlists);
+          //获取某一首歌的评论
+          let musicComments = await getMusicComment(songInfo.id, 100);
+          commit("SET_COMMENT_INFO", musicComments.data.comments);
+          //添加播放记录
+          commit("SET_RECORD_SONG_LIST", songInfo);
+          //是不是fm
+          commit("SET_IS_SHOW_FM_PLAYER", false);
+        }
+      } catch (error) {
+        alert("音乐没有版权");
+      }
+    },
   },
 };
 

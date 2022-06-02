@@ -128,57 +128,25 @@ export default {
       // this.getLikeList();
     },
     // 处理点击播放音乐事件
-    HandleSongClick(v, index) {
-       try {
-        const checkmusic = await getCheckMusic(v.id);
-        //判断音乐是否有版权
-        if (checkmusic.data.success) {
-          //获取歌曲的歌词
-          let lyric = await getSongLyric(v.id);
-
-          //点击任意一首歌后把歌单歌曲添加到播放列表中
-          //优化 本来想着用immutable-js替换JSON深拷贝的 但是immutable-js是不可变的
-          //问题: 每一次点击都设置一遍songlist列表 还是 循环识别 区别  哪一个比较省性能呢？ 未解决
-          this.$store.commit(
-            "setAllSongsToPlayList",
-            JSON.parse(JSON.stringify(this.songsInfo))
-          );
-
-          //更新当前播放的下标
-          this.$store.commit("setCurrentIndex", index);
-
-          //设置歌词
-          this.$store.commit("SET_CURRENT_SONG_LYRIC",parseLyric(lyric.data.lrc.lyric), index);
-
-          //修改当前播放的音乐信息
-          this.$store.commit("changeCurrentPlay", this.songsInfo[index]);
-
-          //isload图片
-          this.$store.commit("setIsLoad", "true");
-
-          //获取某一首歌的相似歌单信息
-          let simimusic = await getSimiPlayList(v.id);
-          this.$store.commit("SET_SIMI_SONG_LIST", simimusic.data.playlists);
-          //获取某一首歌的评论
-          let musicComments = await getMusicComment(v.id, 100);
-          this.$store.commit("SET_COMMENT_INFO", musicComments.data.comments);
-          this.$store.commit("setToRecordSongList", this.songsInfo[index]);
-        }
-      } catch (error) {
-        alert("音乐没有版权");
+    HandleSongClick(songinfo, index) {
+      //标识是不是点击多次同一个歌单的歌曲
+      if (this.$route.params.id != this.currentSongListId) {
+        console.log("test setAllSongsToPlayList");
+        this.$store.commit(
+          "setAllSongsToPlayList",
+          JSON.parse(JSON.stringify(this.songsInfo))
+        );
       }
-
-
-
-      this.$emit("handleSongClick", [values, index]);
-      this.$store.commit("SET_IS_SHOW_FM_PLAYER", false);
+      this.$store.commit("SET_CURRENT_SONGLIST_ID", this.$route.params.id);
+      //点击播放音乐
+      this.$store.dispatch("clickToPlaySong", songinfo);
     },
-    async handleDownload(v) {
+    async handleDownload(songinfo) {
       try {
-        const checkmusic = await getCheckMusic(v.id);
+        const checkmusic = await getCheckMusic(songinfo.id);
         //判断音乐是否有版权
         if (checkmusic.data.success) {
-          download(v.url, v.name);
+          download(songinfo.url, songinfo.name);
         }
       } catch (error) {
         alert("音乐没有版权,无法下载");
@@ -331,6 +299,7 @@ export default {
       "userinfo",
       "isShowUpdataComponent",
       "mySonglist",
+      "currentSongListId",
     ]),
     innerSongInfo: {
       get() {

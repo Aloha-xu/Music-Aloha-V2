@@ -33,7 +33,6 @@
       <SongListComponent
         v-if="currentIndex === 0 && !loading"
         :songsInfo="playList"
-        @handleSongClick="handleSongClick"
         @setSongInfo="setSongInfo"
       >
       </SongListComponent>
@@ -243,60 +242,6 @@ export default {
       }
       this.$store.commit("setLoading", false);
     },
-
-    //处理 点击某一首歌 获取这首歌的数据
-    //v[0] 歌曲信息
-    //v[1] 歌曲下标
-    async handleSongClick(v) {
-      try {
-        const checkmusic = await getCheckMusic(v[0].id);
-        //判断音乐是否有版权
-        if (checkmusic.data.success) {
-          //获取歌曲的歌词
-          let lyric = await getSongLyric(v[0].id);
-
-          //更新当前播放的下标
-          this.$store.commit("setCurrentIndex", v[1]);
-
-          this.playList[v[1]].lyric = parseLyric(lyric.data.lrc.lyric);
-
-          //修改当前播放的音乐信息
-          this.$store.commit("changeCurrentPlay", this.playList[v[1]]);
-
-          //点击任意一首歌后把歌单歌曲添加到播放列表中
-          //优化 本来想着用immutable-js替换JSON深拷贝的 但是immutable-js是不可变的
-          this.$store.commit(
-            "setAllSongsToPlayList",
-            JSON.parse(JSON.stringify(this.playList))
-          );
-
-          //isload图片
-          this.$store.commit("setIsLoad", "true");
-
-          //获取某一首歌的相似歌单信息
-          let simimusic = await getSimiPlayList(v[0].id);
-          this.$store.commit("SET_SIMI_SONG_LIST", simimusic.data.playlists);
-          //获取某一首歌的评论
-          let musicComments = await getMusicComment(v[0].id, 100);
-          this.$store.commit("SET_COMMENT_INFO", musicComments.data.comments);
-          this.$store.commit("setToRecordSongList", this.playList[v[1]]);
-        }
-      } catch (error) {
-        alert("音乐没有版权");
-      }
-    },
-
-    // async handleDownload(v) {
-    //   try {
-    //     const checkmusic = await getCheckMusic(v.id);
-    //     //判断音乐是否有版权
-    //     if (checkmusic.data.success) {
-    //       download(v.url, v.name);
-    //     }
-    //   } catch (error) {
-    //     alert("音乐没有版权,无法下载");
-    //   }
-    // },
 
     //收藏歌单
     async handleCollectSonglist() {

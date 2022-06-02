@@ -130,15 +130,17 @@ export default {
     async getSongInfo() {
       const { data } = await fm();
       const Urls = await getSongUrl(data.data.map(({ id }) => id));
+
+      //用歌曲的id做对象的key，url为value
+      let innerUrls = {};
+      Urls.data.data.forEach(({ id, url }) => {
+        innerUrls[id] = url;
+      });
+
       for (let i = 0; i < data.data.length; i++) {
         let currentSongInfo = {};
         currentSongInfo.id = data.data[i].id;
-        currentSongInfo.url = "";
-        for (let j = 0; j < Urls.data.data.length; j++) {
-          if (Urls.data.data[j].id == currentSongInfo.id) {
-            currentSongInfo.url = Urls.data.data[j].url;
-          }
-        }
+        currentSongInfo.url = innerUrls[data.data[i].id];
         currentSongInfo.name = data.data[i].name;
         currentSongInfo.album = data.data[i].album.name;
         currentSongInfo.singer = [];
@@ -153,13 +155,13 @@ export default {
         currentSongInfo.lyric = null;
         this.playList.push(currentSongInfo);
       }
-      this.getCommentInfo();
-      this.getLyricInfo();
+      this.$store.commit("changeCurrentPlay", this.playList[0]);
       this.$store.commit(
         "setAllSongsToPlayList",
         JSON.parse(JSON.stringify(this.playList))
       );
-      this.$store.commit("changeCurrentPlay", this.playList[0]);
+      this.getCommentInfo();
+      this.getLyricInfo();
       this.$store.commit("setIsLoad", true);
     },
 
@@ -192,7 +194,8 @@ export default {
     nextSong() {
       //判断是否是最后一首
       //是 --》请求数据     不是 --》切下一首
-      if (this.currentSongIndex === this.playList.length - 1) {
+      if (this.currentSongIndex > this.playList.length) {
+        console.log("请求数据");
         //清除原有的数据
         this.$store.commit("resetCurrentSongInfo");
         this.playList = [];
@@ -201,6 +204,7 @@ export default {
         //再一次请求数据
         this.getSongInfo();
       } else {
+        console.log("不请求数据");
         this.playing = true;
         this.$store.commit("setCurrentIndex", this.currentSongIndex + 1);
         this.$store.commit("changeCurrentPlay", this.currentSongInfo);
@@ -237,19 +241,20 @@ export default {
   },
   async created() {
     this.$store.commit("SET_IS_SHOW_FM_PLAYER", true);
-    this.getSongInfo();
+    console.log("created");
+    // this.getSongInfo();
     //注册监听器
     this.unwatch = this.$watch(
       "currentTime",
       _throttle(() => {
         let offset = 36;
         let lyric = this.$refs.lyric;
-        let currentIndex = this.currentSongInfo.lyric.findIndex(
+        let currentIndex = this.currentSongInfo.lyric?.findIndex(
           (item) => parseInt(this.currentTime / 1000) === item.time
         );
         if (
           currentIndex <= 4 ||
-          currentIndex + 4 === this.currentSongInfo.lyric.length
+          currentIndex + 4 === this.currentSongInfo.lyric?.length
         ) {
           return;
         }
@@ -259,6 +264,7 @@ export default {
   },
   activated() {
     this.$store.commit("SET_IS_SHOW_FM_PLAYER", true);
+    console.log("activated");
     this.getSongInfo();
   },
   beforeDestroy() {

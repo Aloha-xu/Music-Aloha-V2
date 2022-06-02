@@ -286,6 +286,7 @@ export default {
           break;
       }
       this.getMaxPlayAllInfo();
+      //这里触发下一次的播放
       this.$refs.audio.play();
     },
 
@@ -303,7 +304,6 @@ export default {
       );
       //设置state的currentTime
       this.setCurrentTime(this.currentPlayTime * 1000);
-      console.log();
     },
 
     handleCurrentVolume() {
@@ -414,24 +414,8 @@ export default {
       //3-- order
       if (this.wayOfPlay == 3) {
         this.wayOfPlay = 0;
-        return;
       } else {
-        let wayindex = this.wayOfPlay;
-        wayindex++;
-        switch (wayindex) {
-          case 0:
-            this.wayOfPlay = 0;
-            break;
-          case 1:
-            this.wayOfPlay = 1;
-            break;
-          case 2:
-            this.wayOfPlay = 2;
-            break;
-          case 3:
-            this.wayOfPlay = 3;
-            break;
-        }
+        this.wayOfPlay++;
       }
     },
 
