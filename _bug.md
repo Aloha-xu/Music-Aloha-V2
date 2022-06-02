@@ -37,3 +37,4 @@ bug - 私人 fm 的重新请求数据有问题  √
 
 6.3
 optimzie - FM换数据的时候可以加骨架
+optimzie - 可以提取出来字体的fontsize fonwweight这些
