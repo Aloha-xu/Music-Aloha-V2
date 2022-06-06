@@ -1,7 +1,7 @@
 <template>
   <div class="card" @click="clickCard">
     <div class="pic">
-      <el-image :src="pic" lazy />
+      <BaseImage :src="pic" :lazy="true" />
       <span class="palycount">{{ playCount }}</span>
     </div>
     <div class="text">
@@ -53,7 +53,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .card {
   position: relative;
   padding-bottom: 10px;

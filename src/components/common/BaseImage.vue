@@ -19,7 +19,11 @@
     <!-- 加载中占位符 -->
     <div slot="placeholder" class="image-slot-ing">
       <div class="placeholder-img">
-        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+          style="width:100%;height:100%"
+        >
           <path
             d="M64 896V128h896v768H64z m64-128l192-192 116.352 116.352L640
             448l256 307.2V192H128v576z m224-480a96 96 0 1 1-0.064 192.064A96 96
@@ -81,8 +85,8 @@ export default {
     height: 100%;
     @include skeleton-color;
     .placeholder-img {
-      width: 30%;
-      height: 30%;
+      width: 40%;
+      height: 40%;
       display: inline-block;
     }
   }
