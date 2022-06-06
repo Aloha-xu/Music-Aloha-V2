@@ -1,7 +1,7 @@
 <template>
   <div class="comment-card">
     <div class="left">
-      <img :src="pic" alt="" />
+      <BaseImage :src="pic" alt="" class="cover" />
     </div>
     <div class="comment-content">
       <div class="text">
@@ -78,7 +78,7 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .comment-card {
   width: 100%;
   padding-top: 10px;
@@ -88,7 +88,7 @@ export default {
     padding: 10px 10px 10px 0;
     width: 40px;
     height: 40px;
-    img {
+    .cover {
       width: 40px;
       height: 40px;
       border-radius: 50%;

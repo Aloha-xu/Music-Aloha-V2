@@ -50,18 +50,11 @@
         :key="index"
         @click="ToSingerDetailClick(item.id)"
       >
-        <el-image
+        <BaseImage
           :src="item.img1v1Url + '?param=165y165'"
           lazy
           style="width: 165px; height: 165px; border-radius: 10px"
-        >
-          <div slot="placeholder" class="image-slot" style="font-size: 20px">
-            <i class="el-icon-loading"></i>
-          </div>
-          <div slot="error" class="image-slot">
-            <i class="el-icon-picture-outline"></i>
-          </div>
-        </el-image>
+        ></BaseImage>
         <div class="name">
           {{ item.name }}
         </div>

@@ -6,7 +6,7 @@
         <img
           :src="
             TopSongListInfo[0] &&
-            TopSongListInfo[0].coverImgUrl + '?param=10y10'
+              TopSongListInfo[0].coverImgUrl + '?param=10y10'
           "
           alt=""
         />
@@ -15,7 +15,7 @@
         <img
           :src="
             TopSongListInfo[0] &&
-            TopSongListInfo[0].coverImgUrl + '?param=150y150'
+              TopSongListInfo[0].coverImgUrl + '?param=150y150'
           "
           alt=""
         />
@@ -395,6 +395,11 @@ export default {
       justify-content: space-around;
       .song-list-item {
         width: 18.86%;
+        ::v-deep {
+          .playcard-img {
+            height: 210px;
+          }
+        }
       }
     }
   }

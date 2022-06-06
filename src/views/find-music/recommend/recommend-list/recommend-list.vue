@@ -19,7 +19,7 @@
           >
             <path
               d="M896 448H128v447.957333l477.738667 0.021334L896 895.957333V448z m0-42.666667V192.042667C896 192 768 192 768 192V149.333333h128.042667A42.666667 42.666667 0 0 1 938.666667 192.042667v703.914666A42.624 42.624 0 0 1 896.064 938.666667H127.936A42.666667 42.666667 0 0 1 85.333333 895.957333V192.042667C85.333333 168.469333 104.256 149.333333 127.957333 149.333333H256v42.666667l-128 0.042667V405.333333h768zM298.666667 85.333333h42.666666v170.666667h-42.666666V85.333333z m384 0h42.666666v170.666667h-42.666666V85.333333zM384 149.333333h256v42.666667H384V149.333333z"
-              fill="#3D3D3D"
+              fill="#ff0000"
               p-id="9889"
             ></path>
           </svg>
@@ -89,14 +89,44 @@ export default {
     height: 569px;
     .recommend-card {
       width: 207px;
+      text-align: center;
+      cursor: pointer;
       .pic {
+        position: relative;
+        margin-top: 10px;
+        background-color: rgba(204, 207, 213, 0.289);
+        width: 207px;
+        height: 167px;
+        border-radius: 5px;
+        padding-top: 40px;
+        .date {
+          position: absolute;
+          top: 100px;
+          left: 87px;
+          font-size: 50px;
+          color: red;
+          font-weight: 600;
+        }
       }
       .text {
+        font-size: 13px;
+        letter-spacing: 0.7px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-top: 5px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-height: 20px;
       }
     }
     .item {
       width: 18.86%;
       height: 34.5%;
+      ::v-deep {
+        .playcard-img {
+          height: 207px;
+        }
+      }
     }
     .item:nth-child(3) {
       margin-left: 15px;

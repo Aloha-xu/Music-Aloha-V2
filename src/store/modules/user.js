@@ -1,5 +1,5 @@
 import { loginByPhone, checkCaptcha } from "@/network/login";
-import { clearAllCookie } from "@/utils/uctil.js"
+import { clearAllCookie } from "@/utils/uctil.js";
 // import { Message } from "element-ui";
 
 const user = {
@@ -78,7 +78,7 @@ const user = {
       return new Promise((resolve) => {
         commit("SET_TOKEN", "");
         commit("SET_USER_INFO", "");
-        clearAllCookie()
+        clearAllCookie();
         location.reload();
         resolve();
       });

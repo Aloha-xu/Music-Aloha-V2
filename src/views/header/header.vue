@@ -413,6 +413,7 @@ export default {
     async handleOutLoginFun() {
       //清除localStorage sessionStorage
       localStorage.removeItem("currentUserInfo");
+      this.$router.push("/");
       this.$store.dispatch("LogOut");
       await outRefresh();
     },

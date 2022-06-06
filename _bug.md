@@ -33,8 +33,11 @@ bug - 修复一些 中间.找属性 找不的问题 √
 
 6.2
 optimzie - 重新设计一下播放信息的管理 √
-bug - 私人 fm 的重新请求数据有问题  √
+bug - 私人 fm 的重新请求数据有问题 √
 
 6.3
-optimzie - FM换数据的时候可以加骨架
-optimzie - 可以提取出来字体的fontsize fonwweight这些
+optimzie - FM 换数据的时候可以加骨架
+optimzie - 可以提取出来字体的 fontsize fonwweight 这些
+
+6.6
+optimzie - 图片加载中的 ui 界面 封装了 elimage

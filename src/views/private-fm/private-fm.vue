@@ -5,22 +5,11 @@
         <div class="record-tools">
           <div class="record">
             <div class="pic">
-              <el-image
+              <BaseImage
                 :src="currentSongInfo.pic + '?param=300y300'"
                 class="current-pic"
               >
-                <!-- 先不做这一块 -->
-                <!-- <div slot="placeholder" class="image-slot">
-                  <el-skeleton>
-                    <template slot="template">
-                      <el-skeleton-item
-                        variant="image"
-                        style="width: 300px; height: 300px"
-                      />
-                    </template>
-                  </el-skeleton>
-                </div> -->
-              </el-image>
+              </BaseImage>
               <i
                 class="el-icon-caret-right play-button"
                 v-show="!playing || !goblePlayingState"

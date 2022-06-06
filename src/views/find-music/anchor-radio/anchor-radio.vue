@@ -77,23 +77,28 @@ export default {
 
 <!-- 在搜索建议里面标红输入值 -->
 <template>
-  <el-select
-    v-model="value"
-    filterable
-    remote
-    placeholder="请选择"
-    :remote-method="remoteMehtod"
-    @blur="loseBlur"
-  >
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.Label"
-      :value="item.value"
+  <div>
+    <el-select
+      v-model="value"
+      filterable
+      remote
+      placeholder="请选择"
+      :remote-method="remoteMehtod"
+      @blur="loseBlur"
     >
-      <span style="float: left" v-html="item.label"></span>
-    </el-option>
-  </el-select>
+      <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.Label"
+        :value="item.value"
+      >
+        <span style="float: left" v-html="item.label"></span>
+      </el-option>
+    </el-select>
+    <BaseImage
+      src="https://p2.music.126.net/QcPJfzds8ejF1FPgBaXMTw==/109951163128461676.jpg?param=250y250"
+    ></BaseImage>
+  </div>
 </template>
 
 <script>

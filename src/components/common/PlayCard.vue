@@ -1,26 +1,7 @@
 <template>
   <div class="card">
-    <div class="card-content">
-      <div class="pic">
-        <el-image :src="pic" @click="cardClick" class="playcard-img" lazy>
-          <div slot="placeholder" class="image-slot">
-            <span style="font-size: 10px; margin-right: 5px; font-weight: 600"
-              >加载中</span
-            ><i style="font-size: 20px" class="el-icon-loading"></i>
-            <!-- <el-skeleton animated>
-              <template slot="template">
-                <el-skeleton-item
-                  variant="image"
-                  style="width: 100%; height: 100%"
-                />
-              </template>
-            </el-skeleton> -->
-          </div>
-          <div slot="error" class="image-slot">
-            <i class="el-icon-picture-outline"></i>
-          </div>
-        </el-image>
-      </div>
+    <div class="card-content" @click="cardClick">
+      <BaseImage :src="pic" class="playcard-img" :lazy="true"></BaseImage>
       <span class="palycount">
         <slot name="card_palycount">{{ playCount }}</slot>
       </span>
@@ -108,63 +89,44 @@ export default {
   }
   .card-content {
     width: 100%;
-    .pic {
-      .playcard-img {
-        width: 100%;
-        border-radius: 5px;
-        .image-slot {
-          width: 100%;
-          height: 100%;
-          line-height: 207px;
-          text-align: center;
-          background-color: rgba(204, 207, 213, 0.289);
-        }
-      }
-    }
-    .palycount {
-      position: absolute;
-      top: 3px;
-      right: 3px;
-      font-size: 12px;
-      color: white;
-    }
-    .creattor {
-      position: absolute;
-      left: 10px;
-      bottom: 70px;
-      color: aliceblue;
-    }
-    .totle-paly-time {
-      position: absolute;
-      right: 8px;
-      bottom: 52px;
-      color: aliceblue;
-    }
   }
-  .text {
-    font-size: 13px;
-    letter-spacing: 0.7px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 5px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-height: 20px;
+  .palycount {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    font-size: 12px;
+    color: white;
   }
-  .card-YY-MM-DD {
-    font-size: 13px;
-    font-weight: 300;
-    margin-top: 10px;
+  .creattor {
+    position: absolute;
+    left: 10px;
+    bottom: 70px;
+    color: aliceblue;
   }
-  .track-count {
-    font-size: 13px;
-    font-weight: 300;
+  .totle-paly-time {
+    position: absolute;
+    right: 8px;
+    bottom: 52px;
+    color: aliceblue;
   }
 }
-
-// ::v-deep {
-//   .el-skeleton {
-//     height: 100%;
-//   }
-// }
+.text {
+  font-size: 13px;
+  letter-spacing: 0.7px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-height: 20px;
+}
+.card-YY-MM-DD {
+  font-size: 13px;
+  font-weight: 300;
+  margin-top: 10px;
+}
+.track-count {
+  font-size: 13px;
+  font-weight: 300;
+}
 </style>

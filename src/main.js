@@ -9,6 +9,16 @@ import "./assets/css/base.scss";
 import store from "./store";
 import { IsPc } from "./utils/uctil.js";
 
+/**
+ * 全局注册组件
+ */
+//baseImage 图片组件
+import BaseImage from "./components/common/BaseImage.vue";
+Vue.component("BaseImage", BaseImage);
+
+/**
+ * 全局安装插件
+ */
 //拖拽
 import VueCropper from "vue-cropper";
 Vue.use(VueCropper);

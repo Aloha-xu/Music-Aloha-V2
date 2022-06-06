@@ -86,6 +86,11 @@ export default {
     .item {
       width: 19%;
       margin: 5px;
+      ::v-deep {
+        .playcard-img {
+          height: 209px;
+        }
+      }
     }
   }
 }
