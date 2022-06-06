@@ -44,7 +44,7 @@
       class="play-logo-box"
       slot="play-logo"
       :style="{ 'border-radius': borderRadius + 'px' }"
-      v-if="isShowPlayLogo"
+      v-if="isShowPlayLogo && isDone"
     >
       <div class="play-logo center">
         <i class="el-icon-caret-right" style="font-size: 35px"></i>
@@ -86,9 +86,16 @@ export default {
       default: true,
     },
   },
+  data() {
+    return {
+      //控制还没有加载成功的时候不显示hover效果
+      isDone: false,
+    };
+  },
   methods: {
     handleLoad() {
       this.$emit("load");
+      this.isDone = true;
     },
     handleError() {
       this.$emit("error");
@@ -123,6 +130,13 @@ export default {
     .image-slot-fail {
       width: 100%;
       height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $bg-fail;
+      .el-icon-picture-outline {
+        font-size: 400%;
+      }
     }
     .play-logo {
       width: 100%;

@@ -40,4 +40,7 @@ optimzie - FM 换数据的时候可以加骨架
 optimzie - 可以提取出来字体的 fontsize fonwweight 这些
 
 6.6
-optimzie - 图片加载中的 ui 界面 封装了 elimage
+optimzie - 图片加载中的 ui 界面 封装了 elimage √
+optimzie - 优化 图片还没加载完 不能触发hover √
+optimzie - 优化 palycard组件的功能 √
+

@@ -101,17 +101,21 @@ nav,
 section {
   display: block;
 }
+
 body {
   line-height: 1;
 }
+
 ol,
 ul {
   list-style: none;
 }
+
 blockquote,
 q {
   quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -119,13 +123,16 @@ q:after {
   content: "";
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 a {
   text-decoration: none;
 }
+
 .clearfix::after {
   content: "";
   display: block;
@@ -139,17 +146,20 @@ a {
   border-radius: 15px;
   -webkit-border-radius: 15px;
 }
+
 ::-webkit-scrollbar-track-piece {
   background-color: #ffff;
   border-radius: 15px;
   -webkit-border-radius: 15px;
 }
+
 ::-webkit-scrollbar-thumb:vertical {
   height: 5px;
   background-color: rgba(207, 207, 207, 0.5);
   border-radius: 15px;
   -webkit-border-radius: 15px;
 }
+
 ::-webkit-scrollbar-thumb:horizontal {
   width: 6px;
   background-color: rgba(207, 207, 207, 0.5);
@@ -158,7 +168,8 @@ a {
 }
 
 img {
-  cursor: pointer; /* 移动导图标就出现手 */
+  cursor: pointer;
+  /* 移动导图标就出现手 */
 }
 
 body {
@@ -199,12 +210,10 @@ $--skeleton-color: #f2f2f2 !default;
 $--skeleton-to-color: #e6e6e6 !default;
 
 @mixin skeleton-color() {
-  background: linear-gradient(
-    90deg,
-    $--skeleton-color 25%,
-    $--skeleton-to-color 37%,
-    $--skeleton-color 63%
-  );
+  background: linear-gradient(90deg,
+      $--skeleton-color 25%,
+      $--skeleton-to-color 37%,
+      $--skeleton-color 63%);
   background-size: 400% 100%;
   animation: el-skeleton-loading 1.4s ease infinite;
 }
@@ -213,7 +222,13 @@ $--skeleton-to-color: #e6e6e6 !default;
   0% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0 50%;
   }
 }
+
+
+
+//bg - fail
+$bg-fail: $--skeleton-color;

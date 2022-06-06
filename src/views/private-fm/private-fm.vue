@@ -40,7 +40,7 @@
               />
             </div>
             <div class="delete">
-              <i class="el-icon-delete" style="font-size: 30px"></i>
+              <i class="el-icon-delete" style="font-size: 25px"></i>
             </div>
             <div class="next" @click="playNextSong">
               <i class="el-icon-caret-right" style="font-size: 30px"></i>
@@ -275,6 +275,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/css/base.scss";
 .private-fm {
   display: flex;
   justify-content: center;
@@ -284,7 +285,6 @@ export default {
   width: 100%;
   .content_ {
     width: 1100px;
-
     .fm-content {
       width: 1100px;
       display: flex;
@@ -313,6 +313,7 @@ export default {
               top: 25px;
             }
             .play-button {
+              cursor: pointer;
               position: absolute;
               left: 330px;
               top: 125px;
@@ -324,6 +325,7 @@ export default {
               font-size: 30px;
             }
             .stop-button {
+              cursor: pointer;
               position: absolute;
               left: 460px;
               top: 260px;
@@ -338,20 +340,35 @@ export default {
         }
         .tools {
           display: flex;
-          text-align: center;
           margin-top: 10px;
-          margin-left: 100px;
+          margin-left: 130px;
+          align-items: center;
           justify-content: center;
           .heart,
           .more,
-          .next,
+          .next {
+            margin: 10px;
+            margin-top: 25px;
+            margin-left: 25px;
+            border: 1px solid gray;
+            border-radius: 50%;
+            padding: 5px;
+            cursor: pointer;
+            &:hover {
+              background-color: $bg-fail;
+            }
+          }
           .delete {
             margin: 10px;
             margin-top: 25px;
             margin-left: 25px;
             border: 1px solid gray;
             border-radius: 50%;
-            padding: 5px 6px;
+            padding: 7.5px 7.5px;
+            cursor: pointer;
+            &:hover {
+              background-color: $bg-fail;
+            }
           }
         }
       }
