@@ -1,7 +1,7 @@
 <template>
   <div class="comment-card">
     <div class="left">
-      <BaseImage :src="pic" alt="" class="cover" />
+      <BaseImage :src="pic" class="cover" />
     </div>
     <div class="comment-content">
       <div class="text">

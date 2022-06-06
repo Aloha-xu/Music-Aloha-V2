@@ -7,37 +7,50 @@
               成功失败的钩子
               也不是所有都需要lazy加载的，设计就实现基本的功能，以后有需要可以再加
    -->
-  <el-image
-    :src="src"
-    :lazy="lazy"
-    :fit="fit"
-    :alt="alt"
-    :scroll-container="scrollContainer"
-    @load="handleLoad"
-    @error="handleError"
-  >
-    <!-- 加载中占位符 -->
-    <div slot="placeholder" class="image-slot-ing">
-      <div class="placeholder-img">
-        <svg
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-          style="width:100%;height:100%"
-        >
-          <path
-            d="M64 896V128h896v768H64z m64-128l192-192 116.352 116.352L640
+  <div class="base-image">
+    <el-image
+      :src="src"
+      :lazy="lazy"
+      :fit="fit"
+      :alt="alt"
+      :scroll-container="scrollContainer"
+      @load="handleLoad"
+      @error="handleError"
+      :style="{ 'border-radius': borderRadius + 'px' }"
+    >
+      <!-- 加载中占位符 -->
+      <div slot="placeholder" class="image-slot-ing">
+        <div class="placeholder-img">
+          <svg
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+            style="width: 100%; height: 100%"
+          >
+            <path
+              d="M64 896V128h896v768H64z m64-128l192-192 116.352 116.352L640
             448l256 307.2V192H128v576z m224-480a96 96 0 1 1-0.064 192.064A96 96
             0 0 1 352 288z"
-            fill="#dcdde0"
-          />
-        </svg>
+              fill="#dcdde0"
+            />
+          </svg>
+        </div>
+      </div>
+      <!-- 加载失败占位符 -->
+      <div slot="error" class="image-slot-fail">
+        <i class="el-icon-picture-outline"></i>
+      </div>
+    </el-image>
+    <div
+      class="play-logo-box"
+      slot="play-logo"
+      :style="{ 'border-radius': borderRadius + 'px' }"
+      v-if="isShowPlayLogo"
+    >
+      <div class="play-logo center">
+        <i class="el-icon-caret-right" style="font-size: 35px"></i>
       </div>
     </div>
-    <!-- 加载失败占位符 -->
-    <div slot="error" class="image-slot-fail">
-      <i class="el-icon-picture-outline"></i>
-    </div>
-  </el-image>
+  </div>
 </template>
 
 <script>
@@ -60,6 +73,18 @@ export default {
       default: "",
     },
     scrollContainer: {},
+    playLogoPosition: {
+      type: String,
+      default: "center",
+    },
+    borderRadius: {
+      type: Number,
+      default: 10,
+    },
+    isShowPlayLogo: {
+      type: Boolean,
+      default: true,
+    },
   },
   methods: {
     handleLoad() {
@@ -74,25 +99,64 @@ export default {
 
 <style scoped lang="scss">
 @import "@/assets/css/base.scss";
-.el-image {
+.base-image {
+  position: relative;
   width: 100%;
   height: 100%;
-  .image-slot-ing {
+  cursor: pointer;
+  .el-image {
+    width: 100%;
+    height: 100%;
+    .image-slot-ing {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      @include skeleton-color;
+      .placeholder-img {
+        width: 40%;
+        height: 40%;
+        display: inline-block;
+      }
+    }
+    .image-slot-fail {
+      width: 100%;
+      height: 100%;
+    }
+    .play-logo {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .play-logo-box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
-    @include skeleton-color;
-    .placeholder-img {
-      width: 40%;
-      height: 40%;
-      display: inline-block;
+    opacity: 0;
+    &:hover {
+      opacity: 0.9;
+      background-color: rgba(0, 0, 0, 0.6);
     }
-  }
-  .image-slot-fail {
-    width: 100%;
-    height: 100%;
+    .play-logo {
+      width: 50px;
+      height: 50px;
+      background-color: #fff;
+      display: flex;
+      border-radius: 50%;
+      &:hover {
+        background-color: aquamarine;
+      }
+    }
+    .center {
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
 </style>

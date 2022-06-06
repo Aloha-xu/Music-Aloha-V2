@@ -8,6 +8,7 @@
               <BaseImage
                 :src="currentSongInfo.pic + '?param=300y300'"
                 class="current-pic"
+                :isShowPlayLogo="false"
               >
               </BaseImage>
               <i

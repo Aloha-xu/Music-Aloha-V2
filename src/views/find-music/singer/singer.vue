@@ -54,6 +54,7 @@
           :src="item.img1v1Url + '?param=165y165'"
           lazy
           style="width: 165px; height: 165px; border-radius: 10px"
+          :isShowPlayLogo="false"
         ></BaseImage>
         <div class="name">
           {{ item.name }}
