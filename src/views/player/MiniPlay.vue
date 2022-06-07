@@ -268,26 +268,8 @@ export default {
     },
 
     ended() {
-      //当前歌曲播放结束
-      //看看是哪一种播放顺序
-      //1.列表播放顺序
-      switch (this.wayOfPlay) {
-        case 0:
-          this.setNextSong();
-          break;
-        case 1:
-          this.randomPlayWay();
-          break;
-        case 2:
-          this.singlePlayWay();
-          break;
-        case 3:
-          this.setNextSong();
-          break;
-      }
+      this.$store.dispatch("setNextSongOrderPlayWay", this.wayOfPlay);
       this.getMaxPlayAllInfo();
-      //这里触发下一次的播放
-      this.$refs.audio.play();
     },
 
     pause() {
@@ -336,40 +318,14 @@ export default {
     },
 
     async nextSong() {
-      switch (this.wayOfPlay) {
-        case 0:
-          this.setNextSong();
-          break;
-        case 1:
-          this.randomPlayWay();
-          break;
-        case 2:
-          this.setNextSong();
-          break;
-        case 3:
-          this.setNextSong();
-          break;
-      }
+      this.$store.dispatch("setNextSongOrderPlayWay", this.wayOfPlay);
       this.getMaxPlayAllInfo();
       // this.$store.commit("SET_Tag_MIN_PLAYER_TO_NEXT");
       this.currentPlayTime = 0;
     },
 
     async preSong() {
-      switch (this.wayOfPlay) {
-        case 0:
-          this.setPreSong();
-          break;
-        case 1:
-          this.randomPlayWay();
-          break;
-        case 2:
-          this.setPreSong();
-          break;
-        case 3:
-          this.setPreSong();
-          break;
-      }
+      this.$store.dispatch("setNextSongOrderPlayWay", this.wayOfPlay);
       this.getMaxPlayAllInfo();
       this.currentPlayTime = 0;
     },

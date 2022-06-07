@@ -425,6 +425,14 @@ const player = {
   },
 
   actions: {
+    //处理不同播放方式的下一首歌
+    setNextSongOrderPlayWay({ commit }, wayOfPlay) {
+      wayOfPlay == 0 && commit('setNextSong')
+      wayOfPlay == 1 && commit('randomPlayWay')
+      wayOfPlay == 2 && commit('singlePlayWay')
+      wayOfPlay == 3 && commit('setNextSong')
+    },
+
     //获取用户的歌单列表
     async getUserPlayList({ commit }) {
       let uInfo = JSON.parse(localStorage.getItem("currentUserInfo"));
