@@ -17,6 +17,7 @@
     <MiniPlay class="mini-play"></MiniPlay>
     <!-- 歌词弹出框 -->
     <LyricComponent v-if="isShowLyric" />
+    <UpdateInfomationPopover v-if="isShowUpdateInfomation" />
   </div>
 </template>
 <script>
@@ -24,6 +25,7 @@ import Header from "./views/header/header.vue";
 import NavBar from "./views/aside/navbar.vue";
 import MaxPlay from "./views/player/MaxPlay.vue";
 import MiniPlay from "./views/player/MiniPlay.vue";
+import UpdateInfomationPopover from "./UpdateInfomationPopover.vue";
 import LyricComponent from "./components/common/LyricComponent.vue";
 import { mapGetters } from "vuex";
 export default {
@@ -34,9 +36,13 @@ export default {
     MaxPlay,
     MiniPlay,
     LyricComponent,
+    UpdateInfomationPopover,
   },
   computed: {
     ...mapGetters(["isShowMaxPlayer", "isShowLyric"]),
+    isShowUpdateInfomation() {
+      return localStorage.getItem("isShowUpdateInfomation") ? false : true;
+    },
   },
 };
 </script>
