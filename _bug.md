@@ -45,7 +45,7 @@ optimzie - 优化 图片还没加载完 不能触发 hover √
 optimzie - 优化 palycard 组件的功能 √
 
 6.7
-optimzie - 优化 样式
-optimzie - 优化 歌手个人简历的样式
-add - 更细提示界面
-bug - 个性推荐 没有加到个单列表里面
+optimzie - 优化 样式 √
+optimzie - 优化 歌手个人简历的样式 √
+add - 更细提示界面 √
+bug - 个性推荐 没有加到个单列表里面 √
