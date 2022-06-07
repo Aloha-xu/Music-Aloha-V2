@@ -1,5 +1,5 @@
 <template>
-  <div class="all-mv-papg">
+  <div class="all-mv-papg flex-center">
     <div class="content">
       <div class="title">全部MV</div>
       <div class="select-bar">
@@ -132,8 +132,8 @@ export default {
 .all-mv-papg {
   font-size: 13px;
   color: rgb(87, 87, 87);
-  display: flex;
-  justify-content: center;
+  // display: flex;
+  // justify-content: center;
   width: 100%;
   overflow: scroll;
   height: 100%;

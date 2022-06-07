@@ -121,7 +121,7 @@ export default {
     .totle-play-time {
       position: absolute;
       right: 8px;
-      bottom: 52px;
+      bottom: 7px;
       color: aliceblue;
     }
   }

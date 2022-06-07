@@ -11,6 +11,7 @@
         @cardClick="cardClick"
       >
         <span slot="yymmdd">{{ getYMD(item.publishTime) }}</span>
+        <span slot="card_palycount"></span>
       </PlayCard>
     </div>
   </div>
@@ -39,15 +40,20 @@ export default {
 <style scoped lang="scss">
 .album-compontent {
   width: 100%;
-}
-.album-compontent .centent {
-  width: 98%;
-  display: flex;
-  flex-wrap: wrap;
-}
-.album-compontent .centent .item {
-  width: 13%;
-  margin: 20px;
-  margin-left: 30px;
+  .centent {
+    width: 98%;
+    display: flex;
+    flex-wrap: wrap;
+    .item {
+      width: 13%;
+      margin: 20px;
+      margin-left: 30px;
+      ::v-deep {
+        .playcard-img {
+          height: 217px;
+        }
+      }
+    }
+  }
 }
 </style>

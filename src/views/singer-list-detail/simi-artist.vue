@@ -6,7 +6,11 @@
       :key="index"
       @click="clickToSingerDetail(item.id)"
     >
-      <img :src="item.img1v1Url + '?param=175y175'" alt="" />
+      <BaseImage
+        :src="item.img1v1Url + '?param=175y175'"
+        :lazy="true"
+        :isShowPlayLogo="false"
+      />
       <div class="name">{{ item.name }}</div>
     </div>
   </div>
@@ -37,10 +41,13 @@ export default {
     height: 10%;
     margin: 10px;
     margin-top: 30px;
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: 5px;
+    ::v-deep {
+      .playcard-img {
+        height: 166px;
+      }
+    }
+    .name {
+      margin-top: 5px;
     }
   }
 }

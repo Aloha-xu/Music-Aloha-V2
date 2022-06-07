@@ -1,5 +1,5 @@
 <template>
-  <div class="search-detail-video">
+  <div class="search-detail-video flex-center">
     <div class="content">
       <MvCard
         v-for="(item, index) in videoInfo.mvs"
@@ -34,9 +34,9 @@ export default {
 
 <style scoped lang="scss">
 .search-detail-video {
-  display: flex;
+  // display: flex;
+  // justify-content: center;
   width: 100%;
-  justify-content: center;
   .content {
     display: flex;
     flex-wrap: wrap;

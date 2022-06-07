@@ -41,9 +41,9 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin-left: 20px;
-}
-.mv-compontent .item {
-  width: 18.5%;
-  margin: 10px;
+  .item {
+    width: 18.5%;
+    margin: 10px;
+  }
 }
 </style>

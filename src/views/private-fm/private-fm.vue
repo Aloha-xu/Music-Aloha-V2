@@ -1,5 +1,5 @@
 <template>
-  <div class="private-fm">
+  <div class="private-fm flex-center">
     <div class="content_">
       <div class="fm-content">
         <div class="record-tools">
@@ -277,8 +277,8 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/css/variables.scss";
 .private-fm {
-  display: flex;
-  justify-content: center;
+  // display: flex;
+  // justify-content: center;
   height: 100vh;
   overflow: scroll;
   //如果需要用flex居中一个box 要给他父元素一个width 否者父元素大小就是子元素大小 这样怎么都不能居中效果

@@ -84,7 +84,7 @@ export default {
 .recommend-list {
   .play-card {
     display: flex;
-    flex-wrap: wrap; /*用了flex-wrap:wrap;自动换行属性后*/
+    flex-wrap: wrap;
     justify-content: space-around;
     height: 569px;
     .recommend-card {

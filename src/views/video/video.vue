@@ -1,5 +1,5 @@
 <template>
-  <div class="video">
+  <div class="video flex-center">
     <div class="content">
       <div class="navbar">
         <div class="type">
@@ -164,8 +164,8 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/css/variables.scss";
 .video {
-  display: flex;
-  justify-content: center;
+  // display: flex;
+  // justify-content: center;
   overflow: scroll;
   height: 82vh;
   .content {

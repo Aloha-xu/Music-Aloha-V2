@@ -217,9 +217,9 @@ export default {
 .mv-detail {
   width: 100%;
   display: flex;
+  justify-content: center;
   overflow: scroll;
   height: 84vh;
-  justify-content: center;
   .content {
     width: 1100px;
     .detail {

@@ -29,3 +29,48 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* 盒子布局 flex*/
+.flex-between-center {
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-between-start {
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.flex-center-center {
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  justify-content: center;
+}

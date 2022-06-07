@@ -335,6 +335,11 @@ export default {
     .all-cards {
       display: flex;
       flex-wrap: wrap;
+      ::v-deep {
+        .playcard-img {
+          height: 220px;
+        }
+      }
       @media (max-width: 1400px) {
         .card {
           width: 22%;

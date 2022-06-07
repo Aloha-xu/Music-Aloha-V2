@@ -1,14 +1,14 @@
 <template>
-  <div class="max-play">
+  <div class="max-play flex-center">
     <div class="content">
       <div
         class="record-tools"
         @focus="handleShowRecordTools"
         @blur="handleShowRecordTools"
       >
-        <div class="pic">
-          <div class="grey-box">
-            <div class="black-box">
+        <div class="pic flex-center">
+          <div class="grey-box flex-center-center">
+            <div class="black-box flex-center-center">
               <img :src="currentSongInfo.pic" alt="歌曲封面" />
             </div>
           </div>
@@ -73,7 +73,7 @@
         </div>
       </div>
       <!-- 相似的歌曲 -->
-      <div class="simi-song">
+      <div class="simi-song flex-center">
         <new-music-card
           v-for="(item, index) in SimiSongList"
           :key="index"
@@ -292,9 +292,7 @@ export default {
 .max-play {
   height: calc(100% - 75px);
   overflow: scroll;
-  display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   position: relative;
   background-image: linear-gradient(
     rgba(229, 229, 229, 0.5),
@@ -311,25 +309,17 @@ export default {
       overflow: hidden;
       height: 500px;
       .pic {
-        display: flex;
-        justify-content: center;
         padding-top: 100px;
         .grey-box {
           width: 375px;
           height: 375px;
           border-radius: 50%;
           background-color: $click-grey;
-          display: flex;
-          justify-content: center;
-          align-items: center;
           .black-box {
             width: 350px;
             height: 350px;
             border-radius: 50%;
             background-color: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             //越转愉快
             &:hover {
               transform: rotate(666turn);
@@ -349,8 +339,8 @@ export default {
       }
       .tools {
         display: flex;
-        margin-top: 10px;
         justify-content: center;
+        margin-top: 10px;
         .heart,
         .collect,
         .download,
@@ -414,10 +404,8 @@ export default {
     .simi-song {
       height: 600px;
       flex: 1;
-      display: flex;
       flex-direction: column;
       padding: 10px 0 0 50px;
-      justify-content: center; //横轴对齐
       .simi-item {
         width: 450px;
       }

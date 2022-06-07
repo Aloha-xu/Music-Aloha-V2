@@ -1,5 +1,5 @@
 <template>
-  <div class="mv">
+  <div class="mv flex-center">
     <div class="content">
       <div class="new-mv">
         <div class="navbar">
@@ -127,8 +127,8 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/css/variables.scss";
 .mv {
-  display: flex;
-  justify-content: center;
+  // display: flex;
+  // justify-content: center;
   overflow: scroll;
   height: calc(100% - 65px);
   .content {

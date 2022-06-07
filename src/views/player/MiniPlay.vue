@@ -2,7 +2,7 @@
   <div class="mini-play">
     <!-- 歌曲信息 -->
     <div class="song-des" v-show="!isShowFmPlayer">
-      <div class="pic" @click="handleShowMaxPlayer">
+      <div class="pic flex-center-center" @click="handleShowMaxPlayer">
         <img :src="currentSongInfo.pic" v-if="isLoad" />
       </div>
       <div class="song-info">
@@ -18,8 +18,8 @@
       </div>
     </div>
     <!-- 中间控制器 -->
-    <div class="control-tools" v-show="!isShowFmPlayer">
-      <div class="top">
+    <div class="control-tools flex-center" v-show="!isShowFmPlayer">
+      <div class="top flex-center">
         <div class="way-of-play" @click="handleChangePlayWay">
           <img
             src="@/assets/icon/controltools/list.png"
@@ -60,7 +60,7 @@
           <img src="@/assets/icon/controltools/ci.png" alt="" />
         </div>
       </div>
-      <div class="bottom">
+      <div class="bottom flex-center-center">
         <div class="current-time">{{ formattime }}</div>
         <el-slider
           :show-tooltip="false"
@@ -490,9 +490,6 @@ export default {
     line-height: 75px;
     height: 75px;
     .pic {
-      justify-items: center;
-      align-items: center;
-      display: flex;
       padding-left: 20px;
       img {
         width: 50px;
@@ -528,14 +525,10 @@ export default {
   .control-tools {
     flex: 1;
     position: relative;
-    display: flex;
-    justify-content: center;
     flex-direction: column;
     .top {
-      display: flex;
       margin-top: 5px;
       z-index: 999;
-      justify-content: center;
       .way-of-play,
       .pre,
       .play-stop,
@@ -562,9 +555,6 @@ export default {
     }
     .bottom {
       z-index: 999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       .current-time {
         display: inline-block;
         vertical-align: middle;
