@@ -47,3 +47,4 @@ optimzie - 优化 palycard 组件的功能 √
 6.7
 optimzie - 优化 样式
 optimzie - 优化 歌手个人简历的样式
+add - 更细提示界面
