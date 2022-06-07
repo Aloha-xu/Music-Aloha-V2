@@ -125,7 +125,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/index.scss";
+@import "@/assets/css/theme.scss";
 .mv {
   display: flex;
   justify-content: center;

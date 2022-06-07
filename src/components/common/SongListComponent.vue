@@ -41,8 +41,13 @@
               class="active-heart"
             />
             <!-- 下载 -->
-            <p class="el-icon-download" @click="handleDownload(item)"></p>
-            <div class="song-name" @click="HandleSongClick(item, index)">
+            <div class="download" @click="handleDownload(item)">
+              <i class="el-icon-download"></i>
+            </div>
+            <div
+              class="song-name ellipsis"
+              @click="HandleSongClick(item, index)"
+            >
               <span
                 :class="item.id === currentSongInfo.id ? 'active-name' : ''"
                 >{{ item.name }}</span
@@ -53,7 +58,7 @@
             </div>
             <!-- 飙升榜的数据卡槽 -->
             <slot name="SoaringrateData"></slot>
-            <div class="singer">
+            <div class="singer ellipsis">
               <span
                 v-for="(item1, index1) in item.singer"
                 :key="index1"
@@ -61,7 +66,10 @@
                 >{{ item1.name }}&nbsp;</span
               >
             </div>
-            <div class="album" @click="clickToAlbumPapg(item.album.id)">
+            <div
+              class="album ellipsis"
+              @click="clickToAlbumPapg(item.album.id)"
+            >
               {{ item.album.name }}
             </div>
             <div class="time">{{ setSongTime(item.totleTime) }}</div>
@@ -318,7 +326,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/index.scss";
+@import "@/assets/css/theme.scss";
 .songlist-component {
   .title-name {
     display: flex;
@@ -361,27 +369,21 @@ export default {
       height: 35px;
       vertical-align: middle;
     }
-    p {
+    .download {
       vertical-align: middle;
       padding: 0 5px;
     }
     .song-name {
       flex: 4;
-      overflow: hidden;
-      text-overflow: ellipsis;
       .active-name {
         color: $theme-color;
       }
     }
     .singer {
       flex: 4;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
     .album {
       flex: 3;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
     .time {
       flex: 1;

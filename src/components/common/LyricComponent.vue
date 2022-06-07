@@ -141,8 +141,6 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-@import "@/assets/css/index.scss";
-
 .lyric-box {
   background-color: rgba(162, 162, 162, 0.2);
 }

@@ -1,20 +1,3 @@
-$bg-grey: #f9f9f9;
-$active-grey: #f0f1f2;
-$click-grey: #e5e5e5;
-
-//背景颜色
-$bg: rgba(255, 255, 255, 0.89);
-//bg - fail
-$bg-fail: #f2f2f2;
-
-$text-grey: #cacaca;
-$nav-grey: #a8a8a8b4;
-
-//布局
-$header: 60px;
-$aside: 210px;
-
-//
 .ml_10 {
   margin-left: 10px;
 }
@@ -40,7 +23,7 @@ $aside: 210px;
   padding-bottom: 10px;
 }
 
-//超出文本省略....
+/* 超出文本省略....*/
 .ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;

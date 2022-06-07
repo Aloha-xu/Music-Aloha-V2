@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/index.scss";
+@import "@/assets/css/theme.scss";
 .video-type-popover {
   font-size: 14px;
   width: 600px;

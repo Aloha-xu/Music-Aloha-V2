@@ -275,7 +275,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/index.scss";
+@import "@/assets/css/theme.scss";
 .private-fm {
   display: flex;
   justify-content: center;

@@ -189,24 +189,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/index.scss";
+@import "@/assets/css/theme.scss";
 .left-navbar {
   background-color: #ffffff;
   .el-menu-vertical-demo {
     border: 0px;
-    // padding-left: 10px;
-    // margin-left: 10px;
     .el-menu-item {
       height: 56px;
       line-height: 56px;
-      // margin-top: 10px;
       &:hover {
         background-color: rgba(115, 115, 115, 0.212) !important;
         color: $theme-color !important;
       }
     }
     .slot {
-      // margin-left: 10px;
+      font-size: 15px;
     }
   }
   .user-songlist {
@@ -216,7 +213,6 @@ export default {
       margin-top: 10px;
       .titile {
         padding: 10px 0;
-        // padding-left: 20px;
         height: 35px;
         line-height: 35px;
         .name {

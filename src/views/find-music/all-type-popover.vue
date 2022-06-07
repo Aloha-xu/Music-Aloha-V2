@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/index.scss";
+@import "@/assets/css/theme.scss";
 .alltype-popover {
   width: 50%;
   border: 2px solid $active-grey;

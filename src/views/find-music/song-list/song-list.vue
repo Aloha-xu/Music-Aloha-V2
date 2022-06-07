@@ -288,7 +288,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/index.scss";
+@import "@/assets/css/theme.scss";
 .song-list {
   position: relative;
   width: 1100px;

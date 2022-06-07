@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/index.scss";
+@import "@/assets/css/theme.scss";
 .mv-home {
   width: 100%;
   height: 100%;

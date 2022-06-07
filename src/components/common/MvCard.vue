@@ -4,10 +4,10 @@
       <BaseImage :src="pic" :lazy="true" />
       <span class="palycount">{{ playCount }}</span>
     </div>
-    <div class="text">
+    <div class="text ellipsis">
       {{ text }}
     </div>
-    <div class="singer">
+    <div class="singer ellipsis">
       <span v-for="(item, index) in singer" :key="index">
         {{ item }}
       </span>
@@ -60,11 +60,37 @@ export default {
   margin-top: 10px;
   border-radius: 5px;
   width: 24%;
+  .pic {
+    width: 100%;
+    height: 148px;
+    .palycount {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      font-size: 12px;
+      color: white;
+    }
+  }
+  .text {
+    color: rgb(90, 90, 90);
+    font-size: 14px;
+    letter-spacing: 0.7px;
+    margin-top: 5px;
+    &:hover {
+      color: rgb(0, 0, 0);
+    }
+  }
+  .singer {
+    font-size: 13px;
+    color: rgb(146, 146, 146);
+    letter-spacing: 0.7px;
+    margin-top: 5px;
+    &:hover {
+      color: rgb(110, 110, 110);
+    }
+  }
 }
-.pic {
-  width: 100%;
-  height: 148px;
-}
+
 ::v-deep .el-image {
   width: 100%;
   height: 148px;
@@ -73,36 +99,5 @@ img {
   width: 100%;
   height: 148px;
   border-radius: 5px;
-}
-.palycount {
-  position: absolute;
-  top: 3px;
-  right: 3px;
-  font-size: 12px;
-  color: white;
-}
-.text {
-  color: rgb(90, 90, 90);
-  font-size: 14px;
-  letter-spacing: 0.7px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap; /* 不允许换行 */
-  margin-top: 5px;
-}
-.text:hover {
-  color: rgb(0, 0, 0);
-}
-.singer {
-  font-size: 13px;
-  color: rgb(146, 146, 146);
-  letter-spacing: 0.7px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap; /* 不允许换行 */
-  margin-top: 5px;
-}
-.singer:hover {
-  color: rgb(110, 110, 110);
 }
 </style>

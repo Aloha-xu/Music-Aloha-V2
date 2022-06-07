@@ -2,7 +2,7 @@
   <div class="collecter">
     <div class="item" v-for="(item, index) in collecter" :key="index">
       <BaseImage :src="item.avatarUrl + '?param=170y170'" alt="" :lazy="true" />
-      <div class="nikcname">{{ item.nickname }}</div>
+      <div class="nikcname ellipsis">{{ item.nickname }}</div>
     </div>
     <el-empty
       :image-size="200"
@@ -42,10 +42,7 @@ export default {
     width: 10%;
     margin-top: 20px;
     .nikcname {
-      overflow: hidden;
-      white-space: nowrap;
       text-align: center;
-      text-overflow: ellipsis;
     }
   }
 }
