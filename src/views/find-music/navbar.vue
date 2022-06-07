@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/theme.scss";
+@import "@/assets/css/variables.scss";
 .nav-bar {
   display: flex;
   position: relative;

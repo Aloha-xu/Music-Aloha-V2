@@ -189,7 +189,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/theme.scss";
+@import "@/assets/css/variables.scss";
 .left-navbar {
   background-color: #ffffff;
   .el-menu-vertical-demo {

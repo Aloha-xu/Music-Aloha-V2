@@ -129,7 +129,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/theme.scss";
+@import "@/assets/css/variables.scss";
 .search-detail-solo {
   width: 100%;
   height: 100%;

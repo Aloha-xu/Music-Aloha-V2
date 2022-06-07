@@ -65,7 +65,6 @@
         歌单
         <span>（{{ playlistCount }}）</span>
       </div>
-
       <div class="all-cards">
         <PlayCard
           v-for="(item, index) in playListInfo"

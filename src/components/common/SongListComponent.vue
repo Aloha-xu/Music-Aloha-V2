@@ -326,7 +326,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/theme.scss";
+@import "@/assets/css/variables.scss";
 .songlist-component {
   .title-name {
     display: flex;

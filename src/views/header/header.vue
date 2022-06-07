@@ -588,7 +588,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/css/theme.scss";
+@import "@/assets/css/variables.scss";
 $background-theme-color: (
   1: #242427,
   2: #ec4141,

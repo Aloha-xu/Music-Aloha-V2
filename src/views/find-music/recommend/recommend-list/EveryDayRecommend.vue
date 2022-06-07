@@ -119,7 +119,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/theme.scss";
+@import "@/assets/css/variables.scss";
 .everyday-recommend {
   padding: 10px 0 0 20px;
   .everyday-recommend-head {

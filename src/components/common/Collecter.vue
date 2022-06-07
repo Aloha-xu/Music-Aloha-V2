@@ -1,7 +1,12 @@
 <template>
   <div class="collecter">
     <div class="item" v-for="(item, index) in collecter" :key="index">
-      <BaseImage :src="item.avatarUrl + '?param=170y170'" alt="" :lazy="true" />
+      <BaseImage
+        :src="item.avatarUrl + '?param=170y170'"
+        alt=""
+        :lazy="true"
+        :isShowPlayLogo="false"
+      />
       <div class="nikcname ellipsis">{{ item.nickname }}</div>
     </div>
     <el-empty
@@ -43,6 +48,13 @@ export default {
     margin-top: 20px;
     .nikcname {
       text-align: center;
+    }
+    ::v-deep {
+      .el-image {
+        border-radius: 50% !important;
+        width: 170px;
+        height: 170px;
+      }
     }
   }
 }

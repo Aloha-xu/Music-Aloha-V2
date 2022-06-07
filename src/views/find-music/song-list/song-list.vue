@@ -288,7 +288,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/theme.scss";
+@import "@/assets/css/variables.scss";
 .song-list {
   position: relative;
   width: 1100px;
@@ -391,8 +391,8 @@ export default {
     }
     .allcard {
       display: flex;
-      flex-wrap: wrap; /*用了flex-wrap:wrap;自动换行属性后*/
-      justify-content: space-around;
+      flex-wrap: wrap;
+      justify-content: space-between;
       .song-list-item {
         width: 18.86%;
         ::v-deep {

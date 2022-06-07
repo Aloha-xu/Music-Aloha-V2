@@ -105,7 +105,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/theme.scss";
+@import "@/assets/css/variables.scss";
 @import "@/assets/css/skeleton.scss";
 .base-image {
   position: relative;

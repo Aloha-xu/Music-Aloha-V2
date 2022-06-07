@@ -288,7 +288,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/theme.scss";
+@import "@/assets/css/variables.scss";
 .max-play {
   height: calc(100% - 75px);
   overflow: scroll;
