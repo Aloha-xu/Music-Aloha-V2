@@ -48,8 +48,8 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
-@import "@/assets/css/base.scss";
+<style scoped lang="scss">
+@import "@/assets/css/index.scss";
 .mv-home {
   width: 100%;
   height: 100%;

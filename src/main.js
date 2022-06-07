@@ -4,8 +4,8 @@ import AppToModile from "./AppToModile.vue";
 import router from "./router";
 //element组件
 import "./plugins/element.js";
-//基本样式
-import "./assets/css/base.scss";
+//样式
+import "./assets/css/index.scss";
 import store from "./store";
 import { IsPc } from "./utils/uctil.js";
 

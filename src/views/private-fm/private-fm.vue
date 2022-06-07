@@ -275,7 +275,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/base.scss";
+@import "@/assets/css/index.scss";
 .private-fm {
   display: flex;
   justify-content: center;
@@ -409,7 +409,8 @@ export default {
               sans-serif;
           }
           &:hover {
-            overflow-y: auto;
+            overflow-y: scroll;
+            padding-left: 6px;
           }
         }
       }

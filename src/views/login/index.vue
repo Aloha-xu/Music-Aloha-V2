@@ -177,7 +177,11 @@
         <!-- 二维码登录-->
         <div class="QR-login" v-if="isShowQR" @click="handleQRState">
           <div class="QR-login_title">扫码登录</div>
-          <BaseImage :src="base64Image" style="width:180px;height:180px" />
+          <BaseImage
+            :src="base64Image"
+            style="width:180px;height:180px"
+            :isShowPlayLogo="false"
+          />
           <p class="QR-login_tips">
             欢迎来到Aloha的Music平台，本项目仅供学习使用,请尊重版权，请勿利用此项目从事商业行为或进行破坏版权行为
           </p>
@@ -429,7 +433,9 @@ export default {
       margin-top: 20px;
     }
     .QR-login {
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       .QR-login_title {
         line-height: 33px;
         padding-bottom: 41px;

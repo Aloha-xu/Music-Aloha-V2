@@ -97,6 +97,8 @@ export default {
       display: none;
     }
     .playcard-img {
+      box-shadow: 2px 4px 8px #585858cc;
+      border-radius: 10px;
       //上跳
       &:hover {
         animation: jump 0.9s ease 1 normal;

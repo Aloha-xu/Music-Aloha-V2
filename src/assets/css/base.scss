@@ -169,66 +169,9 @@ a {
 
 img {
   cursor: pointer;
-  /* 移动导图标就出现手 */
 }
 
 body {
   overflow-x: hidden;
   overflow-y: hidden;
 }
-
-$background-theme-color-1: #242427; //炫酷黑
-$background-theme-color-2: #ec4141; //红
-$background-theme-color-3: #67bffd; //蓝
-$background-theme-color-4: #54c77b; //绿
-$background-theme-color-5: #faa4c6; //粉
-$background-theme-color-6: #f8cf7f; //金
-
-//浅色 未定颜色
-$background-theme-color-hover-1: rgba(#242427, 0.5); //炫酷黑
-$background-theme-color-hover-2: rgba(#ec4141, 0.5); //红
-$background-theme-color-hover-3: rgba(#67bffd, 0.5); //蓝
-$background-theme-color-hover-4: rgba(#54c77b, 0.5); //绿
-$background-theme-color-hover-5: rgba(#faa4c6, 0.5); //粉
-$background-theme-color-hover-6: rgba(#f8cf7f, 0.5); //金
-
-$theme-color: var(--theme, #ec4141);
-$theme-color-text: var(--theme, #000000);
-//黑暗模式还没有完善
-
-$bg-grey: #f9f9f9;
-$active-grey: #f0f1f2;
-$click-grey: #e5e5e5;
-
-//背景颜色
-$bg: rgba(255, 255, 255, 0.89);
-
-$text-grey: #cacaca;
-$nav-grey: #a8a8a8b4;
-
-$--skeleton-color: #f2f2f2 !default;
-$--skeleton-to-color: #e6e6e6 !default;
-
-@mixin skeleton-color() {
-  background: linear-gradient(90deg,
-      $--skeleton-color 25%,
-      $--skeleton-to-color 37%,
-      $--skeleton-color 63%);
-  background-size: 400% 100%;
-  animation: el-skeleton-loading 1.4s ease infinite;
-}
-
-@keyframes el-skeleton-loading {
-  0% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0 50%;
-  }
-}
-
-
-
-//bg - fail
-$bg-fail: $--skeleton-color;

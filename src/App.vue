@@ -41,7 +41,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-@import "@/assets/css/base.scss";
+@import "@/assets/css/index.scss";
 #app {
   width: 100vw;
   height: 100vh;

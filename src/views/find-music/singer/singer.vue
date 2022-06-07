@@ -252,7 +252,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/base.scss";
+@import "@/assets/css/index.scss";
 .singer {
   font-size: 13px;
   color: rgb(87, 87, 87);

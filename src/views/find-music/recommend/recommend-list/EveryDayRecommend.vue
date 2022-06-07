@@ -118,9 +118,8 @@ export default {
 };
 </script>
 
-
 <style scoped lang="scss">
-@import "@/assets/css/base.scss";
+@import "@/assets/css/index.scss";
 
 .everyday-recommend {
   padding: 10px 0 0 20px;

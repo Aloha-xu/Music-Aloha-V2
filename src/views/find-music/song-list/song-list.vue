@@ -6,7 +6,7 @@
         <img
           :src="
             TopSongListInfo[0] &&
-            TopSongListInfo[0].coverImgUrl + '?param=10y10'
+              TopSongListInfo[0].coverImgUrl + '?param=10y10'
           "
           alt=""
         />
@@ -15,7 +15,7 @@
         <img
           :src="
             TopSongListInfo[0] &&
-            TopSongListInfo[0].coverImgUrl + '?param=150y150'
+              TopSongListInfo[0].coverImgUrl + '?param=150y150'
           "
           alt=""
         />
@@ -288,7 +288,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/base.scss";
+@import "@/assets/css/index.scss";
 .song-list {
   position: relative;
   width: 1100px;

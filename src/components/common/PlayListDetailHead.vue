@@ -220,7 +220,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/base.scss";
+@import "@/assets/css/index.scss";
 .playlistdetail-head {
   position: relative;
   width: 100%;

@@ -120,7 +120,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/css/base.scss";
+@import "@/assets/css/index.scss";
 .user-record {
   overflow: scroll;
   height: 87vh;
