@@ -137,15 +137,21 @@ export default {
     },
     // 处理点击播放音乐事件
     HandleSongClick(songinfo, index) {
-      //标识是不是点击多次同一个歌单的歌曲
-      if (this.$route.params.id != this.currentSongListId) {
+      //标识是不是点击多次同一个歌单的歌曲 个性推荐歌单是没有id的 所以加一个条件
+      if (
+        this.$route.params.id != this.currentSongListId ||
+        this.$route.path == "/everydayrecommend"
+      ) {
         console.log("test setAllSongsToPlayList");
         this.$store.commit(
           "setAllSongsToPlayList",
           JSON.parse(JSON.stringify(this.songsInfo))
         );
       }
-      this.$store.commit("SET_CURRENT_SONGLIST_ID", this.$route.params.id);
+      this.$store.commit(
+        "SET_CURRENT_SONGLIST_ID",
+        this.$route.params.id || null
+      );
       //点击播放音乐
       this.$store.dispatch("clickToPlaySong", songinfo);
     },
@@ -259,6 +265,7 @@ export default {
       this.getSongId([event.path[1], event.path[2]]);
       return false;
     },
+
     getSongId(arry) {
       arry.forEach((item) => {
         if (item.getAttribute("innerIndex")) {
@@ -266,6 +273,7 @@ export default {
         }
       });
     },
+
     createMyselfPlaylistTemplate() {
       let MyselfPlaylistTemplate = [];
       for (let index = 0; index < this.mySonglist.length; index++) {
@@ -291,6 +299,7 @@ export default {
         ];
       }
     },
+
     async addSongToMyselfPlaylist(pid) {
       const { data } = await setSongToMyselfPlayList({
         op: "add",

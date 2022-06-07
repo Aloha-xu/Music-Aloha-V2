@@ -37,10 +37,7 @@
       </el-button>
     </div>
     <div class="everyday-recommend-body">
-      <SongListComponent
-        :songsInfo="playList"
-        @handleSongClick="handleSongClick"
-      ></SongListComponent>
+      <SongListComponent :songsInfo="playList"></SongListComponent>
     </div>
   </div>
 </template>
@@ -59,7 +56,6 @@ export default {
     SongListComponent,
   },
   methods: {
-    handleSongClick() {},
     //获取并处理歌单列表全部信息
     async handleSongListDetailInfo() {
       this.$store.commit("setLoading", true);
@@ -110,7 +106,14 @@ export default {
       }
       this.$store.commit("setLoading", false);
     },
-    handlePlayAllSongs() {},
+    handlePlayAllSongs() {
+      this.$store.commit(
+        "setAllSongsToPlayList",
+        JSON.parse(JSON.stringify(this.playList))
+      );
+      this.$store.commit("changeCurrentPlay", this.playList[0]);
+      this.$store.commit("setIsLoad", "true");
+    },
   },
   created() {
     this.handleSongListDetailInfo();
