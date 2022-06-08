@@ -30,6 +30,7 @@ Vue.use(Contextmenu);
 
 Vue.config.productionTip = false;
 
+//这个识别pc还是移动端就只可以一开始newVue实例的时候触发才有效
 new Vue({
   render: (h) => h(IsPc() ? App : AppToModile),
   router,

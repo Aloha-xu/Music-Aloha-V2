@@ -269,12 +269,14 @@ export default {
       padding: 0px 10px;
       display: flex;
       flex-wrap: wrap;
+      font-weight: 500;
       .select-bar-item {
         cursor: pointer;
         padding: 7px 25px;
         border-radius: 10px;
+        color: $base-text;
         &:hover {
-          background-color: $theme-color;
+          color: $base-text-hover;
         }
       }
       .singer-active {
@@ -290,14 +292,6 @@ export default {
       width: 15%;
       margin-left: 10px;
       margin-top: 15px;
-      // .img {
-      //   width: 100%;
-      //   // img {
-      //   //   border-radius: 5px;
-      //   //   width: 100%;
-      //   //   height: 100%;
-      //   // }
-      // }
       .name {
         font-size: 15px;
         margin-top: 5px;

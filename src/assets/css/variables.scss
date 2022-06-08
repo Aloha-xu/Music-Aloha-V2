@@ -13,6 +13,7 @@ $background-theme-color-hover-4: rgba(#54c77b, 0.5); //绿
 $background-theme-color-hover-5: rgba(#faa4c6, 0.5); //粉
 $background-theme-color-hover-6: rgba(#f8cf7f, 0.5); //金
 
+//主题颜色
 $theme-color: var(--theme, #ec4141);
 $theme-color-text: var(--theme, #000000);
 //黑暗模式还没有完善
@@ -32,3 +33,11 @@ $nav-grey: #a8a8a8b4;
 //布局
 $header: 60px;
 $aside: 210px;
+
+//默认字体颜色
+$base-text: #474747d9;
+$base-text-hover: #131313d9;
+
+$base-font-size: 15px;
+$base-font-size-small: 14px;
+$base-font-size-big: 16px;

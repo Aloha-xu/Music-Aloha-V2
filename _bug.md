@@ -37,7 +37,7 @@ bug - 私人 fm 的重新请求数据有问题 √
 
 6.3
 optimzie - FM 换数据的时候可以加骨架
-optimzie - 可以提取出来字体的 fontsize fonwweight 这些
+optimzie - 可以提取出来字体的 fontsize fonwweight 这些 √
 
 6.6
 optimzie - 图片加载中的 ui 界面 封装了 elimage √
@@ -52,4 +52,7 @@ bug - 个性推荐 没有加到个单列表里面 √
 optimzie - 播放器自动下一首bug √
 
 6.8
-optimzie - 优化 可以使用window.addEventListener("resize",fnc) 用这个监听大小是手机端还是pc端 或者ipad之类的
+optimzie - 优化 可以使用window.addEventListener("resize",fnc) 用这个监听大小是手机端还是pc端 或者ipad之类的  不行，因为我的设计是一开始进去就分开pc还是移动，直接加载到不同的APP上。√
+optimzie - audio 播放到一半 还没加载完全的情况下 在没有网络的时候 卡住 会有什么bug？ 还没测试
+bug - 页码 最后一个 请求会出请求错误 因为没有那么多 原因 少减去前面的页面了 就是-1 √
+optimzie - 到底部 出现返回底部按钮跳转

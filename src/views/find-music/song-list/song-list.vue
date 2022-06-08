@@ -6,7 +6,7 @@
         <img
           :src="
             TopSongListInfo[0] &&
-              TopSongListInfo[0].coverImgUrl + '?param=10y10'
+            TopSongListInfo[0].coverImgUrl + '?param=10y10'
           "
           alt=""
         />
@@ -15,7 +15,7 @@
         <img
           :src="
             TopSongListInfo[0] &&
-              TopSongListInfo[0].coverImgUrl + '?param=150y150'
+            TopSongListInfo[0].coverImgUrl + '?param=150y150'
           "
           alt=""
         />
@@ -70,7 +70,6 @@
     <div class="pagination">
       <div class="block">
         <el-pagination
-          @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :page-size="100"
           layout="total, prev, pager, next"
@@ -204,18 +203,18 @@ export default {
       this.getTopSonglist(type, 100, 0);
     },
 
-    handleSizeChange(e) {
-      console.log(e);
-      console.log("handleSizeChange");
-    },
-
     //处理点击数字或者前进后退页码
     handleCurrentChange(e) {
       //e是返回当前页面值
       //设置当前页面数
       this.CurrentPage = e;
       //请求下x页的数据
-      this.getSongList(this.CurrentType, 100, e * 100);
+      //判断一下 如果请求最后一个offsize大于totlecount的话，那就请求错误了
+      this.getSongList(
+        this.CurrentType,
+        100,
+        (e - 1) * 100 > this.TotalSongs ? this.TotalSongs : (e - 1) * 100
+      );
     },
 
     //判断回来的数据是什么类别
