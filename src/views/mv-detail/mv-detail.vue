@@ -2,10 +2,7 @@
   <div class="mv-detail">
     <div class="content">
       <div class="detail">
-        <!-- <div class="title"><i class="el-icon-arrow-left"></i>MV详情</div> -->
-        <br />
-        <br />
-        <br />
+        <div class="title">MV详情</div>
         <div class="video">
           <video
             :src="mvUrl"
@@ -86,6 +83,9 @@
       <!-- 不想写了 -->
       <div class="recommend">相似mv</div>
     </div>
+    <el-backtop target=".mv-detail" :bottom="100"
+      ><div class="backtop-style">UP</div></el-backtop
+    >
   </div>
 </template>
 
@@ -219,7 +219,7 @@ export default {
   display: flex;
   justify-content: center;
   overflow: scroll;
-  height: 84vh;
+  height: calc(100vh - 60px - 75px);
   .content {
     width: 1100px;
     .detail {

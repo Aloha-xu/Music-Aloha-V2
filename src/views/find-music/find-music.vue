@@ -1,10 +1,13 @@
 <template>
   <div class="find-music">
     <NavBar />
-    <div class="container" ref="container">
+    <div class="container target-backtop" ref="container">
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
+      <el-backtop target=".target-backtop" :bottom="100"
+        ><div class="backtop-style">UP</div></el-backtop
+      >
     </div>
   </div>
 </template>

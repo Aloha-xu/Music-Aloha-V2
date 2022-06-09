@@ -37,13 +37,13 @@ export default {
   display: flex;
   flex-wrap: wrap;
   .item {
-    width: 10%;
-    height: 10%;
     margin: 10px;
     margin-top: 30px;
+    height: 175px;
+    width: 175px;
     ::v-deep {
       .playcard-img {
-        height: 166px;
+        height: 175px;
       }
     }
     .name {

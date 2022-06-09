@@ -120,6 +120,9 @@
         <div class="my-playlist-card"></div>
       </div>
     </el-dialog>
+    <el-backtop target=".max-play" :bottom="100"
+      ><div class="backtop-style">UP</div></el-backtop
+    >
   </div>
 </template>
 
@@ -398,6 +401,7 @@ export default {
         }
         &:hover {
           overflow-y: auto;
+          padding-left: 6px;
         }
       }
     }

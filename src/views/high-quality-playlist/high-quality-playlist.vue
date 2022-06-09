@@ -29,6 +29,9 @@
       v-show="isShow"
       class="hq-popver"
     ></video-type-popover>
+    <el-backtop target=".high-quality-playlist" :bottom="100"
+      ><div class="backtop-style">UP</div></el-backtop
+    >
   </div>
 </template>
 

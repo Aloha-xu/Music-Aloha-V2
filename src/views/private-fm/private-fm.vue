@@ -90,6 +90,9 @@
         ></Comment>
       </div>
     </div>
+    <el-backtop target=".private-fm" :bottom="100"
+      ><div class="backtop-style">UP</div></el-backtop
+    >
   </div>
 </template>
 
@@ -277,11 +280,8 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/css/variables.scss";
 .private-fm {
-  // display: flex;
-  // justify-content: center;
-  height: 100vh;
+  height: calc(100vh - 60px - 75px);
   overflow: scroll;
-  //如果需要用flex居中一个box 要给他父元素一个width 否者父元素大小就是子元素大小 这样怎么都不能居中效果
   width: 100%;
   .content_ {
     width: 1100px;

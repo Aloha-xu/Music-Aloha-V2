@@ -44,6 +44,9 @@
         v-show="isShowPopover"
       ></video-type-popover>
     </div>
+    <el-backtop target=".video" :bottom="100"
+      ><div class="backtop-style">UP</div></el-backtop
+    >
   </div>
 </template>
 
@@ -164,10 +167,8 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/css/variables.scss";
 .video {
-  // display: flex;
-  // justify-content: center;
   overflow: scroll;
-  height: 82vh;
+  height: calc(100vh - 60px - 75px - 65px);
   .content {
     width: 1100px;
     position: relative;

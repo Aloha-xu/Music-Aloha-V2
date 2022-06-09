@@ -1,24 +1,31 @@
 .ml_10 {
   margin-left: 10px;
 }
+
 .mr_10 {
   margin-right: 10px;
 }
+
 .mt_10 {
   margin-top: 10px;
 }
+
 .mb_10 {
   margin-bottom: 10px;
 }
+
 .pl_10 {
   padding-left: 10px;
 }
+
 .pr_10 {
   padding-right: 10px;
 }
+
 .pt_10 {
   padding-top: 10px;
 }
+
 .pb_10 {
   padding-bottom: 10px;
 }
@@ -73,4 +80,14 @@
   display: flex;
   -webkit-box-orient: vertical;
   justify-content: center;
+}
+
+.backtop-style {
+  height: 100%;
+  width: 100%;
+  background-color: #f2f5f6;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  line-height: 40px;
+  color: #1989fa;
 }

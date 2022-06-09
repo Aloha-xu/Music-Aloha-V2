@@ -46,6 +46,7 @@ import {
   TabPane,
   Skeleton,
   SkeletonItem,
+  Backtop
 } from "element-ui";
 
 Vue.use(Pagination);
@@ -82,6 +83,7 @@ Vue.use(FormItem);
 Vue.use(TabPane);
 Vue.use(Skeleton);
 Vue.use(SkeletonItem);
+Vue.use(Backtop);
 
 Vue.use(Loading.directive);
 

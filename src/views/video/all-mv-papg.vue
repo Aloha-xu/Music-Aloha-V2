@@ -54,8 +54,11 @@
           class="item"
         ></MvCard>
       </div>
-      <Loading v-show="loading" style="height:50vh"></Loading>
+      <Loading v-show="loading" style="height: 50vh"></Loading>
     </div>
+    <el-backtop target=".all-mv-papg" :bottom="100"
+      ><div class="backtop-style">UP</div></el-backtop
+    >
   </div>
 </template>
 

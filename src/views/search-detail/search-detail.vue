@@ -46,6 +46,9 @@
         :userInfo="userInfo"
       ></search-detail-user>
     </div>
+    <el-backtop target=".cloud-search-content" :bottom="100"
+      ><div class="backtop-style">UP</div></el-backtop
+    >
   </div>
 </template>
 

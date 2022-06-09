@@ -42,6 +42,9 @@
         <div class="time">刚刚</div>
       </div>
     </div>
+    <el-backtop target=".user-record" :bottom="100"
+      ><div class="backtop-style">UP</div></el-backtop
+    >
   </div>
 </template>
 
@@ -123,7 +126,7 @@ export default {
 @import "@/assets/css/variables.scss";
 .user-record {
   overflow: scroll;
-  height: 87vh;
+  height: calc(100vh - 60px - 75px);
   width: 100%;
   .heard {
     height: 50px;

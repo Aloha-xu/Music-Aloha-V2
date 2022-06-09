@@ -51,6 +51,9 @@
       ></Comment>
       <Loading v-show="loading" style="height: 50vh"></Loading>
     </div>
+    <el-backtop target=".play-list-detail" :bottom="100"
+      ><div class="backtop-style">UP</div></el-backtop
+    >
   </div>
 </template>
 
@@ -371,5 +374,6 @@ export default {
       width: calc(100% - 20px);
     }
   }
-}</style
+}
+</style
 >>

@@ -46,6 +46,9 @@
         @clickToSingerDetail="clickToSingerDetail"
       ></simi-artist>
     </div>
+    <el-backtop target=".singer-list-detail" :bottom="100"
+      ><div class="backtop-style">UP</div></el-backtop
+    >
   </div>
 </template>
 
