@@ -141,7 +141,7 @@ export default {
   },
   data() {
     return {
-      centerDialogVisible: true,
+      centerDialogVisible: false,
       textarea: "",
       interval: null,
       isShowRecordTools: false,

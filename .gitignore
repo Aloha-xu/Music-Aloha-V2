@@ -2,3 +2,4 @@ node_modules
 /dist
 /NeteaseCloudMusicApi
 /.history
+/.env.production
