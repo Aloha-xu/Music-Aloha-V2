@@ -44,7 +44,7 @@ module.exports = {
     // proxy: {
     //   "/": {
     //     label: "服务器",
-    //     target: "http://114.132.239.118:3000",
+    //     target: "http://:3000",
     //     changeOrigin: true, //是否允许跨越
     //     pathRewrite: {
     //       "^/": "", //重写,
