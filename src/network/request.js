@@ -54,7 +54,7 @@ export function request(config) {
       return config;
     },
     (err) => {
-      console.log(err);
+      return Promise.reject(err)
     }
   );
   //响应 拦截
@@ -67,7 +67,7 @@ export function request(config) {
       // if (res.status) {
       //   Message.success(`提示信息：${res}`);
       // }
-      return res;
+      return Promise.resolve(res)
     },
     (err) => {
       //5xx
@@ -82,6 +82,7 @@ export function request(config) {
       if (err.response.data.msg) {
         Message(`提示信息：${err.response.data.msg}`);
       }
+      return Promise.reject(err)
     }
   );
   return instance(config);

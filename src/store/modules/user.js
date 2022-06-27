@@ -34,13 +34,12 @@ const user = {
       return new Promise((resolve, reject) => {
         loginByPhone(userInfo)
           .then((response) => {
-            resolve(response);
-            console.log(response);
             const token = response.data.token || "";
             const userinfo = response.data.profile || "";
             commit("SET_TOKEN", token);
             commit("SET_USER_INFO", userinfo);
             commit("SET_LOGIN_DIALOG", false);
+            resolve(response);
           })
           .catch((error) => {
             reject(error);
@@ -55,13 +54,12 @@ const user = {
           .then((response1) => {
             loginByPhone(userInfo)
               .then((response) => {
-                resolve(response);
-                // console.log(response);
                 const token = response.data.token || "";
                 const userinfo = response.data.profile || "";
                 commit("SET_TOKEN", token);
                 commit("SET_USER_INFO", userinfo);
                 commit("SET_LOGIN_DIALOG", false);
+                resolve(response);
               })
               .catch((error) => {
                 reject(error);
