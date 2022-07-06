@@ -6,6 +6,9 @@ AlohaMusic 音乐播放平台
 
 这是一个音乐的音乐播放平台。
 
+## 预览地址
+    在线链接 [Markdown语法](http://114.132.239.118:38/recommend)。
+
 ## 技术栈
 
 Vue 2 + Vue Router + Vuex + Axios + ElementUI + SCSS 
