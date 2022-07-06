@@ -44,7 +44,7 @@ module.exports = {
     // proxy: {
     //   "/": {
     //     label: "服务器",
-    //     target: "http://:3000",
+    //     target: "",
     //     changeOrigin: true, //是否允许跨越
     //     pathRewrite: {
     //       "^/": "", //重写,

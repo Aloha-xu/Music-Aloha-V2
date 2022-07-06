@@ -28,6 +28,7 @@ import MiniPlay from "./views/player/MiniPlay.vue";
 import UpdateInfomationPopover from "./UpdateInfomationPopover.vue";
 import LyricComponent from "./components/common/LyricComponent.vue";
 import { mapGetters } from "vuex";
+import { loginForAnonimous } from "./network/login.js";
 export default {
   name: "app",
   components: {
@@ -43,6 +44,9 @@ export default {
     isShowUpdateInfomation() {
       return localStorage.getItem("isShowUpdateInfomation") ? false : true;
     },
+  },
+  async created() {
+    await loginForAnonimous();
   },
 };
 </script>

@@ -56,6 +56,15 @@ export function checkCaptcha(data) {
   });
 }
 
+
+//游客登录状态
+export function loginForAnonimous() {
+  return request({
+    url: '/register/anonimous'
+  })
+}
+
+
 // //检查二维码登录状态
 // export function getQRPState(data) {
 //   return request({
