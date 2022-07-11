@@ -30,4 +30,5 @@ export default {
   isShowLyric: (state) => state.player.isShowLyric,
   likeList: (state) => state.player.likeLists,
   currentSongListId: (state) => state.player.currentSongListId,
+  videoSrc: (state) => state.player.videoSrc,
 };

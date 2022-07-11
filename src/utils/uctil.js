@@ -10,13 +10,13 @@ export function _debounce(fn, delay) {
 }
 
 //节流
-export function _throttle(fn, delay) {
+export function _throttle(fn, delay = 300) {
   var prev = Date.now();
-  return function () {
+  return (...args) => {
     var now = Date.now();
     if (now - prev > delay) {
-      fn();
       prev = Date.now();
+      return fn().apply(this, args);
     }
   };
 }

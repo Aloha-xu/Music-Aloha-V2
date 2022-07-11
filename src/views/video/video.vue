@@ -32,6 +32,7 @@
           :singer="item.data.creator.nickname.split('')"
           :text="item.data.title"
           :playType="playType"
+          @handleShowInlinePlyer="handleShowInlinePlyer(item.data.vid)"
         ></MvCard>
       </div>
       <Loading
@@ -53,7 +54,7 @@
 <script>
 import MvCard from "@/components/common/MvCard.vue";
 import videoTypePopover from "./video-type-popover.vue";
-import { getVideoCategoryList, getVideoType } from "@/network/api";
+import { getVideoCategoryList, getVideoType, getVideoUrl } from "@/network/api";
 import Loading from "@/components/common/loading.vue";
 import { mapGetters } from "vuex";
 export default {
@@ -86,6 +87,12 @@ export default {
     ...mapGetters(["loading"]),
   },
   methods: {
+    async handleShowInlinePlyer(id) {
+      const { data } = await getVideoUrl(id);
+      let videoSrc = data.urls[0].url;
+      this.$store.commit("SET_VIDEO_SRC", videoSrc);
+    },
+
     //加载更多
     async loadingMoreInfo() {
       this.$store.commit("setLoading", true);

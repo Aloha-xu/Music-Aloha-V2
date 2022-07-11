@@ -1,81 +1,5 @@
-<!--
 
-
-
-
-<template>
-  <div>
-    <el-select v-model="value" placeholder="请选择">
-      <el-option
-        v-for="item in cities"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value"
-      >
-        <span style="float: left" v-html="item.label"></span>
-        <span style="float: right; color: #8492a6; font-size: 13px">{{
-          item.value
-        }}</span>
-      </el-option>
-    </el-select>
-    <span v-html="cities[0].label"></span>
-    <span class="active"> 132131313</span>
-  </div>
-</template>
-
-<script>
-export default {
-  name: "AnchorRadio",
-  data() {
-    return {
-      cities: [
-        {
-          value: "Beijing",
-          label: `<span class="active">北</span>京`,
-        },
-        {
-          value: "Shanghai",
-          label: "上海",
-        },
-        {
-          value: "Nanjing",
-          label: "南京",
-        },
-        {
-          value: "Chengdu",
-          label: "成都",
-        },
-        {
-          value: "Shenzhen",
-          label: "深圳",
-        },
-        {
-          value: "Guangzhou",
-          label: "广州",
-        },
-      ],
-      value: "",
-    };
-  },
-  created() {
-    this.$store.commit("refeshCurrentNavIndex", 2);
-  },
-  activated() {
-    //再次激活时 对比一些数据 看似否需要更新
-    this.$store.commit("refeshCurrentNavIndex", 2);
-  },
-};
-</script>
-
-<style scoped lang="scss">
-::v-deep .active {
-  color: rgb(192, 15, 62);
-}
-</style>
-
- -->
-
-<!-- 在搜索建议里面标红输入值 -->
+<!-- 在搜索建议里面标红输入值 
 <template>
   <div>
     <el-select
@@ -227,3 +151,9 @@ export default {
   color: rgb(192, 15, 62);
 }
 </style>
+-->
+
+
+<template>
+  <div>未开发</div>
+</template>

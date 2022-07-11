@@ -98,9 +98,15 @@ const player = {
 
     //当前播放歌曲的歌单id  用于判断是不是点击同一个歌单里面的歌曲，这个时候就不把歌单放到vuex里面了。
     currentSongListId: null,
+
+    videoSrc: ''
   },
 
   mutations: {
+    //设置videoSrc
+    SET_VIDEO_SRC(state, src) {
+      state.videoSrc = src;
+    },
     //设置当前播放歌曲的歌单id
     SET_CURRENT_SONGLIST_ID(state, id) {
       state.currentSongListId = id;
