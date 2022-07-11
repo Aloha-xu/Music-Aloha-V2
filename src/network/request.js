@@ -4,6 +4,7 @@ import { Message } from "element-ui";
 const commonOptions = {
   // version: process.env.VUE_APP_VERSION,
   // deviceModel: phone.model,
+  // timestamp 不可以设置在这里 这样子每一个timestamp都是引用同一个timestamp
   // timestamp: new Date().getTime(),
   // uuid: phone.deviceId,
   // connection: "",
@@ -21,10 +22,11 @@ export function request(config) {
   //请求 拦截
   instance.interceptors.request.use(
     (config) => {
-      //网易云防止被缓存 全部添加时间错请求
+
       config.params = Object.assign(config.params || {}, commonOptions, {
         //   token: getTOKEN(),
-        timestamp: new Date().getTime(),
+        // 测试的时候 防止被缓存 全部添加时间错请求，真实业务按需
+        // timestamp: new Date().getTime(),
       });
       // config.data = Object.assign(config.data || {}, commonOptions, {
       //   //   token: getTOKEN(),

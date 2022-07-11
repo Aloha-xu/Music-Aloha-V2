@@ -42,24 +42,20 @@ export function getSongList(cat, limit, offset) {
 
 // * 获取歌单detail√  传入歌单id
 export function getSongListDetail(id, s) {
-  let timestamp = new Date().getTime();
   return request({
     url: "/playlist/detail",
     params: {
       id,
       s,
-      timestamp,
     },
   });
 }
 
 export function getAlbumListDetail(id) {
-  let timestamp = new Date().getTime();
   return request({
     url: "/album",
     params: {
       id,
-      timestamp,
     },
   });
 }
@@ -778,12 +774,10 @@ export function getsubcount() {
 // 接口地址 : /user/playlist
 // 调用例子 : /user/playlist?uid=32953014
 export function getUserPlaylist(uid) {
-  let timestamp = new Date().getTime();
   return request({
     url: "/user/playlist",
     params: {
       uid,
-      timestamp,
     },
   });
 }
@@ -935,13 +929,11 @@ export function subPlaylist(t, id) {
 // 接口地址 : /like
 // 调用例子 : /like?id=347230
 export function setLike(id, like) {
-  let timestamp = new Date().getTime();
   return request({
     url: "/like",
     params: {
       id,
       like,
-      timestamp,
     },
   });
 }
@@ -952,12 +944,10 @@ export function setLike(id, like) {
 // 接口地址 : /likelist
 // 调用例子 : /likelist?uid=32953014
 export function getLikeList(uid) {
-  let timestamp = new Date().getTime();
   return request({
     url: "/likelist",
     params: {
       uid,
-      timestamp,
     },
   });
 }
@@ -1095,13 +1085,11 @@ export function getMsgNotices() {
 // 接口地址 : /follow
 // 调用例子 : /follow?id=32953014&t=1
 export function setFollow(id, t) {
-  let timestamp = new Date().getTime();
   return request({
     url: "/follow",
     params: {
       id,
       t,
-      timestamp,
     },
   });
 }

@@ -40,7 +40,7 @@
         <div class="tool">
           <div class="">
             <img src="@/assets/icon/ZhEn.svg" alt="" />
-            <img src="@/assets/icon/EnZh.svg" alt="" />
+            <!-- <img src="@/assets/icon/EnZh.svg" alt="" /> -->
           </div>
           <img src="@/assets/icon/email.svg" alt="" @click="ShowMsgDarwer" />
           <el-popover placement="bottom" width="330" trigger="click">
